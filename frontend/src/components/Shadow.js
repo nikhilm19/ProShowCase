@@ -1,9 +1,10 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
-import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/lightTop";
+import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/faded";
+import { useSoftRiseShadowStyles } from "@mui-treasury/styles/shadow/softRise";
 
 const LightTopShadow = (props) => {
-  const styles = useLightTopShadowStyles({
+  const styles = useSoftRiseShadowStyles({
     // inactive: true, // add this line to disable hover effect
   });
   return (

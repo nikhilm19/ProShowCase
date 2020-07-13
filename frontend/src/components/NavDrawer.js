@@ -148,7 +148,7 @@ export default function MiniDrawer(props) {
 
         <Divider />
         <List>
-          {["All Projects", "Top Projects"].map((text, index) => (
+          {["All-Projects", "Top Projects"].map((text, index) => (
              <Link to={`/` + text}>
             <ListItem button key={text}>
               <ListItemIcon>

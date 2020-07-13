@@ -43,9 +43,7 @@ class AllProjects extends React.Component {
               {[1, 2, 3, 4].map((project) => {
                 return (
                   <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
-                    <Link to={`project/view/${project._id}`}>
-                      <ProjectCard isLoading={true} {...this.props} />
-                    </Link>
+                    <ProjectCard isLoading={true} {...this.props} />
                   </div>
                 );
               })}
@@ -65,15 +63,11 @@ class AllProjects extends React.Component {
                 <div class="h-1 w-20 bg-indigo-500 rounded mx-auto"></div>
               </div>
             </div>
-            <div class="flex flex-wrap -m-4">
+            <div class="flex flex-wrap ">
               {this.state.projects.map((project) => {
                 return (
                   <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
-                    <ProjectCard
-                      project={project}
-                      
-                      {...this.props}
-                    />
+                    <ProjectCard project={project} {...this.props} />
                   </div>
                 );
               })}

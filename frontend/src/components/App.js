@@ -22,7 +22,13 @@ function App() {
                 <div>
                   <HeaderM>
                     <Switch>
-                      <Route exact path="/" component={SignUpUserChoice} />
+                      <Route exact path="/" component={Landing} />
+
+                      <Route
+                        exact
+                        path="/signup"
+                        component={SignUpUserChoice}
+                      />
                       <Route
                         exact
                         path="/signup/guide"
@@ -42,7 +48,7 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/All Projects"
+                        path="/All-Projects"
                         component={() => <AllProjects {...props} />}
                       />
 
