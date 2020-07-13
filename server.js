@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongo = require("mongoose");
+const path = require("path");
 const User = require("./models/user").userModel;
 const Project = require("./models/project").projectModel;
 
@@ -27,6 +28,7 @@ app.use(passport.session());
 app.use("/users", userRoute);
 app.use("/projects", projectRoute);
 app.use("/auth", auth);
+
 const PORT = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV === "production") {
