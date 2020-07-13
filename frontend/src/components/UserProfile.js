@@ -1,6 +1,8 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
+
+import Users from "../apis/user"
 import Loader from "./Loader";
 class UserProfile extends React.Component {
   constructor() {
@@ -8,7 +10,7 @@ class UserProfile extends React.Component {
     this.state = { user: null };
   }
   async componentDidMount() {
-    const data = await axios.get("/users/160420107030");
+    const data = await Users.get("/160420107030");
     const user = data.data.user;
     this.setState({
       user,
