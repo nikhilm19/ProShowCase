@@ -27,7 +27,7 @@ app.use(passport.session());
 app.use("/users", userRoute);
 app.use("/projects", projectRoute);
 app.use("/auth", auth);
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
