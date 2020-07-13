@@ -14,10 +14,16 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import DonutLargeOutlinedIcon from "@material-ui/icons/DonutLargeOutlined";
+import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
 import { Link } from "react-router-dom";
 import NavDrawer from "./NavDrawer";
 
 const useStyles = makeStyles((theme) => ({
+  appbar: {
+    backgroundColor: "#3c366b",
+    color: "white",
+  },
   grow: {
     flexGrow: 1,
   },
@@ -26,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: "none",
+    marginLeft: theme.spacing(0.5),
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
@@ -126,7 +133,7 @@ export default function PrimarySearchAppBar(props) {
       <Link to="/profile">
         <MenuItem onClick={handleMenuClose}> Profile</MenuItem>
       </Link>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -158,7 +165,7 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" color="transparent">
+      <AppBar position="static" color="transparent" className={classes.appbar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -169,6 +176,7 @@ export default function PrimarySearchAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
+          <CodeTwoToneIcon />
           <Typography className={classes.title} variant="h6" noWrap>
             ProShowCase
           </Typography>

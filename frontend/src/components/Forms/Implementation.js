@@ -68,6 +68,7 @@ class WizardFormSecondPage extends React.Component {
       <div>
         <Autocomplete
           multiple
+          freeSolo
           limitTags={2}
           value={input.value || []}
           id="multiple-limit-tags"
@@ -81,7 +82,7 @@ class WizardFormSecondPage extends React.Component {
             <TextField
               {...params}
               variant="outlined"
-              placeholder="Choose Multiple Hobbies"
+              placeholder="Choose Multiple Technologies"
               fullWidth
             />
           )}

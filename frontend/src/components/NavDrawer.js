@@ -18,15 +18,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import AppsIcon from "@material-ui/icons/Apps";
+import WhatshotIcon from "@material-ui/icons/Whatshot";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 
-import { fade } from "@material-ui/core/styles";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import DonutLargeOutlinedIcon from "@material-ui/icons/DonutLargeOutlined";
+import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
 
 const drawerWidth = 240;
 
@@ -136,7 +134,8 @@ export default function MiniDrawer(props) {
         }}
       >
         <div className={classes.toolbar}>
-          <h1>ProwShowCase</h1>
+          <CodeTwoToneIcon />
+          <h1 className="ml-2">ProwShowCase</h1>
           <IconButton onClick={props.handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -149,31 +148,31 @@ export default function MiniDrawer(props) {
         <Divider />
         <List>
           {["All-Projects", "Top Projects"].map((text, index) => (
-             <Link to={`/` + text}>
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+            <Link to={`/` + text}>
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <AppsIcon /> : <WhatshotIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
             </Link>
           ))}
         </List>
         <Divider />
         <List>
-          {["Profile", "My Project", "Spam"].map((text, index) => (
-            <Link to={`/` + text}>
-              <MenuItem
-                selected={index === selectedIndex}
-                onClick={(event) => handleMenuItemClick(event, index)}
-              >
-                <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </MenuItem>
-            </Link>
-          ))}
+          {[{ text: "Profile", icon: <AccountCircleIcon /> }].map(
+            ({ text, icon }, index) => (
+              <Link to={`/` + text}>
+                <MenuItem
+                  selected={index === selectedIndex}
+                  onClick={(event) => handleMenuItemClick(event, index)}
+                >
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </MenuItem>
+              </Link>
+            )
+          )}
         </List>
       </Drawer>
     </div>

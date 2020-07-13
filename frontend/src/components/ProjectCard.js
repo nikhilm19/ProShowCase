@@ -13,18 +13,16 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/Button";
 import ShareIcon from "@material-ui/icons/ShareOutlined";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { deepOrange, deepPurple } from "@material-ui/core/colors";
+import AvatarGroup from "@material-ui/lab/AvatarGroup";
+
 const images = [
   "/images/undraw_our_solution_htvp.png",
   "/images/undraw_product_tour_foyt.png",
   "images/undraw_project_completed_w0oq.png",
   "/images/undraw_code_typing_7jnv.png",
 ];
-const faces = [
-  "http://i.pravatar.cc/300?img=1",
-  "http://i.pravatar.cc/300?img=2",
-  "http://i.pravatar.cc/300?img=3",
-  "http://i.pravatar.cc/300?img=4",
-];
+const faces = ["NM", "KK", "SJ", "PR"];
 
 const styles = (muiBaseTheme) => ({
   card: ({ inactive }) => ({
@@ -60,11 +58,12 @@ const styles = (muiBaseTheme) => ({
     fontWeight: "bold",
   },
   subheading: {
-    lineHeight: 1.8,
+    lineHeight: 1,
   },
   avatar: {
-    display: "inline-block",
-    border: "2px solid pink",
+    backgroundColor: deepPurple[300],
+
+    border: "2px solid white",
     "&:not(:first-of-type)": {
       marginLeft: -muiBaseTheme.spacing.unit,
     },
@@ -136,22 +135,24 @@ function Project({ classes, project, history, isLoading }) {
               height={40}
             />
           ) : (
-            faces.map((face) =>
-              isLoading ? (
-                <Skeleton
-                  animation="wave"
-                  variant="circle"
-                  width={40}
-                  height={40}
-                />
-              ) : (
-                <Avatar
-                  className={classes.avatar}
-                  key={face}
-                  src={face}
-                ></Avatar>
-              )
-            )
+            <div className="flex flex-row">
+              <AvatarGroup max={3}>
+                {faces.map((face) =>
+                  isLoading ? (
+                    <Skeleton
+                      animation="wave"
+                      variant="circle"
+                      width={40}
+                      height={40}
+                    />
+                  ) : (
+                    <Avatar className={classes.avatar} key={face}>
+                      {face}
+                    </Avatar>
+                  )
+                )}
+              </AvatarGroup>
+            </div>
           )}
         </CardContent>
         <CardActions className={classes.actions}>
@@ -164,7 +165,16 @@ function Project({ classes, project, history, isLoading }) {
               style={{ marginBottom: 6 }}
             />
           ) : (
-            <Button size="small" color="primary">
+            <Button
+              size="small"
+              color="primary"
+              onClick={() =>
+                history.push({
+                  pathname: `project/view/${project._id}`,
+                  project: project,
+                })
+              }
+            >
               View
             </Button>
           )}

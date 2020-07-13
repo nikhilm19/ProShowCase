@@ -18,6 +18,13 @@ class ViewProject extends React.Component {
     console.log(this.state);
   }
 
+  fetchFakeImages = async () => {
+    const res = await axios.get("https://picsum.photos/v2/list");
+
+    const images = res.data;
+    this.setState({ images });
+  };
+
   fetchProject = async () => {
     console.log("hello");
     if (this.state.project === null) {
@@ -46,7 +53,7 @@ class ViewProject extends React.Component {
     ) : (
       <div className="p-2 ">
         <ProjectAbstract project={this.state.project} />
-        <Team project={this.state.project} />
+        <Team project={this.state.project} images={this.state.images} />
         <div className="mx-10">
           {" "}
           <ImageCarousel />

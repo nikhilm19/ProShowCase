@@ -25,7 +25,7 @@ export default function FormDialog(props) {
     users = res.users.filter((user) => {
       if (user.email) {
         //console.log(user.email);
-        return user.email;
+        return user.name + "-" + user.email;
       }
     });
     users.forEach(function (user) {

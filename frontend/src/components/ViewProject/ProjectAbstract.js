@@ -12,13 +12,14 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/Button";
 import ShareIcon from "@material-ui/icons/ShareOutlined";
 import Skeleton from "@material-ui/lab/Skeleton";
-
+import Chip from "../Chip";
 class ProjectAbstract extends React.Component {
   constructor(props) {
     super(props);
     console.log(props.project_id);
   }
   render() {
+    const { project } = this.props;
     return (
       <section class="text-gray-700 body-font">
         <div class="container mx-auto flex px-5 py-10 items-center justify-center flex-col">
@@ -36,6 +37,11 @@ class ProjectAbstract extends React.Component {
               and help them with their medication, fitness, and also save them
               from harmful injuries!
             </p>
+            <div className="-mt-4 mb-8 flex flex-row justify-center">
+              {project.technologies.map((tech) => {
+                return <Chip label={tech.title} />;
+              })}
+            </div>
             <div class="flex justify-center">
               <div className="inline-flex text-white  border-0 py-2 px-3 focus:outline-none  rounded text-lg">
                 <Button color="primary" variant="contained">
@@ -43,9 +49,11 @@ class ProjectAbstract extends React.Component {
                 </Button>
               </div>
               <div className="inline-flex text-white  border-0 py-2 px-3 focus:outline-none  rounded text-lg">
-                <Button color="primary" variant="outlined">
-                  Try it out
-                </Button>
+                <a href={project.demo} target="_blank">
+                  <Button color="primary" variant="outlined">
+                    Try it out
+                  </Button>
+                </a>
               </div>
             </div>
           </div>

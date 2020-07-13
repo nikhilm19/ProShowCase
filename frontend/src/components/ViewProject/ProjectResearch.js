@@ -60,13 +60,13 @@ class ProjectResearch extends React.Component {
                 return (
                   <div class="p-2 sm:w-1/2 w-full">
                     <ShadowBox>
-                      <div class="bg-gray-200 rounded flex p-4 h-full items-center">
+                      <div class="bg-gray-400 rounded flex p-4 h-full items-center w-auto ">
                         <a href={"https://asdasd.com"} target="_blank">
                           <IconButton aria-label="delete" color="secondary">
                             <LaunchIcon />
                           </IconButton>
                         </a>
-                        <span class="title-font font-medium">{material}</span>
+                        <p class="font-small truncate ">{material}</p>
                       </div>
                     </ShadowBox>
                   </div>

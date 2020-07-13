@@ -8,6 +8,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
+import EmailIcon from "@material-ui/icons/Email";
+import IconButton from "@material-ui/core/IconButton";
 
 import Divider from "@material-ui/core/Divider";
 
@@ -42,7 +44,9 @@ const faces = [
   "http://i.pravatar.cc/300?img=4",
 ];
 
-export default function Team() {
+export default function Team(props) {
+  const { project } = props;
+
   return (
     <section class="text-gray-700 body-font">
       <div class="container px-5 py-10 mx-auto">
@@ -55,7 +59,39 @@ export default function Team() {
           </p>
         </div>
         <div class="flex flex-wrap -m-4 ">
-          <div class="p-4 lg:w-1/2 mb-6">
+          {project.teamMembers.map((member) => {
+            return (
+              <div class="p-4 lg:w-1/2 mb-6">
+                <ShadowBox>
+                  <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
+                    <img
+                      alt="team"
+                      class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
+                      src={"https://dummyimage.com/200x200"}
+                    />
+                    <div class="flex-grow sm:pl-8">
+                      <h2 class="title-font font-medium text-lg text-gray-900">
+                        {member.name}
+                      </h2>
+                      <h3 class="text-gray-500 mb-3">{member.email}</h3>
+                      <p class="mb-4">
+                        <a href={"mailto:" + member.email}>
+                          <Button
+                            variant="outlined"
+                            color="primary"
+                            startIcon={<EmailIcon />}
+                          >
+                            Send Email
+                          </Button>
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </ShadowBox>
+              </div>
+            );
+          })}
+          {/**   <div class="p-4 lg:w-1/2 mb-6">
             <ShadowBox>
               <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                 <img
@@ -139,6 +175,7 @@ export default function Team() {
               </div>
             </ShadowBox>
           </div>
+        */}
         </div>
       </div>
     </section>
