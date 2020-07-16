@@ -53,10 +53,11 @@ export default function UserProfileTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState("one");
 
+  const [label, setLabel] = React.useState("My Project");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log(props);
 
   return (
     <div className={classes.root}>
@@ -68,17 +69,16 @@ export default function UserProfileTabs(props) {
           centered
         >
           <Tab value="one" label="About me" wrapped {...a11yProps("one")} />
-          <Tab value="two" label="My project" {...a11yProps("two")} />
+          <Tab value="two" label={"My Project"} {...a11yProps("two")} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index="one">
-        <UserProfile />
+        <UserProfile {...props} />
       </TabPanel>
       <TabPanel value={value} index="two">
         {/*Check if project exists*/}
         <UserProject {...props} />
       </TabPanel>
-      
     </div>
   );
 }

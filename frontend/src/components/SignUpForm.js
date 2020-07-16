@@ -17,7 +17,7 @@ import Container from "@material-ui/core/Container";
 import axios from "axios";
 
 import Loader from "./Loader";
-class SignUpForm extends React.Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super();
     this.state = {
@@ -94,16 +94,9 @@ class SignUpForm extends React.Component {
           <div className="signup-form-content--right flex-1 bg-gray-100 p-4 justify-center">
             <div className="about-info">
               <div className="text-center mb-4 mt-4">
-                <Typography variant="h4">Welcome to ProShowCase!</Typography>
+                <Typography variant="h4">ProShowCase</Typography>
               </div>
-              <Typography
-                component="h1"
-                variant="subtitle1"
-                className="text-center text-gray-500"
-              >
-                ProShowCase is a website where you can check what your seniors
-                have built over the years!
-              </Typography>
+             
             </div>
             <div className="flex mt-4">
               <form validate onSubmit={this.onFormSubmit}>
@@ -200,53 +193,5 @@ class SignUpForm extends React.Component {
   }
 }
 
-export default SignUpForm;
+export default LoginForm;
 
-/**
- * 
- *  <div className="signup-form-content--right flex-1 bg-gray-100">
-            <div className="signup-form-content--right container">
-              <div className="signup-form-content--right-content">
-                <div className="about-info--container container">
-                  <div className="about-info">
-                    <h1>Welcome to ProShowCase!</h1>
-                    <p>
-                      ProShowCase is a website where you can check what your
-                      seniors have built over the years!
-                    </p>
-                  </div>
-                </div>
-
-                <div className="signup-form-fields--container container">
-                  <div className="">
-                    <form className="flex flex-col">
-                      <input
-                        type="email"
-                        placeholder="Email Address"
-                        required
-                      ></input>
-                      <input type="text" placeholder="Name" required></input>
-                      <input
-                        type="password"
-                        placeholder="Password"
-                        required
-                      ></input>
-                      <input
-                        type="number"
-                        placeholder="Contact No."
-                        required
-                      ></input>
-
-                      <input
-                        type="number"
-                        placeholder="Enrollment Number"
-                        required
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-       
- */

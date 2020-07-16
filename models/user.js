@@ -1,4 +1,6 @@
 const mongo = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
+
 const projectSchema = require("./project").projectSchema;
 
 var Schema = mongo.Schema;
@@ -16,8 +18,9 @@ var userSchema = new Schema({
   dept: String,
   shift: String,
   password: String,
-  project: ObjectId,
+  project: [String],
 });
+userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
 var user = mongo.model("user", userSchema, "users");
 

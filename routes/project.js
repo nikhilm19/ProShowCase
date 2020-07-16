@@ -8,13 +8,22 @@ const Project = require("../models/project").projectModel;
 const projectsRoute = express.Router();
 
 projectsRoute.route("/").get(function (req, res) {
-  Project.find(function (err, docs) {
-
-    if(err){
-      res.status(401).json({error:err});
-    }
-    res.status(200).json({ projects: docs });
-  });
+  let guide = "";
+  if (req.query.guide) {
+    Project.find({ guide: req.query.guide }, function (err, docs) {
+      if (err) {
+        res.status(401).json({ error: err });
+      }
+      res.status(200).json({ projects: docs });
+    });
+  } else {
+    Project.find(function (err, docs) {
+      if (err) {
+        res.status(401).json({ error: err });
+      }
+      res.status(200).json({ projects: docs });
+    });
+  }
 });
 
 projectsRoute.route("/:project_id").put(async function (req, res) {
@@ -41,7 +50,9 @@ projectsRoute.route("/:project_id").put(async function (req, res) {
 projectsRoute.route("/:project_id").get(function (req, res) {
   let project_id = req.params.project_id;
 
-  Project.findOne({ _id: project_id }, function (err, project) {
+  let project_object_id = mongo.Types.ObjectId(project_id);
+  console.log(project_object_id);
+  Project.findOne({ _id: project_object_id }, function (err, project) {
     if (err) {
       res.status(400);
     }
@@ -69,10 +80,17 @@ projectsRoute.route("/").post(function (req, res) {
         email: { $in: doc.teamMembers },
       });
       users.map((user) => {
-        user.project = doc.id;
+        user.project.push(doc.id);
 
         user.save();
       });
+      const guide = await User.find({
+        email: doc.guide,
+      });
+
+      guide[0].project.push(doc.id);
+      guide[0].save();
+
       res.status(200).json(doc);
     })
     .catch((err) => {

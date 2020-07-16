@@ -106,7 +106,7 @@ class WizardFormSecondPage extends React.Component {
               <Field
                 label="Repository"
                 id="repo"
-                name="repo"
+                name="githubRepo"
                 component={this.createInput}
               ></Field>
 

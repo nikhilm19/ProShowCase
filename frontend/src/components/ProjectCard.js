@@ -72,7 +72,7 @@ const styles = (muiBaseTheme) => ({
 
 function Project({ classes, project, history, isLoading }) {
   return (
-    <div className="App">
+    <div className="">
       <Card className={classes.card}>
         {isLoading ? (
           <Skeleton animation="wave" variant="rect" className={classes.media} />

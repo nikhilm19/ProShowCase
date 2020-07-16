@@ -44,7 +44,7 @@ class ProjectResearch extends React.Component {
                       <IconButton aria-label="delete" color="secondary">
                         <LaunchIcon />
                       </IconButton>
-                      <span class="title-font font-medium">{paper}</span>
+                      <p class="font-small truncate ">{paper}</p>
                     </div>
                   </div>
                 );

@@ -21,23 +21,30 @@ class UserProject extends Component {
     this.fetchProject("160420107056");
   }
   fetchProject = async (userId) => {
-    const res = await User.get(`/${userId}`);
-    const user = res.data;
-    console.log(user);
-    if (user.project !== null) {
-      let projectRes = await Project.get("5f08c3220b7dfe0e131319a1");
-      const project = projectRes.data;
-      this.setState({
-        user,
-        project,
-      });
-    } else {
-      this.setState({
-        user,
-        project: "",
-      });
+    const { cookies } = this.props;
+    console.log(this.props);
+    if (this.props.currentUser) {
+      //const res = await User.get(`/${userId}`);
+      //const user = res.data;
+      console.log(this.props.currentUser);
+      if (this.props.currentUser.project !== null) {
+        let projectRes = await Project.get("5f0d95c0a23c2a05fd40c927", {
+          headers: {
+            Authorization: `Bearer ${cookies.get("token")}`,
+          },
+        });
+        console.log(projectRes);
+        const project = projectRes.data;
+        this.setState({
+          project,
+        });
+      } else {
+        this.setState({
+          project: "",
+        });
+      }
+      console.log(this.state);
     }
-    console.log(this.state);
   };
   handleChange = (fies) => {};
 
@@ -58,7 +65,8 @@ class UserProject extends Component {
       return <Loader isLoading={true} />;
     } else if (this.state.project === "") {
       return <AddProject {...this.props} />;
-    } else return <ProjectDisplay project={this.state.project} />;
+    } else
+      return <ProjectDisplay project={this.state.project} {...this.props} />;
   };
 
   render() {

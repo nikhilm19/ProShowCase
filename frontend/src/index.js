@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import reduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { createStore, compose, applyMiddleware } from "redux";
-
+import { CookiesProvider } from "react-cookie";
 import "./styles/tailwind.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
@@ -19,9 +19,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
+    <CookiesProvider>
       <App />
-    </React.StrictMode>
+    </CookiesProvider>
   </Provider>,
   document.getElementById("root")
 );

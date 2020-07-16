@@ -20,7 +20,9 @@ export default function FormDialog(props) {
 
   const handleClickOpen = async () => {
     setOpen(true);
-    const res = await props.fetchUsers();
+    console.log(props.type);
+    setEmails([]);
+    const res = await props.fetchUsers(props.type);
 
     users = res.users.filter((user) => {
       if (user.email) {
@@ -38,8 +40,12 @@ export default function FormDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
-    props.onAddMember(guideName);
+
+    console.log(memberName);
+
+    console.log(guideName);
     props.onAddMember(memberName);
+    
   };
 
   return (
@@ -66,13 +72,11 @@ export default function FormDialog(props) {
             id="tags-filled"
             size="small"
             options={emails}
-            defaultValue={["Loading.."]}
             renderInput={(params) => (
               <TextField
                 {...params}
                 variant="filled"
-                label="Email address(es)
-                "
+                label={props.label}
                 placeholder="Type here"
               />
             )}
@@ -83,7 +87,7 @@ export default function FormDialog(props) {
             Cancel
           </Button>
           <Button onClick={handleClose} color="primary">
-            Add Member
+            {props.dialogTitle}
           </Button>
         </DialogActions>
       </Dialog>

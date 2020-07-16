@@ -18,6 +18,10 @@ import DonutLargeOutlinedIcon from "@material-ui/icons/DonutLargeOutlined";
 import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
 import { Link } from "react-router-dom";
 import NavDrawer from "./NavDrawer";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { logOut } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -98,6 +102,9 @@ export default function PrimarySearchAppBar(props) {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.authReducer);
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -116,6 +123,7 @@ export default function PrimarySearchAppBar(props) {
   };
 
   const handleMobileMenuOpen = (event) => {
+    props.history.push("/logout");
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
@@ -133,7 +141,18 @@ export default function PrimarySearchAppBar(props) {
       <Link to="/profile">
         <MenuItem onClick={handleMenuClose}> Profile</MenuItem>
       </Link>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      {props.currentUser ? (
+        <MenuItem
+          onClick={() => {
+            dispatch(logOut(props.cookies));
+            handleMenuClose();
+
+            props.history.push("logout");
+          }}
+        >
+          Logout
+        </MenuItem>
+      ) : null}
     </Menu>
   );
 
@@ -167,15 +186,18 @@ export default function PrimarySearchAppBar(props) {
     <div className={classes.grow}>
       <AppBar position="static" color="transparent" className={classes.appbar}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
+          {props.currentUser ? (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+            >
+              <MenuIcon />
+            </IconButton>
+          ) : null}
+
           <CodeTwoToneIcon />
           <Typography className={classes.title} variant="h6" noWrap>
             ProShowCase
@@ -194,18 +216,21 @@ export default function PrimarySearchAppBar(props) {
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
+          {props.currentUser ? (
+            <div className={classes.sectionDesktop}>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+          ) : null}
+
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -221,7 +246,7 @@ export default function PrimarySearchAppBar(props) {
       </AppBar>
       <NavDrawer isDrawerOpen={open} handleDrawerClose={toggleDrawer} />
       {renderMobileMenu}
-      {renderMenu}
+      {props.currentUser ? renderMenu : null}
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.children}

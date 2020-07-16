@@ -34,11 +34,11 @@ class Team extends React.Component {
 
   onSubmit = (formProps) => {
     console.log(formProps);
-    this.props.onSubmit(formProps,this.state.members,this.state.guide);
+    this.props.onSubmit(formProps, this.state.members, this.state.guide);
   };
 
-  fetchUsers = async () => {
-    const res = await users.get("/");
+  fetchUsers = async (type) => {
+    const res = await users.get(`/?type=${type}`);
     //console.log("fetched users" + JSON.stringify(res.data));
     return res.data;
   };
@@ -58,62 +58,75 @@ class Team extends React.Component {
             The doers, the developers!
           </p>
         </div>
-
-        <div className="flex mx-auto justify-center">
-          <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-              <img
-                alt="team"
-                class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                src="https://dummyimage.com/80x80"
-              />
-              <div class="flex-grow">
-                <h2 class="text-gray-900 title-font font-medium">{guide}</h2>
-                <p class="text-gray-500">The guide!</p>
+        {guide !== null ? (
+          <div className="flex mx-auto justify-center">
+            <div class="p-2  md:w-1/2 w-full">
+              <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+                <img
+                  alt="team"
+                  class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                  src="https://dummyimage.com/80x80"
+                />
+                <div class="flex-grow">
+                  <h2 class="text-gray-900 title-font font-medium">
+                    {this.state.guide}
+                  </h2>
+                  <p class="text-gray-500">The guide!</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="flex flex-wrap -m-2 justify-center">
-          {members.map((member) => {
-            return (
-              <div className="m-2 w-3/12">
-                <Card className="flex flex-col">
-                  <CardHeader
-                    className="flex flex-col"
-                    avatar={<Avatar aria-label="recipe">R</Avatar>}
-                    title={member}
-                  />
+        ) : (
+          ""
+        )}
 
-                  <CardContent>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      Built the UI!
-                    </Typography>
-                  </CardContent>
-                  <CardActions disableSpacing></CardActions>
-                </Card>
-              </div>
-            );
-          })}
-        </div>
+        {members !== null ? (
+          <div class="flex flex-wrap -m-2 justify-center">
+            {members.map((member) => {
+              return (
+                <div className="m-2 w-3/12">
+                  <Card className="flex flex-col">
+                    <CardHeader
+                      className="flex flex-col"
+                      avatar={<Avatar aria-label="recipe">R</Avatar>}
+                      title={member}
+                    />
+
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        Built the UI!
+                      </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing></CardActions>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   };
 
   onAddMember = (members) => {
+    console.log(members);
     this.setState({
-      members,
+      members: members,
     });
+    console.log(this.state);
   };
 
   onAddGuide = (guide) => {
     this.setState({
       guide,
     });
+    console.log(this.state);
   };
   render() {
     const { handleSubmit } = this.props;
@@ -126,9 +139,12 @@ class Team extends React.Component {
               <div className="m-2">
                 <TeamMemberDialog
                   dialogTitle="Add Guide"
+                  type="guide"
+                  fetchUsers={this.fetchUsers}
                   isMultiple={false}
                   dialogText="Please add your guide here"
                   onAddMember={this.onAddGuide}
+                  label="Email Address"
                 />
               </div>
 
@@ -146,16 +162,20 @@ class Team extends React.Component {
                 <TeamMemberDialog
                   dialogTitle="Add Team Member"
                   isMultiple={true}
+                  type="student"
                   fetchUsers={this.fetchUsers}
                   dialogText="Please add your teammate here"
                   onAddMember={this.onAddMember}
+                  label="Email Address(es)"
                 />
               </div>
             </div>
           </div>
 
           {this.state.members !== null ? (
-            <div className="w-full">{this.renderTeam(this.state.members)}</div>
+            <div className="w-full">
+              {this.renderTeam(this.state.members, this.state.guide)}
+            </div>
           ) : (
             ""
           )}

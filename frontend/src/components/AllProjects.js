@@ -18,6 +18,8 @@ class AllProjects extends React.Component {
   }
 
   fetchProjects = async () => {
+
+    
     const res = await Project.get("/");
     const projects = res.data.projects;
 

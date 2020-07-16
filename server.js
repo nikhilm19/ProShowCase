@@ -11,7 +11,6 @@ const userRoute = require("./routes/user");
 const projectRoute = require("./routes/project");
 const auth = require("./routes/auth");
 const passport = require("./passport/setup");
-
 mongo.connect(
   "mongodb+srv://root:root@virtual-project-showcase-qubjr.mongodb.net/project",
   function () {
@@ -25,9 +24,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use("/users", userRoute);
+app.use("/users", passport.authenticate("jwt", { session: true }), userRoute);
 app.use("/projects", projectRoute);
 app.use("/auth", auth);
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 const PORT = process.env.PORT || 8080;
 

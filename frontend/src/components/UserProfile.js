@@ -2,19 +2,31 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
 
-import Users from "../apis/user"
+import Users from "../apis/user";
 import Loader from "./Loader";
 class UserProfile extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { user: null };
   }
   async componentDidMount() {
-    const data = await Users.get("/160420107030");
+    const { cookies } = this.props;
+    console.log(this.props);
+
+    if (this.props.currentUser) {
+      this.setState({ user: this.props.currentUser });
+    }
+    /*const data = await Users.get("/guide/" + this.props.currentUser.email, {
+      headers: {
+        Authorization: `Bearer ${cookies.cookies.token}`,
+      },
+    });
+    console.log(data);
     const user = data.data.user;
     this.setState({
       user,
     });
+    */
   }
 
   renderUser = () => {

@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/Button";
 import ShareIcon from "@material-ui/icons/ShareOutlined";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Chip from "../Chip";
+import ShadowBox from "../Shadow";
 class ProjectAbstract extends React.Component {
   constructor(props) {
     super(props);
@@ -44,16 +45,23 @@ class ProjectAbstract extends React.Component {
             </div>
             <div class="flex justify-center">
               <div className="inline-flex text-white  border-0 py-2 px-3 focus:outline-none  rounded text-lg">
-                <Button color="primary" variant="contained">
-                  View
-                </Button>
+                <ShadowBox>
+                  <a href={project.githubRepo} target="_blank">
+                    <Button color="primary" variant="contained">
+                      View
+                    </Button>
+                  </a>
+                </ShadowBox>
               </div>
+
               <div className="inline-flex text-white  border-0 py-2 px-3 focus:outline-none  rounded text-lg">
-                <a href={project.demo} target="_blank">
-                  <Button color="primary" variant="outlined">
-                    Try it out
-                  </Button>
-                </a>
+                <ShadowBox>
+                  <a href={project.demo} target="_blank">
+                    <Button color="primary" variant="outlined">
+                      Try it out
+                    </Button>
+                  </a>
+                </ShadowBox>
               </div>
             </div>
           </div>
