@@ -13,16 +13,20 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import { connect } from "react-redux";
 import axios from "axios";
 
 import Loader from "./Loader";
-class LoginForm extends React.Component {
+import { signUpUser } from "../actions";
+import Snackbar from "./Snackbar";
+class SignupForm extends React.Component {
   constructor(props) {
-    super();
+    super(props);
+
     this.state = {
       isGuide: props.isGuide,
       isLoading: false,
+      error: "",
       user: {
         userId: null,
         enrolmentNo: null,
@@ -46,9 +50,9 @@ class LoginForm extends React.Component {
     });
   };
 
-  onFormSubmit = (event) => {
+  onFormSubmit = async (event) => {
     //todo make api call to localhost:4000/users/
-
+    event.preventDefault();
     console.log("hello ");
 
     const enrolmentNo = this.state.user.enrolmentNo;
@@ -63,6 +67,15 @@ class LoginForm extends React.Component {
     });
 
     console.log(this.state);
+    const { cookies } = this.props;
+
+    this.props.signUpUser(user, cookies);
+
+    if (!this.props.isAuthenticated) {
+      this.setState({
+        error: this.props.message,
+      });
+    }
 
     /*axios
       .post("http://localhost:4000/users", this.state.user)
@@ -72,8 +85,6 @@ class LoginForm extends React.Component {
       .catch(function (error) {
         console.log(error);
       });*/
-
-    event.preventDefault();
   };
 
   render() {
@@ -96,7 +107,6 @@ class LoginForm extends React.Component {
               <div className="text-center mb-4 mt-4">
                 <Typography variant="h4">ProShowCase</Typography>
               </div>
-             
             </div>
             <div className="flex mt-4">
               <form validate onSubmit={this.onFormSubmit}>
@@ -123,6 +133,9 @@ class LoginForm extends React.Component {
                     name="email"
                     autoComplete="email"
                     type="email"
+                    helperText={
+                      this.state.error !== null ? this.state.error : ""
+                    }
                     onChange={this.handleInputChange}
                     autoFocus
                     validate
@@ -188,10 +201,22 @@ class LoginForm extends React.Component {
           </div>
         </div>
         <Loader isLoading={this.state.isLoading} />
+        {this.props.isSignupAttempt && !this.props.isAuthenticated ? (
+          <Snackbar text={this.props.message} type="error" />
+        ) : null}
       </div>
     );
   }
 }
 
-export default LoginForm;
-
+const mapStateToProps = (state, ownProps) => {
+  console.log("mastatetoprops signup");
+  console.log(state);
+  return {
+    isSignupAttempt: state.authReducer.isSignupAttempt,
+    currentUser: state.authReducer.currentUser,
+    message: state.authReducer.message,
+    isAuthenticated: state.authReducer.isAuthenticated,
+  };
+};
+export default connect(mapStateToProps, { signUpUser })(SignupForm);

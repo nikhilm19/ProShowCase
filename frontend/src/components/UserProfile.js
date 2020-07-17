@@ -2,6 +2,9 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
 
+import { connect } from "react-redux";
+import { signInUser } from "../actions/index";
+
 import Users from "../apis/user";
 import Loader from "./Loader";
 class UserProfile extends React.Component {

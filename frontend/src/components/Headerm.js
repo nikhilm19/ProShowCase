@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: "none",
+    display: "block",
     marginLeft: theme.spacing(0.5),
     [theme.breakpoints.up("sm")]: {
       display: "block",
@@ -147,7 +147,7 @@ export default function PrimarySearchAppBar(props) {
             dispatch(logOut(props.cookies));
             handleMenuClose();
 
-            props.history.push("logout");
+            props.history.push("/");
           }}
         >
           Logout
@@ -186,7 +186,7 @@ export default function PrimarySearchAppBar(props) {
     <div className={classes.grow}>
       <AppBar position="static" color="transparent" className={classes.appbar}>
         <Toolbar>
-          {props.currentUser ? (
+          {props.isAuthenticated ? (
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -198,23 +198,27 @@ export default function PrimarySearchAppBar(props) {
             </IconButton>
           ) : null}
 
-          <CodeTwoToneIcon />
-          <Typography className={classes.title} variant="h6" noWrap>
-            ProShowCase
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <DonutLargeOutlinedIcon />
+          <Link to="/">
+            <Typography className={classes.title} variant="h6" noWrap>
+              ProShowCase
+            </Typography>
+          </Link>
+          {props.currentUser ? (
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
+          ) : null}
           <div className={classes.grow} />
           {props.currentUser ? (
             <div className={classes.sectionDesktop}>
@@ -231,17 +235,34 @@ export default function PrimarySearchAppBar(props) {
             </div>
           ) : null}
 
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+          {props.currentUser ? (
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
+          ) : (
+            <div className="flex flex-row">
+              <Link to="/signup" className="mr-2">
+                {" "}
+                <button class="w-full flex items-center justify-center px-2 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-10">
+                  Signup
+                </button>
+              </Link>
+              <Link to="/login">
+                {" "}
+                <button class="w-full flex items-center justify-center px-2 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-10">
+                  Login
+                </button>
+              </Link>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
       <NavDrawer isDrawerOpen={open} handleDrawerClose={toggleDrawer} />

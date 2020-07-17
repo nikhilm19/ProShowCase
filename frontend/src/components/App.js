@@ -1,5 +1,11 @@
 import React from "react";
-import { Route, Link, Switch, BrowserRouter } from "react-router-dom";
+import {
+  Route,
+  Link,
+  Switch,
+  BrowserRouter as Router,
+  Redirect,
+} from "react-router-dom";
 import { connect } from "react-redux";
 import { withCookies, Cookies, CookiesProvider } from "react-cookie";
 import cookie from "react-cookie";
@@ -14,7 +20,7 @@ import CreateProject from "../components/CreateProject";
 import Landing from "./Landing";
 import AllProjects from "./AllProjects";
 import ViewProject from "./ViewProject";
-import Login from "./Login";
+
 import LoginForm from "./LoginForm";
 import { signInUser, getProfile } from "../actions/index";
 import Loader from "./Loader";
@@ -26,113 +32,82 @@ class App extends React.Component {
     super(props);
     this.state = {
       isGuide: false,
-      isOpen: true,
+      isOpen: false,
     };
 
     //cookies.set("name", "hello", { path: "/" });
   }
 
   async componentDidMount() {
-    const cookies = this.props.cookies;
+    const { cookies } = this.props;
 
     this.props.getProfile(cookies);
 
     console.log(this.props);
 
-    if (this.props.currentUser && this.props.currentUser.type === "guide")
+    if (this.props.currentUser !== undefined) {
       this.setState({
-        isGuide: true,
         isOpen: true,
       });
+      if (this.props.currentUser.type === "guide") {
+        this.setState({
+          isGuide: true,
+        });
+      }
+    } else {
+    }
+    this.setState({
+      isGuide: false,
+    });
 
     //console.log("in APP" + this.props);
   }
+
+  renderRedirect = () => {
+    if (this.props.isAuthenticated === undefined) {
+      return <Redirect to="/" />;
+    }
+  };
   render() {
     console.log(this.props);
 
     return (
       <div className="App">
-        <BrowserRouter history={history}>
+        <Router history={history}>
           <div className="h-auto">
-            <Snackbar />
             <Route
-              render={(props) =>
-                5 === 5 ? (
-                  <div>
-                    <HeaderM {...props} {...this.props}>
-                      <Switch>
-                        <Route
-                          exact
-                          path="/"
-                          component={() =>
-                            this.props.currentUser ? (
-                              <AllProjects {...props} />
-                            ) : (
-                              <Landing {...props} />
-                            )
-                          }
-                        />
-                        <Route
-                          exact
-                          path="/login"
-                          component={() => (
-                            <LoginForm
-                              cookies={this.props.cookies}
-                              {...props}
-                              {...this.props}
-                            />
-                          )}
-                        />
-                        <Route
-                          exact
-                          path="/signup"
-                          component={SignUpUserChoice}
-                        />
-                        <Route
-                          exact
-                          path="/signup/guide"
-                          component={() => <SignUpForm isGuide={true} />}
-                        />
-                        <Route
-                          exact
-                          path="/signup/student"
-                          component={() => <SignUpForm isGuide={false} />}
-                        />
-                        <Route
-                          exact
-                          path="/profile"
-                          component={() => (
-                            <UserProfileTabs
-                              isGuide={false}
-                              {...this.props}
-                              {...props}
-                            />
-                          )}
-                        />
-                        <Route
-                          exact
-                          path="/All-Projects"
-                          component={() => <AllProjects {...props} />}
-                        />
-
-                        <Route
-                          exact
-                          path="/project/new"
-                          component={() => <CreateProject />}
-                        />
-                        <Route
-                          exact
-                          path={`/project/view/:project_id`}
-                          component={ViewProject}
-                        />
-                      </Switch>
-                    </HeaderM>
-                  </div>
-                ) : (
-                  <div>
-                    <Route exact path="/" component={Header} />
+              render={(props) => (
+                <div>
+                  <HeaderM {...props} {...this.props}>
+                    {this.renderRedirect()}
                     <Switch>
-                      <Route exact path="/" component={SignUpUserChoice} />
+                      <Route
+                        exact
+                        path="/"
+                        component={() =>
+                          this.props.isAuthenticated ? (
+                            <AllProjects {...props} />
+                          ) : (
+                            <Landing {...props} />
+                          )
+                        }
+                      />
+                      <Route
+                        exact
+                        path="/login"
+                        component={() => (
+                          <LoginForm
+                            cookies={this.props.cookies}
+                            {...props}
+                            {...this.props}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/signup"
+                        component={SignUpUserChoice}
+                      />
                       <Route
                         exact
                         path="/signup/guide"
@@ -140,21 +115,49 @@ class App extends React.Component {
                       />
                       <Route
                         exact
-                        path="/profile"
-                        component={() => <UserProfileTabs isGuide={false} />}
+                        path="/signup/student"
+                        component={() => (
+                          <SignUpForm
+                            isGuide={false}
+                            {...props}
+                            {...this.props}
+                          />
+                        )}
                       />
                       <Route
                         exact
-                        path="/signup/student"
-                        component={() => <SignUpForm isGuide={false} />}
+                        path="/profile"
+                        component={() => (
+                          <UserProfileTabs
+                            isGuide={false}
+                            {...this.props}
+                            {...props}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/All-Projects"
+                        component={() => <AllProjects {...props} />}
+                      />
+
+                      <Route
+                        exact
+                        path="/project/new"
+                        component={() => <CreateProject />}
+                      />
+                      <Route
+                        exact
+                        path={`/project/view/:project_id`}
+                        component={ViewProject}
                       />
                     </Switch>
-                  </div>
-                )
-              }
+                  </HeaderM>
+                </div>
+              )}
             />
           </div>
-        </BrowserRouter>
+        </Router>
       </div>
     );
   }
@@ -165,7 +168,7 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.authReducer.currentUser,
     message: state.authReducer.message,
     authStatus: state.authReducer.authStatus,
-    isAuthenticated: state.authReducer.success,
+    isAuthenticated: state.authReducer.isAuthenticated,
   };
 };
 

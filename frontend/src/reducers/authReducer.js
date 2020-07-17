@@ -6,7 +6,7 @@ const logout = (state, action) => {
   console.log("inside logout");
   return {
     ...state,
-    currentUser: {},
+    currentUser: null,
     isAuthenticated: false,
   };
 };
@@ -16,6 +16,8 @@ const login = (state, action) => {
   if (action.payload.success) {
     currentUser = action.payload.message.user;
   }
+
+  console.log(action.payload);
   return {
     ...state,
     currentUser,
@@ -40,7 +42,10 @@ const fetchCurrentUser = (state, action) => {
 const signup = (state, action) => {
   return {
     ...state,
+    isSignupAttempt: true,
     user: action.payload,
+    message: action.payload.message,
+    isAuthenticated: action.payload.success,
   };
 };
 export default (state = {}, action) => {

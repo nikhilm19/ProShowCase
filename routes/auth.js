@@ -8,33 +8,82 @@ const auth = express.Router();
 const jwt = require("jsonwebtoken");
 const passport = require("../passport/setup");
 
-auth.post("/register", function (req, res) {
-  User.register(new User(req.body), req.body.password, function (err, account) {
-    if (err) {
-      console.log(err);
-    }
+auth.post("/register", function (req, res, next) {
+  passport.authenticate("local", function (err, user, info) {
+    let newUser = {
+      type: req.body.type,
+      email: req.body.email,
+      name: req.body.email,
+      phone: req.body.phone,
+      username: req.body.username,
+      dept: req.body.dept,
+      shift: req.body.shift,
+    };
 
-    passport.authenticate("local")(req, res, function () {
-      res.json({
-        user: {
-          id: account._id,
-          type: account.type,
-          email: account.email,
-          name: account.email,
-          phone: account.phone,
-          username: account.username,
-          dept: account.dept,
-          shift: account.shift,
-        },
+    if (newUser.type === "student") {
+      newUser.enrollment_no = req.body.enrollment_no;
+      newUser.grad_year = req.body.grad_year;
+    }
+    User.register(new User(req.body), req.body.password, function (
+      err,
+      account
+    ) {
+      if (err) {
+        err.success = false;
+        return res.json(err);
+      }
+      console.log(account);
+
+      req.login(account, (loginErr) => {
+        if (loginErr) {
+          return next(loginErr);
+        } else {
+          const token = jwt.sign({ account }, "trumpsuks", { expiresIn: "1h" });
+          console.log(token);
+
+          const message = {
+            user: {
+              id: account._id,
+              type: account.type,
+              email: account.email,
+              name: account.email,
+              phone: account.phone,
+              username: account.username,
+              dept: account.dept,
+              shift: account.shift,
+            },
+          };
+
+          return res
+            .cookie("token", token, { httpOnly: false })
+            .send({ success: true, message: message, token });
+        }
       });
     });
-  });
-});
+  })(req, res, next);
 
+  /*passport.authenticate("local-signup", function (err, user, info) {
+    console.log("hello");
+    console.log(user);
+    console.log(info);
+    if (err) {
+      console.log("errr");
+      console.log(err);
+      return next(err); // will generate a 500 error
+    }
+    // Generate a JSON response reflecting authentication status
+    if (!user) {
+      return res.send({ success: false, message: user });
+    }
+
+    return 
+  })(req, res, next);*/
+});
 auth.post("/login", function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
     if (err) {
-      return next(err); // will generate a 500 error
+      err.success = false;
+      return res.json(err); // will generate a 500 error
     }
     // Generate a JSON response reflecting authentication status
     if (!user) {
@@ -46,9 +95,10 @@ auth.post("/login", function (req, res, next) {
     // a response."
     // Source: http://passportjs.org/docs
     // ***********************************************************************
+
     req.login(user, (loginErr) => {
       if (loginErr) {
-        res.json(loginErr);
+        return res.json(loginErr);
       }
       const token = jwt.sign({ user }, "trumpsuks", { expiresIn: "1h" });
 

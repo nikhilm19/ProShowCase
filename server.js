@@ -17,6 +17,9 @@ mongo.connect(
     console.log("connected");
   }
 );
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 app.use(cors());
 app.use(express.static("../frontend/build"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,12 +27,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use("/users", passport.authenticate("jwt", { session: true }), userRoute);
+app.use("/users", userRoute);
 app.use("/projects", projectRoute);
 app.use("/auth", auth);
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 const PORT = process.env.PORT || 8080;
 

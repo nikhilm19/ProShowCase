@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user").userModel;
 const userRoute = express.Router();
 const passport = require("../passport/setup");
+const { json } = require("body-parser");
 
 function isAuthenticated(req, res, next) {
   if (req.session.user) {
@@ -119,7 +120,9 @@ userRoute.route("/login").post(function (req, res) {
     return res.status(400).json({ errors: " user found" });
   });
 });*/
-userRoute.post("/register", function (req, res) {
+
+
+userRoute.post("/registerx", function (req, res) {
   User.register(new User(req.body), req.body.password, function (err, account) {
     if (err) {
       console.log(err);
@@ -178,3 +181,6 @@ userRoute.post("/login", function (req, res, next) {
 });
 */
 module.exports = userRoute;
+
+/*
+ passport.authenticate("jwt", { session: true }) */

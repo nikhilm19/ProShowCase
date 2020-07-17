@@ -137,7 +137,7 @@ function Project({ classes, project, history, isLoading }) {
           ) : (
             <div className="flex flex-row">
               <AvatarGroup max={3}>
-                {faces.map((face) =>
+                {project.teamMembers.map((face) =>
                   isLoading ? (
                     <Skeleton
                       animation="wave"
@@ -145,10 +145,12 @@ function Project({ classes, project, history, isLoading }) {
                       width={40}
                       height={40}
                     />
-                  ) : (
-                    <Avatar className={classes.avatar} key={face}>
-                      {face}
+                  ) : face.name ? (
+                    <Avatar className={classes.avatar} key={face.name}>
+                      {face.name[0]}
                     </Avatar>
+                  ) : (
+                    ""
                   )
                 )}
               </AvatarGroup>

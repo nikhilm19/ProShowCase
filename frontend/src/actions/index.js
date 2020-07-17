@@ -48,13 +48,20 @@ export const signInUser = (formValues, cookies) => async (
   dispatch({ type: "USER_SIGN_IN", payload: res.data });
 };
 
-export const signUpUser = (formValues) => async (dispatch, getState) => {
+export const signUpUser = (formValues, cookies) => async (
+  dispatch,
+  getState
+) => {
   console.log("signup action dispatched" + formValues);
-  const res = await auth.post("/signup", { ...formValues });
+  const res = await auth.post("/register", { ...formValues });
 
   const data = res.data;
 
   console.log("signup res data" + data);
+
+  if (data.success === true) {
+    history.push("/profile");
+  }
 
   dispatch({ type: "USER_SIGN_UP", payload: res.data });
 };

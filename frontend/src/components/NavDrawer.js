@@ -134,7 +134,7 @@ export default function MiniDrawer(props) {
         }}
       >
         <div className={classes.toolbar}>
-          <CodeTwoToneIcon />
+          <DonutLargeOutlinedIcon />
           <h1 className="ml-2">ProwShowCase</h1>
           <IconButton onClick={props.handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -148,7 +148,7 @@ export default function MiniDrawer(props) {
         <Divider />
         <List>
           {["All-Projects", "Top Projects"].map((text, index) => (
-            <Link to={`/` + text}>
+            <Link to={`/` + text} onClick={props.handleDrawerClose}>
               <ListItem button key={text}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <AppsIcon /> : <WhatshotIcon />}
@@ -162,7 +162,7 @@ export default function MiniDrawer(props) {
         <List>
           {[{ text: "Profile", icon: <AccountCircleIcon /> }].map(
             ({ text, icon }, index) => (
-              <Link to={`/` + text}>
+              <Link to={`/` + text} onClick={props.handleDrawerClose}>
                 <MenuItem
                   selected={index === selectedIndex}
                   onClick={(event) => handleMenuItemClick(event, index)}
