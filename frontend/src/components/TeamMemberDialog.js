@@ -23,15 +23,10 @@ export default function FormDialog(props) {
     console.log(props.type);
     setEmails([]);
     const res = await props.fetchUsers(props.type);
-
-    users = res.users.filter((user) => {
-      if (user.email) {
-        //console.log(user.email);
-        return user.name + "-" + user.email;
-      }
-    });
+    users = res.users;
+    setEmails(users);
     users.forEach(function (user) {
-      setEmails((emails) => [...emails, user.email]);
+      setEmails((emails) => [...emails, user]);
     });
     console.log("user emails" + emails);
 
@@ -45,7 +40,6 @@ export default function FormDialog(props) {
 
     console.log(guideName);
     props.onAddMember(memberName);
-    
   };
 
   return (
@@ -72,6 +66,7 @@ export default function FormDialog(props) {
             id="tags-filled"
             size="small"
             options={emails}
+            getOptionLabel={(option) => option.email}
             renderInput={(params) => (
               <TextField
                 {...params}

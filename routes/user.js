@@ -44,7 +44,7 @@ userRoute.route("/profile").get(function (req, res, next) {
     });
   }
 });
-userRoute.route("/").get(isAuthenticated, function (req, res) {
+userRoute.route("/").get(function (req, res) {
   let type = "student";
   if (req.query.type !== null) {
     type = req.query.type;
@@ -120,7 +120,6 @@ userRoute.route("/login").post(function (req, res) {
     return res.status(400).json({ errors: " user found" });
   });
 });*/
-
 
 userRoute.post("/registerx", function (req, res) {
   User.register(new User(req.body), req.body.password, function (err, account) {

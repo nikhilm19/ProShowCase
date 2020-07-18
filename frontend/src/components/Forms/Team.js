@@ -22,6 +22,7 @@ import { ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 
 import TeamMemberDialog from "../TeamMemberDialog";
 import users from "../../apis/user";
+import GoogleAvatar from "../GoogleAvatar";
 
 class Team extends React.Component {
   constructor(props) {
@@ -88,8 +89,9 @@ class Team extends React.Component {
                   <Card className="flex flex-col">
                     <CardHeader
                       className="flex flex-col"
-                      avatar={<Avatar aria-label="recipe">R</Avatar>}
-                      title={member}
+                      style={{ margin: "0px" }}
+                      avatar={<GoogleAvatar text={member.name[0]} />}
+                      title={member.name}
                     />
 
                     <CardContent>
@@ -98,7 +100,7 @@ class Team extends React.Component {
                         color="textSecondary"
                         component="p"
                       >
-                        Built the UI!
+                        {member.email}
                       </Typography>
                     </CardContent>
                     <CardActions disableSpacing></CardActions>
