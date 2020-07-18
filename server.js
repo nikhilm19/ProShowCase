@@ -31,13 +31,13 @@ app.use("/users", userRoute);
 app.use("/projects", projectRoute);
 app.use("/auth", auth);
 
-
 const PORT = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("frontend/build"));
+  app.use(express.static(__dirname));
+  app.use(express.static(path.join(__dirname, "frontend", "build")));
 
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "build", "index.html")); // relative path
   });
 }
