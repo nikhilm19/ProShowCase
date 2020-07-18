@@ -15,7 +15,18 @@ class WizardFormSecondPage extends React.Component {
     super(props);
 
     this.state = {
-      technologies: [{ title: "NLP" }, { title: "ML" }],
+      technologies: [
+        { title: "NLP" },
+        { title: "ML" },
+        { title: "AI" },
+        { title: "IOT" },
+        { title: "Android" },
+        { title: "Webapp" },
+        { title: "AR/VR" },
+        { title: "DM" },
+        { title: "Networks" },
+        { title: "Security" },
+      ],
     };
 
     this.createInput = this.createInput.bind(this);

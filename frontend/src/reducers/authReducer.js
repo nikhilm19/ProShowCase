@@ -21,6 +21,7 @@ const login = (state, action) => {
   return {
     ...state,
     currentUser,
+    isLoginAttempt: state.isLoginAttempt + 1,
     message: action.payload.message,
     isAuthenticated: action.payload.success,
   };
@@ -28,8 +29,7 @@ const login = (state, action) => {
 const fetchCurrentUser = (state, action) => {
   let currentUser = {};
   if (action.payload.success) {
-    history.push("/All-Projects");
-    currentUser = action.payload.message.user;
+    currentUser = action.payload.message.account || action.payload.message.user;
   }
   return {
     ...state,
@@ -40,18 +40,31 @@ const fetchCurrentUser = (state, action) => {
   };
 };
 const signup = (state, action) => {
+  let currentUser = null;
 
+  if (action.payload.success === true) {
+    currentUser = action.payload.message.user || action.payload.message.account;
+  }
 
-  ///add current user over here if the auth is successfull 
+  console.log(state);
+
+  ///add current user over here if the auth is successfull
   return {
     ...state,
-    isSignupAttempt: true,
+    currentUser,
+    isSignupAttempt: state.isSignupAttempt + 1,
     user: action.payload,
     message: action.payload.message,
     isAuthenticated: action.payload.success,
   };
 };
-export default (state = {}, action) => {
+export default (
+  state = {
+    isSignupAttempt: 0,
+    isLoginAttempt: 0,
+  },
+  action
+) => {
   switch (action.type) {
     case "USER_SIGN_IN":
       return login(state, action);

@@ -57,7 +57,7 @@ export const signUpUser = (formValues, cookies) => async (
 
   const data = res.data;
 
-  console.log("signup res data" + data);
+  console.log("signup res data", data);
 
   if (data.success === true) {
     history.push("/profile");

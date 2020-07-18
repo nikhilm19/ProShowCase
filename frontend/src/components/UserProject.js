@@ -27,7 +27,7 @@ class UserProject extends Component {
       //const res = await User.get(`/${userId}`);
       //const user = res.data;
       console.log(this.props.currentUser);
-      if (this.props.currentUser.project !== null) {
+      if (this.props.currentUser.project ===[]) {
         let projectRes = await Project.get("5f0d95c0a23c2a05fd40c927", {
           headers: {
             Authorization: `Bearer ${cookies.get("token")}`,

@@ -15,6 +15,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { connect } from "react-redux";
 import axios from "axios";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 import Loader from "./Loader";
 import { signUpUser } from "../actions";
@@ -27,6 +32,7 @@ class SignupForm extends React.Component {
       isGuide: props.isGuide,
       isLoading: false,
       error: "",
+      isSignupAttempt: this.props.isSignupAttempt,
       user: {
         userId: null,
         enrolmentNo: null,
@@ -50,14 +56,29 @@ class SignupForm extends React.Component {
     });
   };
 
+  componentDidMount() {
+    if (this.props.isAuthenticated) {
+      this.setState({
+        error: null,
+        isSignupAttempt: false,
+      });
+      this.props.history.push("/profile");
+    }
+  }
+
   onFormSubmit = async (event) => {
     //todo make api call to localhost:4000/users/
+    this.setState({
+      isOpen: false,
+    });
+    this.setState({ error: null, isLoading: false });
     event.preventDefault();
     console.log("hello ");
 
     const enrolmentNo = this.state.user.enrolmentNo;
     let user = this.state.user;
     user.id = enrolmentNo;
+    user.type = this.state.isGuide ? "guide" : "student";
 
     console.log(enrolmentNo);
 
@@ -74,20 +95,46 @@ class SignupForm extends React.Component {
     if (!this.props.isAuthenticated) {
       this.setState({
         error: this.props.message,
+        isLoading: false,
       });
     }
-
-    /*axios
-      .post("http://localhost:4000/users", this.state.user)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });*/
   };
 
   render() {
+    const departments = [
+      {
+        value: "CO",
+        label: "CO",
+      },
+      {
+        value: "IT",
+        label: "IT",
+      },
+      {
+        value: "MCA",
+        label: "MCA",
+      },
+      {
+        value: "EE",
+        label: "EE",
+      },
+      {
+        value: "EC",
+        label: "EC",
+      },
+      {
+        value: "IC",
+        label: "IC",
+      },
+      {
+        value: "TT",
+        label: "TT",
+      },
+      {
+        value: "CH",
+        label: "CH",
+      },
+    ];
     return (
       <div className="signup-form-container container border-b">
         <div className="signup-form-content flex flex-col sm:flex-row   ">
@@ -102,7 +149,7 @@ class SignupForm extends React.Component {
             </div>
           </div>
 
-          <div className="signup-form-content--right flex-1 bg-gray-100 p-4 justify-center">
+          <div className="signup-form-content--right flex-1 bg-gray-100 p-4 justify-center pl-16">
             <div className="about-info">
               <div className="text-center mb-4 mt-4">
                 <Typography variant="h4">ProShowCase</Typography>
@@ -123,34 +170,73 @@ class SignupForm extends React.Component {
                 />
 
                 <div className="flex flex-row ">
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    type="email"
-                    helperText={
-                      this.state.error !== null ? this.state.error : ""
-                    }
-                    onChange={this.handleInputChange}
-                    autoFocus
-                    validate
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="phone"
-                    label="Phone Number"
-                    name="phone"
-                    onChange={this.handleInputChange}
-                    autoFocus
-                  />
+                  <div className="flex-1 w-1/2 mr-4">
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                      type="email"
+                      onChange={this.handleInputChange}
+                      autoFocus
+                      validate
+                    />
+                  </div>
+                  <div className="flex-1 w-1/2 ">
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-row w-full">
+                  <div className="flex-1 w-1/2 mr-4">
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="phone"
+                      label="Contact"
+                      type="text"
+                      id="Contact"
+                      style={{ marginRight: "4px" }}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className="flex-1 w-1/2 justify-center items-center ">
+                    <TextField
+                      id="standard-select-currency"
+                      select
+                      fullWidth
+                      required
+                      name="dept"
+                      margin="normal"
+                      label="Department"
+                      value={this.state.user.dept}
+                      onChange={this.handleInputChange}
+                      variant="outlined"
+                    >
+                      {departments.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </div>
                 </div>
                 {this.state.isGuide === false ? (
                   <TextField
@@ -160,26 +246,13 @@ class SignupForm extends React.Component {
                     fullWidth
                     id="roll"
                     label="Enrolment Number"
-                    name="enrolmentNo"
+                    name="enrollment_no"
                     autoFocus
                     onChange={this.handleInputChange}
                   />
                 ) : (
                   ""
                 )}
-
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={this.handleInputChange}
-                />
 
                 <div className="w-5/12 h-12">
                   <Button
@@ -198,8 +271,14 @@ class SignupForm extends React.Component {
         </div>
         <Loader isLoading={this.state.isLoading} />
         {this.props.isSignupAttempt && !this.props.isAuthenticated ? (
-          <Snackbar text={this.props.message} type="error" />
-        ) : null}
+          <Snackbar
+            key={this.props.isSignupAttempt}
+            text={this.props.message}
+            type="error"
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }

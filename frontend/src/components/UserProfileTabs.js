@@ -21,7 +21,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={2}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -45,6 +45,7 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    height: "100%",
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -72,6 +73,7 @@ export default function UserProfileTabs(props) {
           <Tab value="two" label={"My Project"} {...a11yProps("two")} />
         </Tabs>
       </AppBar>
+      <div></div>
       <TabPanel value={value} index="one">
         <UserProfile {...props} />
       </TabPanel>

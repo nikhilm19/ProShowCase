@@ -10,7 +10,7 @@ class SignUpUserChoice extends React.Component {
 
   render() {
     return (
-      <div className="signup-choice-container  w-full flex justify-center h-auto ">
+      <div className="signup-choice-container  w-full flex justify-center sm:h-full h-auto sm:p-8">
         <div className="signup-choice-content flex flex-col w-10/12 justify-center items-center sm:flex-row mt-2 mb-10 ">
           <div className="signup-choice-content--student  w-full">
             <div className=" flex justify-center flex-col items-center">
@@ -22,7 +22,7 @@ class SignUpUserChoice extends React.Component {
               </div>
               <div className="flex flex-col justify-center">
                 <div className="mb-4">
-                  <h1 className="text-2xl text-blue-900 font-medium lg:text-4xl">
+                  <h1 className="text-2xl text-blue-900 lg:text-4xl font-display">
                     I am a Student
                   </h1>
                 </div>
@@ -45,12 +45,12 @@ class SignUpUserChoice extends React.Component {
                 <img
                   src="/images/undraw_teacher_35j2.png"
                   className=""
-                  style={{ width:"80%",height: "200px" }}
+                  style={{ width: "90%", height: "220px" }}
                 ></img>
               </div>
               <div className="flex flex-col justify-center">
                 <div className="mb-4">
-                  <h1 className="text-2xl text-blue-900 font-medium lg:text-4xl">
+                  <h1 className="text-2xl text-blue-900  lg:text-4xl font-display">
                     I am a Guide
                   </h1>
                 </div>

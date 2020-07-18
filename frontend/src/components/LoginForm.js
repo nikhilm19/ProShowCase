@@ -22,6 +22,7 @@ import Loader from "./Loader";
 import ShadowBox from "./Shadow";
 import UserProfileTabs from "./UserProfileTabs";
 import history from "../history";
+import Snackbar from "./Snackbar";
 class loginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -165,6 +166,15 @@ class loginForm extends React.Component {
           </div>
         </div>
         <Loader isLoading={this.state.isLoading} />
+        {this.props.isLoginAttempt && !this.props.isAuthenticated ? (
+          <Snackbar
+            key={this.props.isSignupAttempt}
+            text={this.props.message}
+            type="error"
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }
@@ -177,6 +187,7 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.authReducer.currentUser,
     message: state.authReducer.message,
     isAuthenticated: state.authReducer.isAuthenticated,
+    isLoginAttempt: state.authReducer.isLoginAttempt,
   };
 };
 export default connect(mapStateToProps, { signInUser })(loginForm);

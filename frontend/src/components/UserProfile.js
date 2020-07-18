@@ -1,6 +1,7 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
+import TextField from "@material-ui/core/TextField";
 
 import { connect } from "react-redux";
 import { signInUser } from "../actions/index";
@@ -37,39 +38,86 @@ class UserProfile extends React.Component {
       return <Loader isLoading={true} />;
     } else
       return (
-        <div>
-          <div>
+        <div className="flex flex-col sm:flex-row justify-center items-center">
+          <div className="w-6/12">
             <img
-              src="/images/user-profile-bg.jpg"
-              className="w-11/12 h-64 mx-auto"
+              src="/images/undraw_account_490v.png"
+              className="h-full w-full"
+              style={{ height: "100%" }}
             />
           </div>
 
-          <div className="z-10">
+          <div className="z-10 flex flex-col  justify-center">
             <div className="w-full ">
-              <Avatar className=" mx-auto -mt-8 ">NV</Avatar>
-              <h1 className="text-3xl w-full text-center ">
-                {this.state.user.name}
-              </h1>
-              <h1 className="text-xl w-auto text-center">
-                Email: {this.state.user.email}
-              </h1>
+              <Avatar className=" mx-auto ">
+                {this.state.user.name ? this.state.user.name[0] : ""}
+              </Avatar>
+              <div className="m-2">
+                <TextField
+                  value={this.state.user.name}
+                  variant="outlined"
+                  label="Name"
+                  disabled
+                  className="m-2"
+                />
+              </div>
+              <div className="m-2">
+                {" "}
+                <TextField
+                  value={this.state.user.email}
+                  variant="outlined"
+                  label="Email"
+                  disabled
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="mx-auto w-full flex flex-col justify-center">
-            <h1 className="text-xl w-auto text-center">
-              Roll No: {this.state.user.enrollment_no}
-            </h1>
-            <h1 className="text-xl w-auto text-center">
-              Department: {this.state.user.dept}
-            </h1>
-            <h1 className="text-xl w-auto text-center">
-              Grad Year: {this.state.user.grad_year}
-            </h1>
-            <h1 className="text-xl w-auto text-center">
-              UserName: {this.state.user.username}
-            </h1>
+            {this.state.user.type === "student" ? (
+              <div className="mx-auto w-full flex flex-col justify-center">
+                <div className="m-2">
+                  <TextField
+                    value={this.state.user.enrollment_no}
+                    variant="outlined"
+                    label="enrollment_no"
+                    disabled
+                  />
+                </div>
+                <div className="m-2">
+                  <TextField
+                    value={this.state.user.dept}
+                    variant="outlined"
+                    label="Department"
+                    disabled
+                  />
+                </div>
+                <div className="m-2">
+                  <TextField
+                    value={this.state.user.grad_year}
+                    variant="outlined"
+                    label="Batch"
+                    disabled
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="mx-auto w-full flex flex-col justify-center">
+                <div className="m-2">
+                  <TextField
+                    value={this.state.user.phone}
+                    variant="outlined"
+                    label="Phone Number"
+                    disabled
+                  />
+                </div>
+                <div className="m-2">
+                  <TextField
+                    value={this.state.user.dept}
+                    variant="outlined"
+                    label="Department"
+                    disabled
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       );

@@ -13,7 +13,7 @@ auth.post("/register", function (req, res, next) {
     let newUser = {
       type: req.body.type,
       email: req.body.email,
-      name: req.body.email,
+      name: req.body.name,
       phone: req.body.phone,
       username: req.body.username,
       dept: req.body.dept,
@@ -24,7 +24,7 @@ auth.post("/register", function (req, res, next) {
       newUser.enrollment_no = req.body.enrollment_no;
       newUser.grad_year = req.body.grad_year;
     }
-    User.register(new User(req.body), req.body.password, function (
+    User.register(new User(newUser), req.body.password, function (
       err,
       account
     ) {
@@ -41,18 +41,22 @@ auth.post("/register", function (req, res, next) {
           const token = jwt.sign({ account }, "trumpsuks", { expiresIn: "1h" });
           console.log(token);
 
-          const message = {
+          let message = {
             user: {
               id: account._id,
               type: account.type,
               email: account.email,
-              name: account.email,
+              name: account.name,
               phone: account.phone,
               username: account.username,
               dept: account.dept,
               shift: account.shift,
             },
           };
+          if (newUser.type === "student") {
+            message.user.enrollment_no = account.enrollment_no
+            message.user.grad_year = req.body.grad_year;
+          }
 
           return res
             .cookie("token", token, { httpOnly: false })

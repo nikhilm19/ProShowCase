@@ -64,7 +64,11 @@ class App extends React.Component {
   }
 
   renderRedirect = () => {
-    if (this.props.isAuthenticated === undefined) {
+    if (
+      this.props.isAuthenticated === undefined &&
+      history.location.pathname.startsWith("/signup") &&
+      history.location.pathname.startsWith("/login")
+    ) {
       return <Redirect to="/" />;
     }
   };

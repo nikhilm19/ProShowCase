@@ -415,7 +415,7 @@ ul {
  */
 
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 1 */
+  font-family: -apple-system, BlinkMacSystemFont; /* 1 */
   line-height: 1.5; /* 2 */
 }
 
@@ -555,7 +555,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: SFMono-Regular, Menlo;
 }
 
 /**
@@ -6050,15 +6050,23 @@ video {
 }
 
 .font-sans {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont;
 }
 
 .font-serif {
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: Georgia, Cambria;
 }
 
 .font-mono {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: SFMono-Regular, Menlo;
+}
+
+.font-display {
+  font-family: Roboto Slab, IBM Plex Sans;
+}
+
+.font-body {
+  font-family: Open Sans;
 }
 
 .font-hairline {
@@ -23296,15 +23304,23 @@ video {
   }
 
   .sm\:font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont;
   }
 
   .sm\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-family: Georgia, Cambria;
   }
 
   .sm\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: SFMono-Regular, Menlo;
+  }
+
+  .sm\:font-display {
+    font-family: Roboto Slab, IBM Plex Sans;
+  }
+
+  .sm\:font-body {
+    font-family: Open Sans;
   }
 
   .sm\:font-hairline {
@@ -40543,15 +40559,23 @@ video {
   }
 
   .md\:font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont;
   }
 
   .md\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-family: Georgia, Cambria;
   }
 
   .md\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: SFMono-Regular, Menlo;
+  }
+
+  .md\:font-display {
+    font-family: Roboto Slab, IBM Plex Sans;
+  }
+
+  .md\:font-body {
+    font-family: Open Sans;
   }
 
   .md\:font-hairline {
@@ -57790,15 +57814,23 @@ video {
   }
 
   .lg\:font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont;
   }
 
   .lg\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-family: Georgia, Cambria;
   }
 
   .lg\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: SFMono-Regular, Menlo;
+  }
+
+  .lg\:font-display {
+    font-family: Roboto Slab, IBM Plex Sans;
+  }
+
+  .lg\:font-body {
+    font-family: Open Sans;
   }
 
   .lg\:font-hairline {
@@ -75037,15 +75069,23 @@ video {
   }
 
   .xl\:font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont;
   }
 
   .xl\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-family: Georgia, Cambria;
   }
 
   .xl\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: SFMono-Regular, Menlo;
+  }
+
+  .xl\:font-display {
+    font-family: Roboto Slab, IBM Plex Sans;
+  }
+
+  .xl\:font-body {
+    font-family: Open Sans;
   }
 
   .xl\:font-hairline {

@@ -24,6 +24,9 @@ import { useDispatch } from "react-redux";
 import { logOut } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
+  content: {
+    height: "100vh",
+  },
   appbar: {
     backgroundColor: "#3c366b",
     color: "white",
@@ -94,6 +97,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
+
+  const isSignup =
+    props.history.location.pathname.startsWith("/signup") ||
+    props.history.location.pathname.startsWith("/login");
 
   const [open, setOpenDrawer] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -204,7 +211,7 @@ export default function PrimarySearchAppBar(props) {
               ProShowCase
             </Typography>
           </Link>
-          {props.currentUser ? (
+          {props.isAuthenticated ? (
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -220,7 +227,7 @@ export default function PrimarySearchAppBar(props) {
             </div>
           ) : null}
           <div className={classes.grow} />
-          {props.currentUser ? (
+          {props.isAuthenticated ? (
             <div className={classes.sectionDesktop}>
               <IconButton
                 edge="end"
@@ -235,39 +242,45 @@ export default function PrimarySearchAppBar(props) {
             </div>
           ) : null}
 
-          {props.currentUser ? (
-            <div className={classes.sectionMobile}>
-              <IconButton
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </div>
-          ) : (
-            <div className="flex flex-row">
-              <Link to="/signup" className="mr-2">
-                {" "}
-                <button class="w-full flex items-center justify-center px-2 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-10">
-                  Signup
-                </button>
-              </Link>
-              <Link to="/login">
-                {" "}
-                <button class="w-full flex items-center justify-center px-2 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-10">
-                  Login
-                </button>
-              </Link>
-            </div>
-          )}
+          {
+            props.isAuthenticated ? (
+              <div className={classes.sectionMobile}>
+                <IconButton
+                  aria-label="show more"
+                  aria-controls={mobileMenuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <MoreIcon />
+                </IconButton>
+              </div>
+            ) : isSignup ? (
+              ""
+            ) : (
+              <div className="flex flex-row">
+                <Link to="/signup" className="mr-2">
+                  {" "}
+                  <button class="w-full flex items-center justify-center px-2 py-1 border border-transparent text-base leading-6 font-small rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-600 hover:text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-10">
+                    Signup
+                  </button>
+                </Link>
+                <Link to="/login">
+                  {" "}
+                  <button class="w-full flex items-center justify-center px-2 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-10">
+                    Login
+                  </button>
+                </Link>
+              </div>
+            )
+
+            /**/
+          }
         </Toolbar>
       </AppBar>
       <NavDrawer isDrawerOpen={open} handleDrawerClose={toggleDrawer} />
-      {renderMobileMenu}
-      {props.currentUser ? renderMenu : null}
+      {props.isAuthenticated ? renderMobileMenu : null}
+      {props.isAuthenticated ? renderMenu : null}
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.children}
