@@ -40,6 +40,9 @@ const fetchCurrentUser = (state, action) => {
   };
 };
 const signup = (state, action) => {
+
+
+  ///add current user over here if the auth is successfull 
   return {
     ...state,
     isSignupAttempt: true,

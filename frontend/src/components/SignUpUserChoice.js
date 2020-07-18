@@ -11,18 +11,18 @@ class SignUpUserChoice extends React.Component {
   render() {
     return (
       <div className="signup-choice-container  w-full flex justify-center h-auto ">
-        <div className="signup-choice-content flex flex-col w-10/12 justify-center items-center sm:flex-row mt-10 ">
+        <div className="signup-choice-content flex flex-col w-10/12 justify-center items-center sm:flex-row mt-2 mb-10 ">
           <div className="signup-choice-content--student  w-full">
             <div className=" flex justify-center flex-col items-center">
               <div className="w-full flex justify-center lg:w-8/12 w-full">
                 <img
                   src="/images/undraw_exams_g4ow.png"
-                  style={{ width: "100%", height: "270px" }}
+                  style={{ width: "80%", height: "220px" }}
                 ></img>
               </div>
               <div className="flex flex-col justify-center">
                 <div className="mb-4">
-                  <h1 className="text-2xl text-blue-900 font-mono lg:text-4xl">
+                  <h1 className="text-2xl text-blue-900 font-medium lg:text-4xl">
                     I am a Student
                   </h1>
                 </div>
@@ -30,7 +30,7 @@ class SignUpUserChoice extends React.Component {
                   <Shadow>
                     <button
                       onClick={() => this.props.history.push("/signup/student")}
-                      className="hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-4 px-8 text-white"
+                      className="hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-2 px-8 text-white"
                     >
                       Join Now!
                     </button>
@@ -45,12 +45,12 @@ class SignUpUserChoice extends React.Component {
                 <img
                   src="/images/undraw_teacher_35j2.png"
                   className=""
-                  style={{ height: "270px" }}
+                  style={{ width:"80%",height: "200px" }}
                 ></img>
               </div>
               <div className="flex flex-col justify-center">
                 <div className="mb-4">
-                  <h1 className="text-2xl text-blue-900 font-mono lg:text-4xl">
+                  <h1 className="text-2xl text-blue-900 font-medium lg:text-4xl">
                     I am a Guide
                   </h1>
                 </div>
@@ -58,7 +58,7 @@ class SignUpUserChoice extends React.Component {
                   <Shadow>
                     <button
                       onClick={() => this.props.history.push("/signup/guide")}
-                      className="hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-4 px-8 text-white"
+                      className="hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-2 px-8 text-white"
                     >
                       Join Now!
                     </button>

@@ -89,11 +89,11 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className="signup-form-container container p-4 border-b">
-        <div className="signup-form-content flex flex-col sm:flex-row shadow-2xl  ">
+      <div className="signup-form-container container border-b">
+        <div className="signup-form-content flex flex-col sm:flex-row   ">
           <div className="signup-form-content--left w-full sm:w-7/12">
             <div className="signup-form-content--left container">
-              <div className="signup-form-content--left-content border-r-2 border-solid border-gray-500  h-full">
+              <div className="signup-form-content--left-content border-r-2 border-solid border-gray-500  h-0 sm:h-full">
                 <img
                   src="/images/undraw_access_account_99n5.png"
                   className=""
@@ -179,10 +179,6 @@ class SignupForm extends React.Component {
                   id="password"
                   autoComplete="current-password"
                   onChange={this.handleInputChange}
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
                 />
 
                 <div className="w-5/12 h-12">
