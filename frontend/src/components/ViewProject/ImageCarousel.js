@@ -149,7 +149,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
   },
 }));
 
-const ParallaxCarousel = () => {
+const ParallaxCarousel = (props) => {
   const classes = useStyles();
   const arrowStyles = useArrowDarkButtonStyles();
   const createStyle = (slideIndex, fineIndex) => {
@@ -189,11 +189,12 @@ const ParallaxCarousel = () => {
       </div>
     </>
   );
+
   const renderChildren = ({ injectStyle, fineIndex }) =>
-    data.map(({ id, title, subtitle, image }, i) => (
-      <div key={id} className={classes.slide}>
+    props.data.map(({  imageUrl, imageAlt}, i) => (
+      <div  className={classes.slide}>
         <div className={classes.imageContainer}>
-          <img className={classes.image} src={image} alt={"slide"} />
+          <img className={classes.image} src={imageUrl} alt={imageAlt} />
         </div>
       </div>
     ));

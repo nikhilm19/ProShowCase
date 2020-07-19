@@ -70,7 +70,7 @@ class Team extends React.Component {
                 />
                 <div class="flex-grow">
                   <h2 class="text-gray-900 title-font font-medium">
-                    {this.state.guide}
+                    {guide.name}
                   </h2>
                   <p class="text-gray-500">The guide!</p>
                 </div>
@@ -135,10 +135,10 @@ class Team extends React.Component {
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
-        <div className="w-auto flex justify-center flex-col p-8">
+        <div className="w-auto flex justify-center flex-col">
           <div className="flex flex-col ">
             <div className="flex flex-row ">
-              <div className="m-2">
+              <div className="mr-2">
                 <TeamMemberDialog
                   dialogTitle="Add Guide"
                   type="guide"
@@ -150,17 +150,7 @@ class Team extends React.Component {
                 />
               </div>
 
-              <div className="m-2">
-                {/*<Field
-                  component={TeamMemberDialog}
-                  {...{
-                    dialogTitle: "Add Team Member",
-                    isMultiple: true,
-                    fetchUsers: { this.fetchUsers},
-                    dialogText: "Please add your teammate here",
-                    onAddMember: { onAddMember },
-                  }}
-                />*/}
+              <div className="">
                 <TeamMemberDialog
                   dialogTitle="Add Team Member"
                   isMultiple={true}
@@ -183,7 +173,7 @@ class Team extends React.Component {
           )}
 
           <div className="mt-8">
-            <Button variant="outlined" color="primary" type="submit">
+            <Button variant="outlined" color="secondary" type="submit">
               Submit
             </Button>
           </div>

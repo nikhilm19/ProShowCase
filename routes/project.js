@@ -70,14 +70,20 @@ projectsRoute.route("/").post(function (req, res) {
   }
 
   req.body.keywords = keywords;
+
   console.log(req.body);
   let project = new Project(req.body);
 
   project
     .save()
     .then(async (doc) => {
+      let emails = [];
+
+      doc.teamMembers.map((user) => {
+        emails.push(user.email);
+      });
       const users = await User.find({
-        email: { $in: doc.teamMembers },
+        email: { $in: emails },
       });
       users.map((user) => {
         user.project.push(doc.id);
@@ -85,7 +91,7 @@ projectsRoute.route("/").post(function (req, res) {
         user.save();
       });
       const guide = await User.find({
-        email: doc.guide,
+        email: doc.guide.email,
       });
 
       guide[0].project.push(doc.id);

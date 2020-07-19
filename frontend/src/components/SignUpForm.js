@@ -40,6 +40,14 @@ class SignupForm extends React.Component {
         email: "",
         password: "",
       },
+      formValidation: {
+        enrollment_no: { isValid: true },
+        email: { isValid: true },
+        password: { isValid: true },
+        phone: { isValid: true },
+        grad_year: { isValid: true },
+      },
+      isValid: true,
     };
   }
 
@@ -66,6 +74,32 @@ class SignupForm extends React.Component {
     }
   }
 
+  isValid = (user) => {
+    console.log(user);
+    let error = this.state.formValidation;
+    var isValid = true;
+    if (user.enrollment_no.length !== 12 && user.type === "student") {
+      error.enrollment_no.text = "Enrolment number should be 12 digits long";
+      error.enrollment_no.isValid = false;
+      isValid = false;
+    }
+    if (user.phone.length !== 10) {
+      error.phone.text = "Phone number should be 10 digits long";
+      error.phone.isValid = false;
+      isValid = false;
+    }
+    if (user.password.length <= 6) {
+      error.password.text = "Password should be atleast 6 char long";
+      error.password.isValid = false;
+      isValid = false;
+    }
+
+    console.log(error);
+
+    this.setState({ formValidation: error, isValid: isValid });
+    return isValid;
+  };
+
   onFormSubmit = async (event) => {
     //todo make api call to localhost:4000/users/
     this.setState({
@@ -87,14 +121,20 @@ class SignupForm extends React.Component {
       isLoading: true,
     });
 
+    const isValid = this.isValid(this.state.user);
+
     console.log(this.state);
-    const { cookies } = this.props;
-
-    this.props.signUpUser(user, cookies);
-
-    if (!this.props.isAuthenticated) {
+    if (isValid) {
+      const { cookies } = this.props;
+      this.props.signUpUser(user, cookies);
+      if (!this.props.isAuthenticated) {
+        this.setState({
+          error: this.props.message,
+          isLoading: false,
+        });
+      }
+    } else {
       this.setState({
-        error: this.props.message,
         isLoading: false,
       });
     }
@@ -136,10 +176,10 @@ class SignupForm extends React.Component {
       },
     ];
     return (
-      <div className="signup-form-container container border-b">
-        <div className="signup-form-content flex flex-col sm:flex-row   ">
-          <div className="signup-form-content--left w-full sm:w-7/12">
-            <div className="signup-form-content--left container">
+      <div className="signup-form-container  border-b h-full">
+        <div className="signup-form-content flex flex-col sm:flex-row   h-full">
+          <div className="signup-form-content--left w-full sm:w-7/12 h-full">
+            <div className="signup-form-content--left container h-full">
               <div className="signup-form-content--left-content border-r-2 border-solid border-gray-500  h-0 sm:h-full">
                 <img
                   src="/images/undraw_access_account_99n5.png"
@@ -149,14 +189,20 @@ class SignupForm extends React.Component {
             </div>
           </div>
 
-          <div className="signup-form-content--right flex-1 bg-gray-100 p-4 justify-center pl-16">
+          <div className="signup-form-content--right w-5/12 flex flex-col flex-1 bg-gray-100 pt-8 justify-start items-center ">
             <div className="about-info">
-              <div className="text-center mb-4 mt-4">
-                <Typography variant="h4">ProShowCase</Typography>
+              <div className="text-center mb-2 ">
+                <h1 className="text-4xl font-title text-purple-700">
+                  ProShowCase
+                </h1>
               </div>
             </div>
-            <div className="flex mt-4">
-              <form validate onSubmit={this.onFormSubmit}>
+            <div className="flex mt-4 justify-center w-full">
+              <form
+                validate
+                onSubmit={this.onFormSubmit}
+                className="flex justify-center flex-col"
+              >
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -172,11 +218,13 @@ class SignupForm extends React.Component {
                 <div className="flex flex-row ">
                   <div className="flex-1 w-1/2 mr-4">
                     <TextField
+                      error={!this.state.formValidation.email.isValid}
                       variant="outlined"
                       margin="normal"
                       required
                       fullWidth
                       id="email"
+                      helperText={this.state.formValidation.email.text}
                       label="Email Address"
                       name="email"
                       autoComplete="email"
@@ -190,7 +238,9 @@ class SignupForm extends React.Component {
                     <TextField
                       variant="outlined"
                       margin="normal"
+                      error={!this.state.formValidation.password.isValid}
                       required
+                      helperText={this.state.formValidation.password.text}
                       fullWidth
                       name="password"
                       label="Password"
@@ -205,10 +255,12 @@ class SignupForm extends React.Component {
                 <div className="flex flex-row w-full">
                   <div className="flex-1 w-1/2 mr-4">
                     <TextField
+                      error={!this.state.formValidation.phone.isValid}
                       variant="outlined"
                       margin="normal"
                       required
                       fullWidth
+                      helperText={this.state.formValidation.phone.text}
                       name="phone"
                       label="Contact"
                       type="text"
@@ -239,17 +291,42 @@ class SignupForm extends React.Component {
                   </div>
                 </div>
                 {this.state.isGuide === false ? (
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="roll"
-                    label="Enrolment Number"
-                    name="enrollment_no"
-                    autoFocus
-                    onChange={this.handleInputChange}
-                  />
+                  <div className="flex flex-row w-full">
+                    <div className="flex-1 w-1/2 justify-center items-center mr-4">
+                      {" "}
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        error={!this.state.formValidation.enrollment_no.isValid}
+                        fullWidth
+                        id="roll"
+                        label="Enrolment Number"
+                        helperText={
+                          this.state.formValidation.enrollment_no.text
+                        }
+                        name="enrollment_no"
+                        autoFocus
+                        onChange={this.handleInputChange}
+                      />
+                    </div>
+                    <div className="flex-1 w-1/2 justify-center items-center ">
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        error={!this.state.formValidation.grad_year.isValid}
+                        fullWidth
+                        type="number"
+                        id="grad_year"
+                        label="Batch of "
+                        helperText={this.state.formValidation.grad_year.text}
+                        name="grad_year"
+                        autoFocus
+                        onChange={this.handleInputChange}
+                      />
+                    </div>
+                  </div>
                 ) : (
                   ""
                 )}

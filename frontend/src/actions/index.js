@@ -13,21 +13,24 @@ export const imageUpload = (data) => {
   return { type: "UPLOAD_IMAGES", payload: data };
 };
 
-export const createProject = (formValues, members, guide) => async (
-  dispatch,
-  getState
-) => {
+export const createProject = (
+  formValues,
+  members,
+  guide,
+  implementationSnaps
+) => async (dispatch, getState) => {
   //const { userId } = getState().auth;
   console.log("action dispatched" + formValues);
   formValues.teamMembers = members;
   formValues.guide = guide;
-  console.log("formvals" + JSON.stringify(formValues));
+  formValues.implementationSnaps = implementationSnaps;
+  console.log("formvals", formValues);
   const res = await projects.post("/", { ...formValues });
   console.log(res);
   const data = res.data;
   const { _id } = res.data;
 
-  history.push(`project/view/${_id}`);
+  history.push(`/project/view/${_id}`);
 
   dispatch({ type: "CREATE_PROJECT", payload: res.data });
 };

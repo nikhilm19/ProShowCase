@@ -8,6 +8,8 @@ const logout = (state, action) => {
     ...state,
     currentUser: null,
     isAuthenticated: false,
+    isLoginAttempt: 0,
+    isSignupAttempt: 0,
   };
 };
 

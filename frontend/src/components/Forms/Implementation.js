@@ -6,8 +6,9 @@ import Button from "@material-ui/core/Button";
 import { Field, reduxForm } from "redux-form";
 import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import renderField from "../renderField";
+import { connect } from "react-redux";
 
+import renderField from "../renderField";
 import ImageUpload from "../ImageUpload";
 
 class WizardFormSecondPage extends React.Component {
@@ -93,7 +94,7 @@ class WizardFormSecondPage extends React.Component {
             <TextField
               {...params}
               variant="outlined"
-              placeholder="Choose Multiple Technologies"
+              placeholder="Choose Technologies"
               fullWidth
             />
           )}
@@ -113,14 +114,15 @@ class WizardFormSecondPage extends React.Component {
               label="technologies"
               name="technologies"
             />
-            <div className="mt-4 mb-4 ">
+            <div className="mt-2 mb-4 ">
               <Field
                 label="Repository"
                 id="repo"
                 name="githubRepo"
                 component={this.createInput}
               ></Field>
-
+            </div>
+            <div className="mt-2 mb-4 ">
               <Field
                 label="Images"
                 id="snaps"
@@ -130,7 +132,7 @@ class WizardFormSecondPage extends React.Component {
               ></Field>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-4">
               <Button variant="outlined" color="primary" type="submit">
                 Next
               </Button>

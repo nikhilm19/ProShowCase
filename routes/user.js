@@ -36,9 +36,20 @@ userRoute.route("/profile").get(function (req, res, next) {
       } else {
         req.decoded = decoded;
         console.log(decoded);
-        return res.json({
-          success: true,
-          message: decoded,
+        let email;
+        if (decoded.account) {
+          email = decoded.account.email;
+        } else email = decoded.user.email;
+
+        User.findOne({ email: email }, function (err, user) {
+          if (err) {
+            return res.status(400);
+          }
+
+          console.log("user=", user);
+
+          decoded.account = user;
+          return res.status(200).json({ success: true, message: decoded });
         });
       }
     });

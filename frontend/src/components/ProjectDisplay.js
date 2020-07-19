@@ -67,13 +67,19 @@ class ProjectDisplay extends React.Component {
             </div>
           </div>
           <div class="flex flex-wrap ">
-            {this.state.projects.map((project) => {
-              return (
-                <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
-                  <ProjectCard project={project} {...this.props} />
-                </div>
-              );
-            })}
+            {this.props.currentUser.type === "guide" ? (
+              this.state.projects.map((project) => {
+                return (
+                  <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
+                    <ProjectCard project={project} {...this.props} />
+                  </div>
+                );
+              })
+            ) : (
+              <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
+                <ProjectCard project={this.state.project} {...this.props} />
+              </div>
+            )}
           </div>
         </div>
       </section>

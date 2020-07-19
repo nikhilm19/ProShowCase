@@ -1,7 +1,7 @@
 const setFileUploadedData = (state, action) => {
   return {
     ...state,
-    imageFiles: action.payload,
+    implementationSnaps: action.payload,
   };
 };
 const uploadProjectData = (state, action) => {

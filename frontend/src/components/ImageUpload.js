@@ -40,16 +40,67 @@ class ImageUpload extends Component {
       open: true,
     });
   }
+  openWidget = () => {
+    // create the widget
+    window.cloudinary
+      .createUploadWidget(
+        {
+          cloudName: "dob7cybfl",
+          uploadPreset: "ctfgyj5o",
+          folder: "proshowcase",
+          multiple: true,
+          styles: {
+            palette: {
+              window: "#FFFFFF",
+              windowBorder: "#FFFFFF",
+              tabIcon: "#0078FF",
+              menuIcons: "#5A616A",
+              textDark: "#000000",
+              textLight: "#FFFFFF",
+              link: "#0078FF",
+              action: "#FF620C",
+              inactiveTabIcon: "#0E2F5A",
+              error: "#F44235",
+              inProgress: "#0078FF",
+              complete: "#20B832",
+              sourceBg: "#1D194E",
+            },
+            fonts: {
+              default: null,
+              "'Fira Sans', sans-serif": {
+                url: "https://fonts.googleapis.com/css?family=Fira+Sans",
+                active: true,
+              },
+            },
+          },
+        },
+        (error, result) => {
+          if (result.event === "success") {
+            this.setState((prevState) => ({
+              files: [
+                ...prevState.files,
+                {
+                  imageUrl: result.info.secure_url,
+                  imageAlt: `An image of ${result.info.original_filename}`,
+                },
+              ],
+            }));
+
+            this.props.imageUpload(this.state.files);
+          }
+        }
+      )
+      .open(); // open up the widget after creation
+  };
 
   render() {
+    const { files } = this.state;
     return (
       <div>
-        <DropzoneArea
-          dropzoneText="Drop your implementation snaps here!"
-          useChipsForPreview
-          previewGridProps={{ container: { spacing: 1, direction: "row" } }}
-          onChange={this.handleChange}
-        />
+        <p>{files.length !== 0 ? files[0].secure_url : ""}</p>
+        <Button variant="outlined" color="primary" onClick={this.openWidget}>
+          Add Photos
+        </Button>
       </div>
     );
   }

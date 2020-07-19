@@ -1,15 +1,69 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import StepContent from "@material-ui/core/StepContent";
+import StepConnector from "@material-ui/core/StepConnector";
+const QontoConnector = withStyles({
+  alternativeLabel: {
+    top: 10,
+  },
+  active: {
+    "& $line": {
+      borderColor: "#784af4",
+    },
+  },
+  completed: {
+    "& $line": {
+      borderColor: "#784af4",
+    },
+  },
+  line: {
+    borderColor: "#eaeaf0",
+    borderLeftWidth: 3,
 
+    borderRadius: 1,
+  },
+})(StepConnector);
+
+const useQontoStepIconStyles = makeStyles({
+  root: {
+    color: "#eaeaf0",
+    display: "flex",
+
+    alignItems: "center",
+  },
+  active: {
+    color: "#784af4",
+  },
+  circle: {
+    width: 8,
+    height: 8,
+    borderRadius: "50%",
+    backgroundColor: "currentColor",
+  },
+  completed: {
+    color: "#784af4",
+    zIndex: 1,
+    fontSize: 18,
+  },
+});
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    height: "100%",
+    [theme.breakpoints.up("sm")]: {},
   },
+  connector: {
+    borderColor: "#784af4",
+  },
+  stepper: {
+    width: "100%",
+  },
+
   button: {
     marginRight: theme.spacing(1),
   },
@@ -27,19 +81,6 @@ function getSteps() {
     "Team Details",
     "Done!",
   ];
-}
-
-function getStepContent(step) {
-  switch (step) {
-    case 1:
-      return "Select campaign settings...";
-    case 2:
-      return "What is an ad group anyways?";
-    case 3:
-      return "This is the bit I really care about!";
-    default:
-      return "Unknown step";
-  }
 }
 
 export default function HorizontalLinearStepper(props) {
@@ -70,7 +111,7 @@ export default function HorizontalLinearStepper(props) {
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={props.activeStep - 1}>
+      <Stepper activeStep={props.activeStep - 1} orientation="vertical">
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
@@ -81,11 +122,15 @@ export default function HorizontalLinearStepper(props) {
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
+              <StepContent>
+                <div className="flex justify-center w-full">
+                  {props.children}
+                </div>
+              </StepContent>
             </Step>
           );
         })}
       </Stepper>
-      <div></div>
     </div>
   );
 }

@@ -10,7 +10,7 @@ class SignUpUserChoice extends React.Component {
 
   render() {
     return (
-      <div className="signup-choice-container  w-full flex justify-center sm:h-full h-auto sm:p-8">
+      <div className="signup-choice-container  w-full flex justify-center sm:h-screen h-auto sm:p-8">
         <div className="signup-choice-content flex flex-col w-10/12 justify-center items-center sm:flex-row mt-2 mb-10 ">
           <div className="signup-choice-content--student  w-full">
             <div className=" flex justify-center flex-col items-center">

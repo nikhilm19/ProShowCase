@@ -6069,6 +6069,10 @@ video {
   font-family: Open Sans;
 }
 
+.font-title {
+  font-family: Rubik;
+}
+
 .font-hairline {
   font-weight: 100;
 }
@@ -23321,6 +23325,10 @@ video {
 
   .sm\:font-body {
     font-family: Open Sans;
+  }
+
+  .sm\:font-title {
+    font-family: Rubik;
   }
 
   .sm\:font-hairline {
@@ -40578,6 +40586,10 @@ video {
     font-family: Open Sans;
   }
 
+  .md\:font-title {
+    font-family: Rubik;
+  }
+
   .md\:font-hairline {
     font-weight: 100;
   }
@@ -57833,6 +57845,10 @@ video {
     font-family: Open Sans;
   }
 
+  .lg\:font-title {
+    font-family: Rubik;
+  }
+
   .lg\:font-hairline {
     font-weight: 100;
   }
@@ -75086,6 +75102,10 @@ video {
 
   .xl\:font-body {
     font-family: Open Sans;
+  }
+
+  .xl\:font-title {
+    font-family: Rubik;
   }
 
   .xl\:font-hairline {

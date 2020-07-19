@@ -55,7 +55,7 @@ export default function Team(props) {
             OUR TEAM
           </h1>
           <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-           We made it for the world!
+            We made it for the world!
           </p>
         </div>
         <div class="flex flex-wrap -m-4 flex-col">
@@ -69,11 +69,11 @@ export default function Team(props) {
                 />
                 <div class="flex-grow sm:pl-8">
                   <h2 class="title-font font-medium text-lg text-gray-900">
-                    {project.guide}
+                    {project.guide.name}
                   </h2>
-                  <h3 class="text-gray-500 mb-3">{project.guide}</h3>
+                  <h3 class="text-gray-500 mb-3">{project.guide.email}</h3>
                   <p class="mb-4">
-                    <a href={"mailto:" + project.guide}>
+                    <a href={"mailto:" + project.guide.email}>
                       <Button
                         variant="outlined"
                         color="primary"
@@ -100,11 +100,11 @@ export default function Team(props) {
                       />
                       <div class="w-full">
                         <h2 class="title-font font-medium text-lg text-gray-900">
-                          {member}
+                          {member.name}
                         </h2>
-                        <h3 class="text-gray-500 mb-3">{member}</h3>
+                        <h3 class="text-gray-500 mb-3">{member.name}</h3>
                         <p class="mb-4">
-                          <a href={"mailto:" + member}>
+                          <a href={"mailto:" + member.email}>
                             <Button
                               variant="outlined"
                               color="primary"
@@ -121,8 +121,6 @@ export default function Team(props) {
               );
             })}
           </div>
-
-         
         </div>
       </div>
     </section>

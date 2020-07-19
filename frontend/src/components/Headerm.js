@@ -25,7 +25,7 @@ import { logOut } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
   content: {
-    height: "100vh",
+    height: "100%",
   },
   appbar: {
     backgroundColor: "#3c366b",

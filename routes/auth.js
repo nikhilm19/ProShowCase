@@ -54,7 +54,7 @@ auth.post("/register", function (req, res, next) {
             },
           };
           if (newUser.type === "student") {
-            message.user.enrollment_no = account.enrollment_no
+            message.user.enrollment_no = account.enrollment_no;
             message.user.grad_year = req.body.grad_year;
           }
 
@@ -116,6 +116,7 @@ auth.post("/login", function (req, res, next) {
           username: user.username,
           dept: user.dept,
           shift: user.shift,
+          project: user.project,
         },
       };
 

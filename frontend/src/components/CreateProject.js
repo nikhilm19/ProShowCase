@@ -10,11 +10,11 @@ import Modules from "./Forms/Modules";
 import Team from "./Forms/Team";
 import axios from "axios";
 
-import { createProject } from "../actions/index";
+import { createProject, imageUpload } from "../actions/index";
 
 class CreateProject extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.createInput = this.createInput.bind(this);
     this.state = {
@@ -27,7 +27,13 @@ class CreateProject extends React.Component {
 
   handleSubmit = (formProps, members, guide) => {
     console.log("yes" + JSON.stringify(formProps) + JSON.stringify(members));
-    this.props.createProject(formProps, members,guide);
+    console.log(formProps);
+    this.props.createProject(
+      formProps,
+      members,
+      guide,
+      this.props.implementationSnaps
+    );
   };
 
   nextPage() {
@@ -79,33 +85,33 @@ class CreateProject extends React.Component {
 
   render() {
     return (
-      <div className="p-8">
-        <form>
-          <div className="flex flex-col w-full justify-center items-center w-full">
-            <CreateProjectSteps activeStep={this.state.page} />
-
-            <div className="flex flex-col  justify-center w-8/12">
-              {" "}
-              {this.state.page === 1 && <Abstract onSubmit={this.nextPage} />}
-              {this.state.page === 2 && (
-                <Implementation
-                  previousPage={this.previousPage}
-                  onSubmit={this.nextPage}
-                />
-              )}
-              {this.state.page === 3 && (
-                <ProjectResearch
-                  previousPage={this.previousPage}
-                  onSubmit={this.nextPage}
-                />
-              )}
-              {this.state.page === 4 && (
-                <Team
-                  previousPage={this.previousPage}
-                  onSubmit={this.handleSubmit}
-                />
-              )}
-            </div>
+      <div className="p-2 w-full flex justify-center">
+        <form className="sm:w-6/12 w-full">
+          <div className="flex flex-row w-full justify-center items-center w-7/12">
+            <CreateProjectSteps activeStep={this.state.page} className="w-7/12">
+              <div className="flex flex-col  justify-center w-full">
+                {" "}
+                {this.state.page === 1 && <Abstract onSubmit={this.nextPage} />}
+                {this.state.page === 2 && (
+                  <Implementation
+                    previousPage={this.previousPage}
+                    onSubmit={this.nextPage}
+                  />
+                )}
+                {this.state.page === 3 && (
+                  <ProjectResearch
+                    previousPage={this.previousPage}
+                    onSubmit={this.nextPage}
+                  />
+                )}
+                {this.state.page === 4 && (
+                  <Team
+                    previousPage={this.previousPage}
+                    onSubmit={this.handleSubmit}
+                  />
+                )}
+              </div>
+            </CreateProjectSteps>
           </div>
         </form>
       </div>
@@ -114,8 +120,10 @@ class CreateProject extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state);
   return {
-    project: state.project,
+    project: state.projectReducer.projectData,
+    implementationSnaps: state.projectReducer.implementationSnaps,
   };
 };
 
@@ -123,4 +131,4 @@ const form = reduxForm({
   form: "CreateProject",
 })(CreateProject);
 
-export default connect(mapStateToProps, { createProject })(form);
+export default connect(mapStateToProps, { createProject, imageUpload })(form);

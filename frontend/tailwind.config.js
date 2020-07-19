@@ -8,6 +8,7 @@ module.exports = {
       mono: ["SFMono-Regular", "Menlo"],
       display: ["Roboto Slab", "IBM Plex Sans"],
       body: ["Open Sans"],
+      title: ["Rubik"],
     },
   },
   variants: {},
