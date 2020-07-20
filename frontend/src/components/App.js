@@ -65,9 +65,12 @@ class App extends React.Component {
 
   renderRedirect = () => {
     if (
-      this.props.isAuthenticated === undefined &&
-      history.location.pathname.startsWith("/signup") &&
-      history.location.pathname.startsWith("/login")
+      (this.props.isAuthenticated === undefined ||
+        this.props.isAuthenticated === false) &&
+      !(
+        history.location.pathname.startsWith("/signup") ||
+        history.location.pathname.startsWith("/login")
+      )
     ) {
       return <Redirect to="/" />;
     }
@@ -76,7 +79,7 @@ class App extends React.Component {
     console.log(this.props);
 
     return (
-      <div className="App">
+      <div className="App ">
         <Router history={history}>
           <div className="h-auto">
             <Route

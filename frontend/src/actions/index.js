@@ -42,7 +42,12 @@ export const signInUser = (formValues, cookies) => async (
   console.log("login action dispatched" + formValues);
   const res = await auth.post("/login", { ...formValues });
 
+  console.log(res);
+
   const data = res.data;
+  if (data.success === true) {
+    localStorage.setItem("token", data.token);
+  }
   console.log(cookies);
 
   console.log("login res data" + JSON.stringify(data));
@@ -63,6 +68,7 @@ export const signUpUser = (formValues, cookies) => async (
   console.log("signup res data", data);
 
   if (data.success === true) {
+    localStorage.setItem("token", data.token);
     history.push("/profile");
   }
 
@@ -71,7 +77,35 @@ export const signUpUser = (formValues, cookies) => async (
 
 export const getProfile = (cookies) => async (dispatch, getState) => {
   const token = cookies.get("token");
-  if (token) {
+  const tokenLocal = localStorage.getItem("token");
+  if (tokenLocal) {
+    const res = await user.get("/profile", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${tokenLocal}`,
+      },
+    });
+    if (res.statusCode === 401) {
+      cookies.remove("token");
+      localStorage.removeItem("token")
+    }
+    const data = res.data;
+
+    console.log("in getProfile action");
+    console.log(data);
+    if (data) {
+      // An error will occur if the token is invalid.
+      // If this happens, you may want to remove the invalid token.
+
+      console.log(data);
+
+      dispatch({ type: "FETCH_CURRENT_USER", payload: data });
+    }
+  }
+
+  /*if (token) {
     const res = await user.get("/profile", {
       method: "GET",
       headers: {
@@ -95,11 +129,12 @@ export const getProfile = (cookies) => async (dispatch, getState) => {
 
       dispatch({ type: "FETCH_CURRENT_USER", payload: data });
     }
-  }
+  }*/
 };
 
 export const logOut = (cookies) => {
   console.log(cookies);
+  localStorage.removeItem("token");
 
   cookies.remove("token");
   return {

@@ -19,7 +19,7 @@ import { connect } from "react-redux";
 import { signInUser } from "../actions/index";
 import Loader from "./Loader";
 
-import ShadowBox from "./Shadow";
+import Shadow from "./Shadow";
 import UserProfileTabs from "./UserProfileTabs";
 import history from "../history";
 import Snackbar from "./Snackbar";
@@ -149,16 +149,18 @@ class loginForm extends React.Component {
                     />
                   </div>
 
-                  <div className="w-5/12 h-12 mt-4 mx-auto ">
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className="h-full"
-                    >
-                      Login
-                    </Button>
+                  <div className="w-7/12 h-12 mt-4 mx-auto ">
+                    <Shadow>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className="h-full"
+                      >
+                        Login
+                      </Button>
+                    </Shadow>
                   </div>
                 </form>
               </div>

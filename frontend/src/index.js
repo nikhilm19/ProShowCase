@@ -17,10 +17,16 @@ const store = createStore(
   composeEnhancers(applyMiddleware(reduxThunk))
 );
 
+const token = localStorage.getItem("token");
+console.log(token);
+if (token !== null) {
+  console.log(token);
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <CookiesProvider>
-      <App />
+      <App token={token} />
     </CookiesProvider>
   </Provider>,
   document.getElementById("root")
