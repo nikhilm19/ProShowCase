@@ -177,10 +177,10 @@ class SignupForm extends React.Component {
     ];
     return (
       <div className="signup-form-container  border-b h-full">
-        <div className="signup-form-content flex flex-col sm:flex-row   h-full">
+        <div className="signup-form-content flex flex-col sm:flex-row  h-full p-4 sm:p-0 bg-gray-100 sm:bg-white">
           <div className="signup-form-content--left w-full sm:w-7/12 h-full">
             <div className="signup-form-content--left container h-full">
-              <div className="signup-form-content--left-content border-r-2 border-solid border-gray-500  h-0 sm:h-full">
+              <div className="signup-form-content--left-content border-r-2 border-solid border-gray-500  h-0 sm:h-full w-0 sm:w-full">
                 <img
                   src="/images/undraw_access_account_99n5.png"
                   className=""
@@ -189,15 +189,15 @@ class SignupForm extends React.Component {
             </div>
           </div>
 
-          <div className="signup-form-content--right w-5/12 flex flex-col flex-1 bg-gray-100 pt-8 justify-start items-center ">
+          <div className="signup-form-content--right sm:w-5/12 w-full flex flex-col flex-1 bg-gray-100 pt-8 justify-start items-center ">
             <div className="about-info">
-              <div className="text-center mb-2 ">
+              <div className="text-center">
                 <h1 className="text-4xl font-title text-purple-700">
-                  ProShowCase
+                  ProShowCase✨
                 </h1>
               </div>
             </div>
-            <div className="flex mt-4 justify-center w-full">
+            <div className="flex mt-2 justify-center w-full">
               <form
                 validate
                 onSubmit={this.onFormSubmit}
@@ -225,12 +225,11 @@ class SignupForm extends React.Component {
                       fullWidth
                       id="email"
                       helperText={this.state.formValidation.email.text}
-                      label="Email Address"
+                      label="Email Id"
                       name="email"
                       autoComplete="email"
                       type="email"
                       onChange={this.handleInputChange}
-                      autoFocus
                       validate
                     />
                   </div>
@@ -301,12 +300,11 @@ class SignupForm extends React.Component {
                         error={!this.state.formValidation.enrollment_no.isValid}
                         fullWidth
                         id="roll"
-                        label="Enrolment Number"
+                        label="Enrolment No."
                         helperText={
                           this.state.formValidation.enrollment_no.text
                         }
                         name="enrollment_no"
-                        autoFocus
                         onChange={this.handleInputChange}
                       />
                     </div>
@@ -322,7 +320,6 @@ class SignupForm extends React.Component {
                         label="Batch of "
                         helperText={this.state.formValidation.grad_year.text}
                         name="grad_year"
-                        autoFocus
                         onChange={this.handleInputChange}
                       />
                     </div>
@@ -331,13 +328,16 @@ class SignupForm extends React.Component {
                   ""
                 )}
 
-                <div className="w-5/12 h-12">
+                <div className="w-full mt-2 sm:w-5/12 h-12">
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
                     className="h-full"
+                    style={{
+                      fontFamily: ["Rubik", "Roboto Slab", "IBM Plex Sans"],
+                    }}
                   >
                     Sign Up
                   </Button>

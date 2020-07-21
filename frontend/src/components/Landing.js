@@ -36,7 +36,7 @@ class Landing extends React.Component {
                     <Shadow>
                       <Link to="/signup">
                         {" "}
-                        <button class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
+                        <button class="font-buttons w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
                           Sign Up
                         </button>
                       </Link>
@@ -45,7 +45,7 @@ class Landing extends React.Component {
                   <div class="mt-3 sm:mt-0 sm:ml-3">
                     <Shadow>
                       <Link to="/login">
-                        <button class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-900 bg-indigo-100  hover:bg-indigo-200  focus:outline-none focus:shadow-outline-indigo focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
+                        <button class="font-buttons w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-900 bg-indigo-100  hover:bg-indigo-200  focus:outline-none focus:shadow-outline-indigo focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
                           Login
                         </button>
                       </Link>

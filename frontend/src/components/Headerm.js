@@ -191,7 +191,7 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" color="transparent" className={classes.appbar}>
+      <AppBar position="sticky" color="transparent" className={classes.appbar}>
         <Toolbar>
           {props.isAuthenticated ? (
             <IconButton
@@ -261,13 +261,13 @@ export default function PrimarySearchAppBar(props) {
               <div className="flex flex-row">
                 <Link to="/signup" className="mr-2">
                   {" "}
-                  <button class="w-full flex items-center justify-center px-2 py-1 border border-transparent text-base leading-6 font-small rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-600 hover:text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-10">
+                  <button class="font-title w-full flex items-center justify-center px-1 sm:px-0 py-1 border border-transparent text-base leading-6 font-small rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-600 hover:text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
                     Signup
                   </button>
                 </Link>
                 <Link to="/login">
                   {" "}
-                  <button class="w-full flex items-center justify-center px-2 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-10">
+                  <button class="font-title w-full flex items-center justify-center px-1 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
                     Login
                   </button>
                 </Link>

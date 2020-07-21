@@ -91,27 +91,29 @@ class loginForm extends React.Component {
 
   render() {
     return (
-      <div className="login-form-container  border-b w-full h-screen">
+      <div className="login-form-container  border-b w-full h-full sm:h-full">
         <div className="login-form-content flex flex-col sm:flex-row h-full ">
           <div className="login-form-content--left w-full sm:w-7/12 lg:w-7/12 h-0 sm:h-full border-r-2 border-solid  border-gray-500 flex justify-center items-center">
             <div className="login-form-content--left container h-0 sm:h-full">
               <div className="login-form-content--left-content h-full">
                 <img
-                  src="/images/undraw_access_account_99n5.png"
+                  src="/images/undraw_mobile_login_ikmv.png"
                   className=""
                 ></img>
               </div>
             </div>
           </div>
 
-          <div className=" login-form-content--right flex flex-col bg-gray-100 sm:h-full lg:w-6/12 flex-1 justify-center  items-center w-full">
-            <div className="flex justify-center flex-col h-full items-center">
+          <div className=" login-form-content--right  bg-gray-100  flex flex-col lg:w-6/12  justify-center  items-center w-full h-auto">
+            <div className="flex justify-center flex-col h-full items-center sm:w-7/12">
               <div className="about-info ">
-                <div className="text-center mb-4 mt-4 w-full">
-                  <Typography variant="h4">ProShowCase</Typography>
+                <div className="">
+                  <h1 className="text-4xl font-title text-purple-700">
+                    ProShowCase✨
+                  </h1>
                 </div>
               </div>
-              <div className="flex mt-4 w-full">
+              <div className="flex mt-2 w-full">
                 <form
                   validate
                   onSubmit={this.onFormSubmit}
@@ -149,18 +151,19 @@ class loginForm extends React.Component {
                     />
                   </div>
 
-                  <div className="w-7/12 h-12 mt-4 mx-auto ">
-                    <Shadow>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className="h-full"
-                      >
-                        Login
-                      </Button>
-                    </Shadow>
+                  <div className="w-full mt-2 sm:w-8/12 h-12">
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className="h-full"
+                      style={{
+                        fontFamily: ["Heebo"],
+                      }}
+                    >
+                      Login
+                    </Button>
                   </div>
                 </form>
               </div>

@@ -6149,6 +6149,10 @@ video {
   font-family: Rubik;
 }
 
+.font-buttons {
+  font-family: Heebo;
+}
+
 .font-hairline {
   font-weight: 100;
 }
@@ -23598,6 +23602,10 @@ video {
 
   .sm\:font-title {
     font-family: Rubik;
+  }
+
+  .sm\:font-buttons {
+    font-family: Heebo;
   }
 
   .sm\:font-hairline {
@@ -41052,6 +41060,10 @@ video {
     font-family: Rubik;
   }
 
+  .md\:font-buttons {
+    font-family: Heebo;
+  }
+
   .md\:font-hairline {
     font-weight: 100;
   }
@@ -58504,6 +58516,10 @@ video {
     font-family: Rubik;
   }
 
+  .lg\:font-buttons {
+    font-family: Heebo;
+  }
+
   .lg\:font-hairline {
     font-weight: 100;
   }
@@ -75954,6 +75970,10 @@ video {
 
   .xl\:font-title {
     font-family: Rubik;
+  }
+
+  .xl\:font-buttons {
+    font-family: Heebo;
   }
 
   .xl\:font-hairline {

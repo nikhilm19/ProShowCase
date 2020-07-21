@@ -14,6 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 
 import ShadowBox from "../Shadow";
+import GoogleAvatar from "../GoogleAvatar";
 
 const useStyles = makeStyles({
   root: {
@@ -37,12 +38,21 @@ const useStyles = makeStyles({
     flexGrow: 2,
   },
 });
-const faces = [
-  "http://i.pravatar.cc/300?img=1",
-  "http://i.pravatar.cc/300?img=2",
-  "http://i.pravatar.cc/300?img=3",
-  "http://i.pravatar.cc/300?img=4",
+
+const avatars = [
+  "https://via.placeholder.com/150/24f355",
+  "https://via.placeholder.com/150/771796",
+  "https://via.placeholder.com/150/571596",
+  "https://via.placeholder.com/150/471596",
+  "https://via.placeholder.com/150/371596",
+  "https://via.placeholder.com/150/271596",
+  "https://via.placeholder.com/150/171596",
+  "https://via.placeholder.com/150/71596",
+  "https://via.placeholder.com/150/596",
 ];
+
+const getRandomAvatar = () =>
+  avatars[Math.floor(Math.random() * avatars.length)];
 
 export default function Team(props) {
   const { project } = props;
@@ -59,15 +69,15 @@ export default function Team(props) {
           </p>
         </div>
         <div class="flex flex-wrap -m-4 flex-col">
-          <div class="p-4 lg:w-1/2 mb-6 w-auto mx-auto rounded">
+          <div class="p-4 lg:w-1/3 mb-6 w-auto mx-auto rounded">
             <ShadowBox>
-              <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
-                <img
-                  alt="team"
-                  class="flex-shrink-0 rounded-lg w-64 h-50 lg:w-48 lg:h-48 object-cover object-center sm:mb-0 mb-4"
-                  src={"https://dummyimage.com/200x200"}
+              <div class="p-2 h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left ml-4">
+                <GoogleAvatar
+                  src={"https://via.placeholder.com/150/771796"}
+                  text={project.guide.name[0]}
                 />
-                <div class="flex-grow sm:pl-8">
+
+                <div class=" sm:pl-8 ">
                   <h2 class="title-font font-medium text-lg text-gray-900">
                     {project.guide.name}
                   </h2>
@@ -90,15 +100,14 @@ export default function Team(props) {
           <div class="flex flex-wrap -m-4 justify-center">
             {project.teamMembers.map((member) => {
               return (
-                <div class="p-4 lg:w-1/4 md:w-1/2">
+                <div class="p-4 lg:w-1/4 md:w-1/2 mt-4">
                   <ShadowBox>
-                    <div class="h-full flex flex-col items-center text-center">
-                      <img
-                        alt="team"
-                        class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4"
-                        src="https://dummyimage.com/202x202"
+                    <div class="h-full flex flex-col items-center text-center pt-4">
+                      <GoogleAvatar
+                        src={getRandomAvatar()}
+                        text={member.name[0]}
                       />
-                      <div class="w-full">
+                      <div class="w-full mt-2">
                         <h2 class="title-font font-medium text-lg text-gray-900">
                           {member.name}
                         </h2>

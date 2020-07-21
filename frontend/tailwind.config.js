@@ -10,6 +10,7 @@ module.exports = {
       display: ["Roboto Slab", "IBM Plex Sans"],
       body: ["Open Sans"],
       title: ["Rubik"],
+      buttons: ["Heebo"],
     },
     animations: {
       // defaults to {}; the following are examples

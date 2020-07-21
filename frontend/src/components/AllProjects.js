@@ -18,8 +18,6 @@ class AllProjects extends React.Component {
   }
 
   fetchProjects = async () => {
-
-    
     const res = await Project.get("/");
     const projects = res.data.projects;
 
@@ -62,7 +60,9 @@ class AllProjects extends React.Component {
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 text-center ">
                   All Projects!
                 </h1>
-                <div class="h-1 w-20 bg-indigo-500 rounded mx-auto"></div>
+                <div class="h-1 w-20 bg-indigo-500 rounded mx-auto">
+                  {/*add sort/filter here*/}
+                </div>
               </div>
             </div>
             <div class="flex flex-wrap ">

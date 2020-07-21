@@ -30,7 +30,7 @@ class SignUpUserChoice extends React.Component {
                   <Shadow>
                     <button
                       onClick={() => this.props.history.push("/signup/student")}
-                      className="hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-2 px-8 text-white"
+                      className="font-buttons hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-2 px-8 text-white"
                     >
                       Join Now!
                     </button>
@@ -58,7 +58,7 @@ class SignUpUserChoice extends React.Component {
                   <Shadow>
                     <button
                       onClick={() => this.props.history.push("/signup/guide")}
-                      className="hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-2 px-8 text-white"
+                      className="font-buttons hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-2 px-8 text-white"
                     >
                       Join Now!
                     </button>

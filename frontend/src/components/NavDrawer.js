@@ -71,9 +71,9 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
 
-    width: 50,
+    width: 20,
     [theme.breakpoints.up("sm")]: {
-      width: 0,
+      width: 50,
     },
   },
   toolbar: {

@@ -16,6 +16,8 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
 
+import Chip from "./Chip";
+
 const images = [
   "/images/undraw_our_solution_htvp.png",
   "/images/undraw_product_tour_foyt.png",
@@ -34,7 +36,15 @@ const styles = (muiBaseTheme) => ({
     ...(!inactive && {
       "&:hover": {
         transform: "translateY(-3px)",
-        boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
+        backgroundColor: "#5b48f0",
+        boxShadow: "0 16px 70px -12.125px #1d00ff",
+        color: "white",
+        "& .MuiButton-label": {
+          color: "black",
+        },
+        "& .MuiButton-root": {
+          backgroundColor: "white",
+        },
       },
     }),
   }),
@@ -47,6 +57,8 @@ const styles = (muiBaseTheme) => ({
     paddingLeft: muiBaseTheme.spacing.unit * 2,
     paddingRight: muiBaseTheme.spacing.unit * 2,
     paddingBottom: `0px`,
+    fontFamily: ["Heebo"],
+    lineHeight: 1,
   },
   actions: {
     marginLeft: `${muiBaseTheme.spacing.unit * 1}px`,
@@ -56,9 +68,10 @@ const styles = (muiBaseTheme) => ({
   },
   heading: {
     fontWeight: "bold",
+    fontFamily: ["Heebo"],
   },
   subheading: {
-    lineHeight: 1,
+    lineHeight: 0.5,
   },
   avatar: {
     backgroundColor: deepPurple[300],
@@ -118,12 +131,19 @@ function Project({ classes, project, history, isLoading }) {
               style={{ marginBottom: 6 }}
             />
           ) : (
-            <Typography
-              className={"MuiTypography--subheading"}
-              variant={"caption"}
-            >
-              {project.brief}{" "}
-            </Typography>
+            <div className="flex flex-col">
+              <Typography
+                className={"MuiTypography--subheading"}
+                variant={"caption"}
+              >
+                {project.brief}{" "}
+              </Typography>
+              <div className="flex flex-row">
+                {project.technologies.slice(0, 4).map((tech) => {
+                  return <Chip label={tech.title} />;
+                })}
+              </div>
+            </div>
           )}
 
           <Divider className={classes.divider} light />
@@ -170,6 +190,7 @@ function Project({ classes, project, history, isLoading }) {
             <Button
               size="small"
               color="primary"
+              variant="outlined"
               onClick={() =>
                 history.push({
                   pathname: `project/view/${project._id}`,

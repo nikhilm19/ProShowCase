@@ -34,11 +34,6 @@ class App extends React.Component {
       isGuide: false,
       isOpen: false,
     };
-
-    //cookies.set("name", "hello", { path: "/" });
-  }
-
-  async componentDidMount() {
     const { cookies } = this.props;
 
     this.props.getProfile(cookies);
@@ -60,6 +55,10 @@ class App extends React.Component {
       isGuide: false,
     });
 
+    //cookies.set("name", "hello", { path: "/" });
+  }
+
+  async componentDidMount() {
     //console.log("in APP" + this.props);
   }
 

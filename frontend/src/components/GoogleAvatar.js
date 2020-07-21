@@ -9,8 +9,8 @@ export default function GoogleAvatar(props) {
   const googleLarge = useGoogleAvatarStyles({ ringSize: 88, avatarSize: 76 });
   return (
     <>
-      <div className={google.root}>
-        <Avatar>{props.text}</Avatar>
+      <div className={googleLarge.root}>
+        <Avatar src={props.src}>{props.text}</Avatar>
       </div>
     </>
   );
