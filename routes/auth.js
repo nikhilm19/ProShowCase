@@ -104,14 +104,17 @@ auth.post("/login", function (req, res, next) {
       if (loginErr) {
         return res.json(loginErr);
       }
-      const token = jwt.sign({ user }, "trumpsuks", { expiresIn: "1h" });
+      const token = jwt.sign({ user }, "trumpsuks", {});
+      // send enrollment number here.
 
-      const message = {
+      //check for type of user
+
+      let message = {
         user: {
           id: user._id,
           type: user.type,
           email: user.email,
-          name: user.email,
+          name: user.name,
           phone: user.phone,
           username: user.username,
           dept: user.dept,
@@ -119,9 +122,16 @@ auth.post("/login", function (req, res, next) {
           project: user.project,
         },
       };
+      if (user.type === "student") {
+        message.user.enrollment_no = user.enrollment_no;
+        message.user.grad_year = user.grad_year;
+      }
 
       return res
-        .cookie("token", token, { httpOnly: false })
+        .cookie("token", token, {
+          expires: new Date(Date.now() + 31536000000),
+          httpOnly: false,
+        })
         .json({ success: true, message: message, token });
     });
   })(req, res, next);

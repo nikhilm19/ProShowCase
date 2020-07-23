@@ -191,7 +191,7 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="sticky" color="transparent" className={classes.appbar}>
+      <AppBar position="static" color="transparent" className={classes.appbar}>
         <Toolbar>
           {props.isAuthenticated ? (
             <IconButton

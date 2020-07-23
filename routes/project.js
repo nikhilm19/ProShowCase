@@ -47,6 +47,58 @@ projectsRoute.route("/:project_id").put(async function (req, res) {
       res.status(200).json({ user: user });
     });*/
 });
+projectsRoute.route("/search").get(async function (req, res) {
+  //fallback to all batches
+  var guideEmails = ["xyz"];
+  const allGuides = await User.find({ type: "guide" }, { email: 1 });
+
+  allGuides.map((guide, index, array) => {
+    guideEmails.push(guide.email);
+  });
+
+  let guides = req.query.guides;
+  if (req.query.guides) {
+    guides = guides.split(",");
+  } else guides = guideEmails;
+
+  // todo get all technologies here
+  console.log("guides", guides);
+  let technologies = req.query.technologies;
+
+  if (technologies) {
+    technologies = technologies.split(",");
+  } else {
+    technologies = ["AI", "ML", "Android", "IOT", "Webapp", "NLP", "Voice"];
+  }
+  console.log(technologies);
+
+  let batches = req.query.batches;
+
+  //todo fallback  to all batches
+
+  console.log(batches);
+  if (batches) {
+    batches = batches.split(",");
+  } else {
+    batches = ["2020"];
+  }
+
+  console.log(technologies);
+
+  Project.find(
+    {
+      "guide.email": { $in: guides },
+      "technologies.title": { $in: technologies },
+    },
+    function (err, projects) {
+      console.log(projects.length);
+      if (projects.length === 0) {
+        return res.send({ success: false, projects: null });
+      }
+      return res.send({ success: true, projects: projects });
+    }
+  );
+});
 projectsRoute.route("/:project_id").get(function (req, res) {
   let project_id = req.params.project_id;
 

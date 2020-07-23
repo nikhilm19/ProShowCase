@@ -32,7 +32,8 @@ class CreateProject extends React.Component {
       formProps,
       members,
       guide,
-      this.props.implementationSnaps
+      this.props.implementationSnaps,
+      this.props.history
     );
   };
 

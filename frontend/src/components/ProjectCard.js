@@ -37,7 +37,7 @@ const styles = (muiBaseTheme) => ({
       "&:hover": {
         transform: "translateY(-3px)",
         backgroundColor: "#5b48f0",
-        boxShadow: "0 16px 70px -12.125px #1d00ff",
+        boxShadow: "0 16px 50px -12.125px #1d00ff",
         color: "white",
         "& .MuiButton-label": {
           color: "black",
@@ -211,7 +211,7 @@ function Project({ classes, project, history, isLoading }) {
               style={{ marginBottom: 6 }}
             />
           ) : (
-            <IconButton color="primary" onClick={() => history.push("/he;lo")}>
+            <IconButton color="secondary" style={{ minWidth: "20px" }}>
               <ShareIcon />
             </IconButton>
           )}

@@ -17,7 +17,7 @@ export const createProject = (
   formValues,
   members,
   guide,
-  implementationSnaps
+  implementationSnaps,history
 ) => async (dispatch, getState) => {
   //const { userId } = getState().auth;
   console.log("action dispatched" + formValues);
@@ -89,7 +89,7 @@ export const getProfile = (cookies) => async (dispatch, getState) => {
     });
     if (res.statusCode === 401) {
       cookies.remove("token");
-      localStorage.removeItem("token")
+      localStorage.removeItem("token");
     }
     const data = res.data;
 
@@ -104,32 +104,6 @@ export const getProfile = (cookies) => async (dispatch, getState) => {
       dispatch({ type: "FETCH_CURRENT_USER", payload: data });
     }
   }
-
-  /*if (token) {
-    const res = await user.get("/profile", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (res.statusCode === 401) {
-      cookies.remove("token");
-    }
-    const data = res.data;
-
-    console.log("in getProfile action");
-    console.log(data);
-    if (data) {
-      // An error will occur if the token is invalid.
-      // If this happens, you may want to remove the invalid token.
-
-      console.log(data);
-
-      dispatch({ type: "FETCH_CURRENT_USER", payload: data });
-    }
-  }*/
 };
 
 export const logOut = (cookies) => {
@@ -141,4 +115,53 @@ export const logOut = (cookies) => {
     type: "LOGOUT_USER",
     payload: {},
   };
+};
+
+export const filterProjects = (guides, technologies, batches) => async (
+  dispatch,
+  getState
+) => {
+  console.log(guides, technologies, batches);
+  let guideEmails = "";
+  let technologyParam = "";
+  let batchParam = "";
+  guides.map((guide, i, arr) => {
+    if (arr.length - 1 === i) {
+      guideEmails = guideEmails.concat(guide);
+    } else {
+      guideEmails = guideEmails.concat(guide + ",");
+    }
+  });
+  technologies.map((tech, i, arr) => {
+    if (arr.length - 1 === i) {
+      technologyParam = technologyParam.concat(tech);
+    } else {
+      technologyParam = technologyParam.concat(tech + ",");
+    }
+  });
+  batches.map((batch, i, arr) => {
+    if (arr.length - 1 === i) {
+      batchParam = batchParam.concat(batch);
+    } else {
+      batchParam = batchParam.concat(batch + ",");
+    }
+  });
+
+  let searchString = "/search?";
+  if (guides !== null) {
+    searchString += `guides=${guideEmails}`;
+  }
+  if (technologies !== null) {
+    searchString += `&technologies=${technologyParam}`;
+  }
+  if (batches !== null) {
+    // searchString += `&batches=${batchParam}`;
+  }
+  const res = await projects.get(searchString);
+  console.log("res", res);
+
+  dispatch({
+    type: "FILTER_PROJECTS",
+    payload: res.data,
+  });
 };

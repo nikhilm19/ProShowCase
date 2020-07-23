@@ -7,7 +7,17 @@ const setFileUploadedData = (state, action) => {
 const uploadProjectData = (state, action) => {
   return {
     ...state,
-    projectData: action.payload,
+    projectData: action.payload.projects,
+  };
+};
+const filterProjectsData = (state, action) => {
+  console.log(action.payload.projects);
+  return {
+    ...state,
+    success: action.payload.success,
+    message: action.payload.success
+      ? action.payload.projects
+      : action.payload.message,
   };
 };
 export default (state = {}, action) => {
@@ -17,7 +27,8 @@ export default (state = {}, action) => {
 
     case "CREATE_PROJECT":
       return uploadProjectData(state, action);
-
+    case "FILTER_PROJECTS":
+      return filterProjectsData(state, action);
     default:
       return state;
   }

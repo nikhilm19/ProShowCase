@@ -91,29 +91,29 @@ class loginForm extends React.Component {
 
   render() {
     return (
-      <div className="login-form-container  border-b w-full h-full sm:h-full">
+      <div className="login-form-container  border-b w-full h-full ">
         <div className="login-form-content flex flex-col sm:flex-row h-full ">
           <div className="login-form-content--left w-full sm:w-7/12 lg:w-7/12 h-0 sm:h-full border-r-2 border-solid  border-gray-500 flex justify-center items-center">
             <div className="login-form-content--left container h-0 sm:h-full">
               <div className="login-form-content--left-content h-full">
                 <img
-                  src="/images/undraw_mobile_login_ikmv.png"
+                  src="/images/undraw_access_account_99n5.png"
                   className=""
                 ></img>
               </div>
             </div>
           </div>
-
-          <div className=" login-form-content--right  bg-gray-100  flex flex-col lg:w-6/12  justify-center  items-center w-full h-auto">
-            <div className="flex justify-center flex-col h-full items-center sm:w-7/12">
+          <div className="login-form-content--right sm:w-5/12 w-full flex flex-col flex-1 bg-gray-100 pt-8 justify-start items-center ">
+            <div className="flex justify-center flex-col h-full items-center">
               <div className="about-info ">
-                <div className="">
+                <div className="text-center mb-4 mt-4 w-full">
                   <h1 className="text-4xl font-title text-purple-700">
                     ProShowCase✨
                   </h1>
                 </div>
               </div>
-              <div className="flex mt-2 w-full">
+              <div className="flex mt-4 w-full">
+                {" "}
                 <form
                   validate
                   onSubmit={this.onFormSubmit}
