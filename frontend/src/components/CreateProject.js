@@ -87,7 +87,7 @@ class CreateProject extends React.Component {
   render() {
     return (
       <div className="p-2 w-full flex justify-center">
-        <form className="sm:w-6/12 w-full">
+        <form className="sm:w-9/12 w-full">
           <div className="flex flex-row w-full justify-center items-center w-7/12">
             <CreateProjectSteps activeStep={this.state.page} className="w-7/12">
               <div className="flex flex-col  justify-center w-full">

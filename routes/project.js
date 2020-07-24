@@ -49,11 +49,11 @@ projectsRoute.route("/:project_id").put(async function (req, res) {
 });
 projectsRoute.route("/search").get(async function (req, res) {
   //fallback to all batches
-  var guideEmails = ["xyz"];
+  var guideEmails = [];
   const allGuides = await User.find({ type: "guide" }, { email: 1 });
 
-  allGuides.map((guide, index, array) => {
-    guideEmails.push(guide.email);
+  guideEmails = allGuides.map((guide, index, array) => {
+    return guide.email;
   });
 
   let guides = req.query.guides;
@@ -113,17 +113,18 @@ projectsRoute.route("/:project_id").get(function (req, res) {
 });
 
 projectsRoute.route("/").post(function (req, res) {
-  let keywords = req.body.keywords.split(",");
+  let keywords = "";
+  if (req.body.keywords) {
+    keywords = req.body.keywords.split(",");
+    let len = keywords.length;
+    for (var i = 0; i < len; i++) {
+      keywords[i] = keywords[i].trim();
+    }
+    req.body.keywords = keywords;
 
-  let len = keywords.length;
-
-  for (var i = 0; i < len; i++) {
-    keywords[i] = keywords[i].trim();
+    console.log(req.body);
   }
 
-  req.body.keywords = keywords;
-
-  console.log(req.body);
   let project = new Project(req.body);
 
   project

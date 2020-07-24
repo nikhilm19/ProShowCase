@@ -155,7 +155,7 @@ export const filterProjects = (guides, technologies, batches) => async (
     searchString += `&technologies=${technologyParam}`;
   }
   if (batches !== null) {
-    // searchString += `&batches=${batchParam}`;
+     searchString += `&batches=${batchParam}`;
   }
   const res = await projects.get(searchString);
   console.log("res", res);

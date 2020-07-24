@@ -133,10 +133,7 @@ export default function FilterProjects(props) {
                   options={technologies}
                   disableCloseOnSelect
                   onChange={(e, newValue) => {
-                    setSelectedTechnologies([
-                      ...selectedTechnologies,
-                      newValue[newValue.length - 1].title,
-                    ]);
+                    setSelectedTechnologies(newValue);
                     console.log(selectedTechnologies);
                   }}
                   getOptionLabel={(option) => option.title}
@@ -169,10 +166,7 @@ export default function FilterProjects(props) {
                   options={guides}
                   disableCloseOnSelect
                   onChange={(e, newValue) => {
-                    setSelectedGuides([
-                      ...selectedBatches,
-                      newValue[newValue.length - 1].email,
-                    ]);
+                    setSelectedGuides(newValue)
                     console.log(selectedGuides);
                   }}
                   getOptionLabel={(option) => option.name}
@@ -205,10 +199,7 @@ export default function FilterProjects(props) {
                   options={batches}
                   disableCloseOnSelect
                   onChange={(e, newValue) => {
-                    setSelectedBatches([
-                      ...selectedBatches,
-                      newValue[newValue.length - 1].year,
-                    ]);
+                    setSelectedBatches(newValue)
                     console.log(selectedBatches);
                   }}
                   getOptionLabel={(option) => option.year}

@@ -11,6 +11,7 @@ import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 export default function FormDialog(props) {
+  console.log(props.defaultValue);
   const [open, setOpen] = React.useState(false);
   const [guideName, setGuideName] = React.useState(null);
 
@@ -24,10 +25,14 @@ export default function FormDialog(props) {
     setEmails([]);
     const res = await props.fetchUsers(props.type);
     users = res.users;
+    console.log(users);
     setEmails(users);
-    users.forEach(function (user) {
-      setEmails((emails) => [...emails, user]);
+
+    let userEmails = users.map(function (user) {
+      return user.email;
     });
+    console.log(userEmails);
+    //setEmails(userEmails);
     console.log("user emails" + emails);
 
     console.log();
@@ -65,6 +70,9 @@ export default function FormDialog(props) {
             multiple={props.isMultiple}
             id="tags-filled"
             size="small"
+            defaultValue={
+              props.type === "student" ? [props.defaultValue] : null
+            }
             options={emails}
             getOptionLabel={(option) => option.email}
             renderInput={(params) => (

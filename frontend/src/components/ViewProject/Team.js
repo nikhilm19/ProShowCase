@@ -102,7 +102,7 @@ export default function Team(props) {
               return (
                 <div class="p-4 lg:w-1/4 md:w-1/2 mt-4">
                   <ShadowBox>
-                    <div class="h-full flex flex-col items-center text-center pt-4">
+                    <div class="p-2 h-full flex flex-col items-center text-center pt-4">
                       <GoogleAvatar
                         src={getRandomAvatar()}
                         text={member.name[0]}

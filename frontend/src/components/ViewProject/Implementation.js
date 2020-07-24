@@ -40,7 +40,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
   root: {
     // a must if you want to set arrows, indicator as absolute
     position: "relative",
-    width: "80%",
+    width: "100%",
     margin: "auto",
   },
   slide: {
@@ -69,7 +69,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    marginLeft: "12%",
+
     [breakpoints.up("sm")]: {
       marginLeft: "4%",
     },
@@ -191,8 +191,8 @@ const ParallaxCarousel = (props) => {
   );
 
   const renderChildren = ({ injectStyle, fineIndex }) =>
-    props.data.map(({  imageUrl, imageAlt}, i) => (
-      <div  className={classes.slide}>
+    props.data.map(({ imageUrl, imageAlt }, i) => (
+      <div className={classes.slide}>
         <div className={classes.imageContainer}>
           <img className={classes.image} src={imageUrl} alt={imageAlt} />
         </div>

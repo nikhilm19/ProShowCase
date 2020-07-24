@@ -62,10 +62,9 @@ class App extends React.Component {
     //console.log("in APP" + this.props);
   }
 
-  renderRedirect = () => {
+  renderRedirect = ({ history }) => {
     if (
-      (this.props.isAuthenticated === undefined ||
-        this.props.isAuthenticated === false) &&
+      this.props.isAuthenticated === false &&
       !(
         history.location.pathname.startsWith("/signup") ||
         history.location.pathname.startsWith("/login")
@@ -85,7 +84,7 @@ class App extends React.Component {
               render={(props) => (
                 <div>
                   <HeaderM {...props} {...this.props}>
-                    {this.renderRedirect()}
+                    {this.renderRedirect(props)}
                     <Switch>
                       <Route
                         exact
@@ -150,7 +149,9 @@ class App extends React.Component {
                       <Route
                         exact
                         path="/project/new"
-                        component={() => <CreateProject />}
+                        component={() => (
+                          <CreateProject {...props} {...this.props} />
+                        )}
                       />
                       <Route
                         exact

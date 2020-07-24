@@ -11,12 +11,11 @@ const userRoute = require("./routes/user");
 const projectRoute = require("./routes/project");
 const auth = require("./routes/auth");
 const passport = require("./passport/setup");
-mongo.connect(
-  "mongodb+srv://root:root@virtual-project-showcase-qubjr.mongodb.net/project",
-  function () {
-    console.log("connected");
-  }
-);
+const dotenv = require("dotenv").config();
+
+mongo.connect(process.env.MONGO_URL, { useNewUrlParser: true }, function () {
+  console.log("connected");
+});
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

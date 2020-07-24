@@ -6,7 +6,7 @@ import Team from "./ViewProject/Team";
 import ProjectAbstract from "./ViewProject/ProjectAbstract";
 import Tabs from "./ViewProject/Tabs";
 import Navigation from "./ViewProject/Navigation";
-import ImageCarousel from "./ViewProject/ImageCarousel";
+import ImageCarousel from "./ViewProject/Implementation";
 import ProjectResearch from "./ViewProject/ProjectResearch";
 import Loader from "./Loader";
 class ViewProject extends React.Component {
@@ -17,8 +17,6 @@ class ViewProject extends React.Component {
     this.setState({ project });
     console.log(this.state);
   }
-
-  
 
   fetchProject = async () => {
     console.log("hello");
@@ -51,9 +49,21 @@ class ViewProject extends React.Component {
         <Team project={this.state.project} images={this.state.images} />
         <div className="mx-10">
           {" "}
-          <ImageCarousel data={this.state.project.implementationSnaps} />
+          {this.state.project.implementationSnaps &&
+          this.state.project.implementationSnaps.length > 0 ? (
+            <ImageCarousel data={this.state.project.implementationSnaps} />
+          ) : (
+            ""
+          )}
         </div>
-        <ProjectResearch project={this.state.project} />
+        {(this.state.project.publishedPapers &&
+          this.state.project.publishedPapers.length > 0) ||
+        (this.state.project.referenceMaterial &&
+          this.state.project.referenceMaterial.length > 0) ? (
+          <ProjectResearch project={this.state.project} />
+        ) : (
+          ""
+        )}
       </div>
     );
   }

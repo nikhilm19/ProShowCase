@@ -41,11 +41,23 @@ class AllProjects extends React.Component {
     }
   };
 
-  getFilteredProjects = (guides, technologies, members) => {
+  getFilteredProjects = (guides, technologies, batches) => {
     //make api call
 
-    console.log(guides, technologies, members);
-    this.props.filterProjects(guides, technologies, members);
+    // send only emails, title and years
+
+    let guideEmails = guides.map((guide) => {
+      return guide.email;
+    });
+    let techs = technologies.map((tech) => {
+      return tech.title;
+    });
+    let batch = batches.map((batch) => {
+      return batch.year;
+    });
+
+    console.log(guideEmails, techs, batch);
+    this.props.filterProjects(guideEmails, techs, batch);
   };
 
   renderProjects = () => {

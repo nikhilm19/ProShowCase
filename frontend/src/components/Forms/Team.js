@@ -19,10 +19,13 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
+import { connect } from "react-redux";
 
+import { getProfile } from "../../actions";
 import TeamMemberDialog from "../TeamMemberDialog";
 import users from "../../apis/user";
 import GoogleAvatar from "../GoogleAvatar";
+import Loader from "../Loader";
 
 class Team extends React.Component {
   constructor(props) {
@@ -50,7 +53,7 @@ class Team extends React.Component {
 
   renderTeam = (members, guide) => {
     return (
-      <div class=" px-5 py-24 mx-auto">
+      <div class=" px-5 py-10 mx-auto">
         <div class="flex flex-col text-center w-full mb-20">
           <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
             Your Team
@@ -62,7 +65,7 @@ class Team extends React.Component {
         {guide !== null ? (
           <div className="flex mx-auto justify-center">
             <div class="p-2  md:w-1/2 w-full">
-              <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+              <div class="h-full flex items-center border-gray-200 border rounded-lg">
                 <img
                   alt="team"
                   class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
@@ -85,7 +88,7 @@ class Team extends React.Component {
           <div class="flex flex-wrap -m-2 justify-center">
             {members.map((member) => {
               return (
-                <div className="m-2 w-3/12">
+                <div className="m-2 sm:w-3/12 w-full">
                   <Card className="flex flex-col">
                     <CardHeader
                       className="flex flex-col"
@@ -95,13 +98,9 @@ class Team extends React.Component {
                     />
 
                     <CardContent>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
+                      <h1 className="text-gray-500 text-center">
                         {member.email}
-                      </Typography>
+                      </h1>
                     </CardContent>
                     <CardActions disableSpacing></CardActions>
                   </Card>
@@ -132,8 +131,11 @@ class Team extends React.Component {
   };
   render() {
     const { handleSubmit } = this.props;
+    console.log(this.props.currentUser);
 
-    return (
+    return this.props.currentUser === undefined ? (
+      <Loader isLoading={true} />
+    ) : (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div className="w-auto flex justify-center flex-col">
           <div className="flex flex-col ">
@@ -144,6 +146,7 @@ class Team extends React.Component {
                   type="guide"
                   fetchUsers={this.fetchUsers}
                   isMultiple={false}
+                  defaultValue={this.props.currentUser}
                   dialogText="Please add your guide here"
                   onAddMember={this.onAddGuide}
                   label="Email Address"
@@ -155,6 +158,7 @@ class Team extends React.Component {
                   dialogTitle="Add Team Member"
                   isMultiple={true}
                   type="student"
+                  defaultValue={this.props.currentUser}
                   fetchUsers={this.fetchUsers}
                   dialogText="Please add your teammate here"
                   onAddMember={this.onAddMember}
@@ -182,6 +186,14 @@ class Team extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+  return {
+    currentUser: state.authReducer.currentUser,
+  };
+};
+Team = connect(mapStateToProps, {})(Team);
 
 export default reduxForm({
   form: "CreateProject",
