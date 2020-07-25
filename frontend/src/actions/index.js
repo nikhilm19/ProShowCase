@@ -17,13 +17,14 @@ export const createProject = (
   formValues,
   members,
   guide,
-  implementationSnaps,history
+  implementationSnaps,history,batch
 ) => async (dispatch, getState) => {
   //const { userId } = getState().auth;
   console.log("action dispatched" + formValues);
   formValues.teamMembers = members;
   formValues.guide = guide;
   formValues.implementationSnaps = implementationSnaps;
+  formValues.batch = batch
   console.log("formvals", formValues);
   const res = await projects.post("/", { ...formValues });
   console.log(res);

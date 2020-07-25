@@ -38,7 +38,7 @@ class Team extends React.Component {
 
   onSubmit = (formProps) => {
     console.log(formProps);
-    this.props.onSubmit(formProps, this.state.members, this.state.guide);
+    this.props.onSubmit(formProps, this.state.members, this.state.guide,this.props.currentUser.batch);
   };
 
   fetchUsers = async (type) => {

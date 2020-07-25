@@ -25,7 +25,7 @@ class CreateProject extends React.Component {
     this.previousPage = this.previousPage.bind(this);
   }
 
-  handleSubmit = (formProps, members, guide) => {
+  handleSubmit = (formProps, members, guide,batch) => {
     console.log("yes" + JSON.stringify(formProps) + JSON.stringify(members));
     console.log(formProps);
     this.props.createProject(
@@ -33,7 +33,8 @@ class CreateProject extends React.Component {
       members,
       guide,
       this.props.implementationSnaps,
-      this.props.history
+      this.props.history,
+      batch
     );
   };
 
