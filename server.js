@@ -20,7 +20,7 @@ mongo.connect(process.env.MONGO_URL, { useNewUrlParser: true }, function () {
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use(cors());
-app.use(express.static("../frontend/build"));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
@@ -32,8 +32,12 @@ app.use("/auth", auth);
 
 const PORT = process.env.PORT || 8080;
 
+app.use(express.static(path.join(__dirname, "frontend", "build")));
+
+
+
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname));
+
   app.use(express.static(path.join(__dirname, "frontend", "build")));
 
   app.get("/*", (req, res) => {
@@ -51,7 +55,10 @@ app.listen(PORT, function () {
 
 app.get("/", (req, res) => {
   console.log(req.body);
-  res.sendFile("index.html");
+ 
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "build", "index.html")); // relative path
+  });
 
   return res.json("hello world");
 });
