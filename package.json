@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Api for virtual project showcase",
+  "description": "Virtual project showcase",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
