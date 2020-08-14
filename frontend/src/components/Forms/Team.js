@@ -24,8 +24,8 @@ import { connect } from "react-redux";
 import { getProfile } from "../../actions";
 import TeamMemberDialog from "../TeamMemberDialog";
 import users from "../../apis/user";
-import GoogleAvatar from "../GoogleAvatar";
-import Loader from "../Loader";
+import GoogleAvatar from "../GoogleAvatar/GoogleAvatar";
+import Loader from "../Loader/Loader";
 
 class Team extends React.Component {
   constructor(props) {

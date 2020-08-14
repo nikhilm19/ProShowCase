@@ -3,8 +3,8 @@ import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import Loader from "./Loader";
-import Shadow from "./Shadow";
+import Loader from "./Loader/Loader";
+import Shadow from "./Shadow/Shadow";
 class Landing extends React.Component {
   constructor() {
     super();

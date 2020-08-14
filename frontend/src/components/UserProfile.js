@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { signInUser } from "../actions/index";
 
 import Users from "../apis/user";
-import Loader from "./Loader";
+import Loader from "./Loader/Loader";
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Project from "../apis/project";
-import Loader from "./Loader";
+import Loader from "./Loader/Loader";
 import ProjectCard from "./ProjectCard";
 import FilterProjects from "./FilterProjects";
 import { filterProjects } from "../actions";

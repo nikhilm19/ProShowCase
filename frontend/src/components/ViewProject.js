@@ -8,7 +8,7 @@ import Tabs from "./ViewProject/Tabs";
 import Navigation from "./ViewProject/Navigation";
 import ImageCarousel from "./ViewProject/Implementation";
 import ProjectResearch from "./ViewProject/ProjectResearch";
-import Loader from "./Loader";
+import Loader from "./Loader/Loader";
 class ViewProject extends React.Component {
   constructor(props) {
     super(props);

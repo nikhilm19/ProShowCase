@@ -4,7 +4,8 @@
   "description": "Virtual project showcase",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server.js ",
+    "start-client":"cd frontend && npm start",
     "start-server":"npm run ebs-build && npm start",
     "ebs-build":"cd frontend && npm install && npm run build && cd ..",
     "heroku-postbuild": "cd frontend && npm install && npm run build",

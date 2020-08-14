@@ -1,4 +1,9 @@
+console.log(process.env.NODE_ENV);
 module.exports = {
+  purge: {
+    enabled: process.env.NODE_ENV === "production" ? true : false,
+    content: ["./src/**/*.js", "./src/**/*.html", "./src/**/*.jsx"],
+  },
   theme: {
     extend: {
       "ease-in-expo": "cubic-bezier(0.95, 0.05, 0.795, 0.035)",

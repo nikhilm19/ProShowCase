@@ -19,7 +19,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import FilterIcon from "@material-ui/icons/FilterList";
-import Chip from "./Chip";
+import Chip from "./Chip/Chip";
 
 const addIcon = <AddIcon fontSize="small" />;
 const removeIcon = <RemoveIcon fontSize="small" />;

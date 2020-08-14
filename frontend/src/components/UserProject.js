@@ -6,7 +6,7 @@ import User from "../apis/user";
 import AddProject from "./AddProject";
 import UserProfile from "./UserProfile";
 import ProjectDisplay from "./ProjectDisplay";
-import Loader from "./Loader";
+import Loader from "./Loader/Loader";
 
 class UserProject extends Component {
   constructor(props) {

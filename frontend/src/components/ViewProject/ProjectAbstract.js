@@ -12,8 +12,8 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/Button";
 import ShareIcon from "@material-ui/icons/ShareOutlined";
 import Skeleton from "@material-ui/lab/Skeleton";
-import Chip from "../Chip";
-import ShadowBox from "../Shadow";
+import Chip from "../Chip/Chip";
+import ShadowBox from "../Shadow/Shadow";
 class ProjectAbstract extends React.Component {
   constructor(props) {
     super(props);

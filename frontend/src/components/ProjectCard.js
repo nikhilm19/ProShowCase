@@ -15,8 +15,9 @@ import ShareIcon from "@material-ui/icons/ShareOutlined";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
+import { TwitterShareButton, TwitterIcon } from "react-share";
 
-import Chip from "./Chip";
+import Chip from "./Chip/Chip";
 
 const images = [
   "/images/undraw_our_solution_htvp.png",
@@ -43,7 +44,15 @@ const styles = (muiBaseTheme) => ({
           color: "black",
         },
         "& .MuiButton-root": {
-          backgroundColor: "white",
+          backgroundColor: "#d4eaff",
+
+          "& .MuiButton-label": {
+            color: "#0e004a",
+          },
+        },
+        "& .MuiChip-root": {
+          backgroundColor: "#f54291",
+          color: "#ffffff",
         },
       },
     }),
@@ -190,7 +199,7 @@ function Project({ classes, project, history, isLoading }) {
             <Button
               size="small"
               color="primary"
-              variant="outlined"
+              variant="contained"
               onClick={() =>
                 history.push({
                   pathname: `project/view/${project._id}`,
@@ -211,9 +220,13 @@ function Project({ classes, project, history, isLoading }) {
               style={{ marginBottom: 6 }}
             />
           ) : (
-            <IconButton color="secondary" style={{ minWidth: "20px" }}>
-              <ShareIcon />
-            </IconButton>
+            <TwitterShareButton
+              url={"http://proshowcase.ml/project/view/" + project._id}
+              title={`Take a look at this amazing project : '${project.title}'`}
+              className="Demo__some-network__share-button"
+            >
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
           )}
         </CardActions>
       </Card>

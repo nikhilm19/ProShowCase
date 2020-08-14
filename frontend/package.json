@@ -27,6 +27,8 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-share": "^4.2.1",
+    "react-share-button": "0.0.4",
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
@@ -37,10 +39,11 @@
     "universal-cookie": "^4.0.3"
   },
   "scripts": {
-    "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
+    "build:styles": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "server": "node backend/server.js",
-    "start": "npm run build:style && react-scripts start ",
-    "build": "npm run build:style && react-scripts build",
+    "start": "npm run build:styles && react-scripts start ",
+    "build": "react-scripts build",
+    "prebuild": "NODE_ENV=production npm run build:styles",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",

@@ -17,12 +17,12 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 import { signInUser } from "../actions/index";
-import Loader from "./Loader";
+import Loader from "./Loader/Loader";
 
-import Shadow from "./Shadow";
+import Shadow from "./Shadow/Shadow";
 import UserProfileTabs from "./UserProfileTabs";
 import history from "../history";
-import Snackbar from "./Snackbar";
+import Snackbar from "./Snackbar/Snackbar";
 class loginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -151,19 +151,10 @@ class loginForm extends React.Component {
                     />
                   </div>
 
-                  <div className="w-full mt-2 sm:w-8/12 h-12">
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className="h-full"
-                      style={{
-                        fontFamily: ["Heebo"],
-                      }}
-                    >
-                      Login
-                    </Button>
+                  <div className="w-full mt-2  h-12">
+                    <button class="font-buttons w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-3 md:text-lg ">
+                      Sign Up
+                    </button>
                   </div>
                 </form>
               </div>

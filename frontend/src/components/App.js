@@ -12,8 +12,8 @@ import cookie from "react-cookie";
 
 import SignUpUserChoice from "./SignUpUserChoice";
 import SignUpForm from "./SignUpForm";
-import Header from "./Header";
-import HeaderM from "./Headerm";
+
+import HeaderM from "./Header";
 import history from "../history";
 import UserProfileTabs from "./UserProfileTabs";
 import CreateProject from "../components/CreateProject";
@@ -23,9 +23,9 @@ import ViewProject from "./ViewProject";
 
 import LoginForm from "./LoginForm";
 import { signInUser, getProfile } from "../actions/index";
-import Loader from "./Loader";
-import ShadowBox from "./Shadow";
-import Snackbar from "./Snackbar";
+import Loader from "./Loader/Loader";
+import ShadowBox from "./Shadow/Shadow";
+import Snackbar from "./Snackbar/Snackbar";
 
 class App extends React.Component {
   constructor(props) {

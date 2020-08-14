@@ -1,6 +1,6 @@
 import React from "react";
 
-import Shadow from "./Shadow";
+import Shadow from "./Shadow/Shadow";
 class SignUpUserChoice extends React.Component {
   constructor() {
     super();

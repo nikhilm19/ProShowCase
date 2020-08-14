@@ -15,7 +15,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import LaunchIcon from "@material-ui/icons/Launch";
 import { Link } from "react-router-dom";
 
-import ShadowBox from "../Shadow";
+import ShadowBox from "../Shadow/Shadow";
 
 class ProjectResearch extends React.Component {
   constructor(props) {
