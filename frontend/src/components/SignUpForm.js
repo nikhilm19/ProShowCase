@@ -189,7 +189,7 @@ class SignupForm extends React.Component {
             </div>
           </div>
 
-          <div className="signup-form-content--right sm:w-5/12 w-full flex flex-col flex-1 bg-gray-100 pt-8 justify-start items-center ">
+          <div className="signup-form-content--right sm:w-5/12 w-full flex flex-col flex-1 bg-gray-100 pt-16 justify-start items-center ">
             <div className="about-info">
               <div className="text-center">
                 <h1 className="text-4xl font-title text-purple-700">
@@ -329,18 +329,9 @@ class SignupForm extends React.Component {
                 )}
 
                 <div className="w-full mt-2 sm:w-5/12 h-12">
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className="h-full"
-                    style={{
-                      fontFamily: ["Rubik", "Roboto Slab", "IBM Plex Sans"],
-                    }}
-                  >
-                    Sign Up
-                  </Button>
+                  <button class="font-buttons w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-3 md:text-lg ">
+                    Signup
+                  </button>
                 </div>
               </form>
             </div>
