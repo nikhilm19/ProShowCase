@@ -4,7 +4,7 @@
 
 With this amazing wall of projects, you get a look at what your peers have built over the years ❤️
 
-[![UI](https://img.shields.io/website?down_color=red&down_message=Down&label=Website&style=for-the-badge&up_color=green&up_message=Check+Here&url=http%3A%2F%2Fhttp://proshowcase-env.eba-dedrbz2n.us-east-1.elasticbeanstalk.com//%2F)](http://proshowcase-env.eba-dedrbz2n.us-east-1.elasticbeanstalk.com/)
+[![UI](https://img.shields.io/website?down_color=red&down_message=Down&label=Website&style=for-the-badge&up_color=green&up_message=Check+Here&url=http%3A%2F%2Fproshowcase-env.eba-dedrbz2n.us-east-1.elasticbeanstalk.com/%2F)](http://proshowcase-env.eba-dedrbz2n.us-east-1.elasticbeanstalk.com/)
 
 The webapp is deployed on Elastic Beanstalk 🚀
 

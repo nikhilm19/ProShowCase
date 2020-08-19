@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserProfileTabs(props) {
   console.log("Inside profile tabs ------->");
+  console.log(props);
   const classes = useStyles();
   const [value, setValue] = React.useState("one");
 

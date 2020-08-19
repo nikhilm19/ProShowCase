@@ -5,7 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -14,7 +13,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import DonutLargeOutlinedIcon from "@material-ui/icons/DonutLargeOutlined";
 import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import NavDrawer from "./NavDrawer";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -95,7 +94,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
-  console.log(props.history);
+
+  const history = useHistory();
 
   const isSignup =
     window.location.hash.endsWith("#/signup") ||
@@ -131,7 +131,7 @@ export default function PrimarySearchAppBar(props) {
   };
 
   const handleMobileMenuOpen = (event) => {
-    props.history.push("/logout");
+    history.push("/logout");
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
@@ -155,7 +155,7 @@ export default function PrimarySearchAppBar(props) {
             dispatch(logOut(props.cookies));
             handleMenuClose();
 
-            props.history.push("/");
+            history.push("/");
           }}
         >
           Logout
@@ -181,7 +181,7 @@ export default function PrimarySearchAppBar(props) {
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
-          onClick={() => props.history.push("/profile")}
+          onClick={() => history.push("/profile")}
         >
           <AccountCircle />
         </IconButton>

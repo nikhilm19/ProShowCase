@@ -52,7 +52,7 @@ export const signInUser = (formValues, cb, cookies) => async (
     localStorage.setItem("token", data.token);
     cb(data);
     // history.push("/profile");
-    console.log("pushing through actions");
+    // console.log("pushing through actions");
   }
   console.log(cookies);
 
@@ -82,18 +82,18 @@ export const signUpUser = (formValues, cookies) => async (
 };
 
 export const getProfile = (cookies) => async (dispatch, getState) => {
-  const tokenLocal = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   let state = getState();
   console.log(state);
 
-  if (tokenLocal) {
+  if (token) {
     const res = await user.get("/profile", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${tokenLocal}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     if (res.statusCode === 401) {

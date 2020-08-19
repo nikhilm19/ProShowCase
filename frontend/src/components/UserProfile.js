@@ -11,26 +11,17 @@ import Loader from "./Loader/Loader";
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props);
     this.state = { user: null };
   }
-  async componentDidMount() {
+  componentDidMount() {
     const { cookies } = this.props;
     console.log(this.props);
 
     if (this.props.currentUser) {
       this.setState({ user: this.props.currentUser });
     }
-    /*const data = await Users.get("/guide/" + this.props.currentUser.email, {
-      headers: {
-        Authorization: `Bearer ${cookies.cookies.token}`,
-      },
-    });
-    console.log(data);
-    const user = data.data.user;
-    this.setState({
-      user,
-    });
-    */
   }
 
   renderUser = () => {
@@ -127,4 +118,11 @@ class UserProfile extends React.Component {
   }
 }
 
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     currentUser: state.authReducer.currentuser,
+//   };
+// };
+
 export default UserProfile;
+// export default connect(mapStateToProps, {})(UserProfile);

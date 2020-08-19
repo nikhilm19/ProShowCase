@@ -1,22 +1,24 @@
 import React from "react";
-import { Route, Link, Switch, HashRouter, Redirect } from "react-router-dom";
+import {
+  Route,
+  Link,
+  Switch,
+  HashRouter as Router,
+  Redirect,
+} from "react-router-dom";
 import { connect } from "react-redux";
-import { withCookies, Cookies, CookiesProvider } from "react-cookie";
-import cookie from "react-cookie";
-
+import { withCookies } from "react-cookie";
 import SignUpUserChoice from "./SignUpUserChoice";
 import SignUpForm from "./SignUpForm";
-
-import HeaderM from "./Header";
+import Header from "./Header";
 import history from "../history";
 import UserProfileTabs from "./UserProfileTabs";
 import CreateProject from "../components/CreateProject";
 import Landing from "./Landing";
 import AllProjects from "./AllProjects";
 import ViewProject from "./ViewProject";
-
 import LoginForm from "./LoginForm";
-import { signInUser, getProfile } from "../actions/index";
+import { getProfile } from "../actions/index";
 
 class App extends React.Component {
   constructor(props) {
@@ -69,10 +71,10 @@ class App extends React.Component {
 
     return (
       <div className="App ">
-        <HashRouter history={history}>
+        <Router history={history}>
           <div className="h-auto">
             <div>
-              <HeaderM history={history}>
+              <Header {...this.props}>
                 <Switch>
                   <Route
                     exact
@@ -84,7 +86,9 @@ class App extends React.Component {
                   <Route
                     exact
                     path="/login"
-                    render={() => <LoginForm cookies={this.props.cookies} />}
+                    render={(props) => (
+                      <LoginForm cookies={this.props.cookies} {...props} />
+                    )}
                   />
                   <Route exact path="/signup" component={SignUpUserChoice} />
                   <Route
@@ -97,7 +101,16 @@ class App extends React.Component {
                     path="/signup/student"
                     render={() => <SignUpForm isGuide={false} />}
                   />
-                  <Route exact path="/profile" component={SignUpUserChoice} />
+                  <Route
+                    exact
+                    path="/profile"
+                    render={(props) => (
+                      <UserProfileTabs
+                        {...this.props}
+                        isGuide={this.state.isGuide}
+                      />
+                    )}
+                  />
                   <Route
                     exact
                     path="/All-Projects"
@@ -115,11 +128,10 @@ class App extends React.Component {
                     render={() => <ViewProject />}
                   />
                 </Switch>
-                <SignUpUserChoice />
-              </HeaderM>
+              </Header>
             </div>
           </div>
-        </HashRouter>
+        </Router>
       </div>
     );
   }
