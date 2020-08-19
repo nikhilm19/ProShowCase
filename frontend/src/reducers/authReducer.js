@@ -1,6 +1,5 @@
 import { act } from "react-dom/test-utils";
 
-import history from "../history";
 
 const logout = (state, action) => {
   console.log("inside logout");
@@ -10,6 +9,8 @@ const logout = (state, action) => {
     isAuthenticated: false,
     isLoginAttempt: 0,
     isSignupAttempt: 0,
+    message: null,
+    token: null,
   };
 };
 

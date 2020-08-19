@@ -16,16 +16,18 @@ class UserProfile extends React.Component {
     this.state = { user: null };
   }
   componentDidMount() {
-    const { cookies } = this.props;
-    console.log(this.props);
-
-    if (this.props.currentUser) {
-      this.setState({ user: this.props.currentUser });
-    }
+    // const { cookies } = this.props;
+    // console.log(this.props);
+    // if (this.props.currentUser) {
+    //   this.setState({ user: this.props.currentUser });
+    // }
   }
 
   renderUser = () => {
-    if (this.state.user === null) {
+    if (
+      this.props.currentUser === null ||
+      this.props.currentUser === undefined
+    ) {
       return <Loader isLoading={true} />;
     } else
       return (
@@ -41,11 +43,13 @@ class UserProfile extends React.Component {
           <div className="z-10 flex flex-col  justify-center">
             <div className="w-full ">
               <Avatar className=" mx-auto ">
-                {this.state.user.name ? this.state.user.name[0] : ""}
+                {this.props.currentUser.name
+                  ? this.props.currentUser.name[0]
+                  : ""}
               </Avatar>
               <div className="m-2">
                 <TextField
-                  value={this.state.user.name}
+                  value={this.props.currentUser.name}
                   variant="outlined"
                   label="Name"
                   disabled
@@ -55,18 +59,18 @@ class UserProfile extends React.Component {
               <div className="m-2">
                 {" "}
                 <TextField
-                  value={this.state.user.email}
+                  value={this.props.currentUser.email}
                   variant="outlined"
                   label="Email"
                   disabled
                 />
               </div>
             </div>
-            {this.state.user.type === "student" ? (
+            {this.props.currentUser.type === "student" ? (
               <div className="mx-auto w-full flex flex-col justify-center">
                 <div className="m-2">
                   <TextField
-                    value={this.state.user.enrollment_no}
+                    value={this.props.currentUser.enrollment_no}
                     variant="outlined"
                     label="enrollment_no"
                     disabled
@@ -74,7 +78,7 @@ class UserProfile extends React.Component {
                 </div>
                 <div className="m-2">
                   <TextField
-                    value={this.state.user.dept}
+                    value={this.props.currentUser.dept}
                     variant="outlined"
                     label="Department"
                     disabled
@@ -82,7 +86,7 @@ class UserProfile extends React.Component {
                 </div>
                 <div className="m-2">
                   <TextField
-                    value={this.state.user.grad_year}
+                    value={this.props.currentUser.grad_year}
                     variant="outlined"
                     label="Batch"
                     disabled
@@ -93,7 +97,7 @@ class UserProfile extends React.Component {
               <div className="mx-auto w-full flex flex-col justify-center">
                 <div className="m-2">
                   <TextField
-                    value={this.state.user.phone}
+                    value={this.props.currentUser.phone}
                     variant="outlined"
                     label="Phone Number"
                     disabled
@@ -101,7 +105,7 @@ class UserProfile extends React.Component {
                 </div>
                 <div className="m-2">
                   <TextField
-                    value={this.state.user.dept}
+                    value={this.props.currentUser.dept}
                     variant="outlined"
                     label="Department"
                     disabled
@@ -118,11 +122,12 @@ class UserProfile extends React.Component {
   }
 }
 
-// const mapStateToProps = (state, ownProps) => {
-//   return {
-//     currentUser: state.authReducer.currentuser,
-//   };
-// };
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+  return {
+    currentUser: state.authReducer.currentUser,
+  };
+};
 
-export default UserProfile;
-// export default connect(mapStateToProps, {})(UserProfile);
+// export default UserProfile;
+export default connect(mapStateToProps)(UserProfile);

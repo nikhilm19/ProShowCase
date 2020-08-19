@@ -13,9 +13,10 @@ class ViewProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = { project: null };
-    const { project } = this.props.location;
-    this.setState({ project });
-    console.log(this.state);
+    console.log(this.props);
+    // const { project } = this.props.history.location;
+    // this.setState({ project });
+    // console.log(this.state);
   }
 
   fetchProject = async () => {

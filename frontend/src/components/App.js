@@ -74,7 +74,7 @@ class App extends React.Component {
         <Router history={history}>
           <div className="h-auto">
             <div>
-              <Header {...this.props}>
+              <Header {...this.props} history={history}>
                 <Switch>
                   <Route
                     exact
@@ -107,6 +107,7 @@ class App extends React.Component {
                     render={(props) => (
                       <UserProfileTabs
                         {...this.props}
+                        {...props}
                         isGuide={this.state.isGuide}
                       />
                     )}
@@ -114,19 +115,25 @@ class App extends React.Component {
                   <Route
                     exact
                     path="/All-Projects"
-                    render={() => <AllProjects />}
+                    render={(props) => <AllProjects {...props} />}
                   />
 
                   <Route
                     exact
                     path="/project/new"
-                    render={() => <CreateProject />}
+                    render={(props) => (
+                      <CreateProject {...props} {...this.props} />
+                    )}
                   />
                   <Route
                     exact
                     path={`/project/view/:project_id`}
-                    render={() => <ViewProject />}
+                    render={(props) => (
+                      <ViewProject {...props} {...this.props} />
+                    )}
                   />
+
+                  <Route path="*" component={Landing} />
                 </Switch>
               </Header>
             </div>

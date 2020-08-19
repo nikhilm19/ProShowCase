@@ -14,7 +14,7 @@ const getProfile = (req, res, next) => {
 
   if (token) {
     console.log("got the token");
-    jwt.verify(token, "trumpsuks", function (err, decoded) {
+    jwt.verify(token, "trumpsuks", async function (err, decoded) {
       if (err) {
         return res.json({
           success: false,
@@ -22,24 +22,20 @@ const getProfile = (req, res, next) => {
         });
       } else {
         req.decoded = decoded;
-        console.log(decoded);
+        console.log("decoded", decoded);
         let email;
-        if (decoded.account) {
-          email = decoded.account.email;
+        if (decoded.userDoc) {
+          email = decoded.userDoc.email;
         } else email = decoded.user.email;
 
-        User.findOne({ email: email })
+        const user = await User.findOne({ email: email })
           .populate("project")
-          .exec(function (err, user) {
-            if (err) {
-              return res.status(400);
-            }
-
+         
             console.log("user=", user);
 
             decoded.account = user;
             return res.status(200).json({ success: true, message: decoded });
-          });
+         
       }
     });
   }
@@ -118,10 +114,15 @@ const userLogin = (req, res, next) => {
     if (!user) {
       return res.send({ success: false, message: info.message });
     }
-    req.login(user, (loginErr) => {
+    req.login(user, async (loginErr) => {
       if (loginErr) {
         res.json(loginErr);
       }
+      const userDoc = await User.findOne({ email: user.email }).populate(
+        "project"
+      );
+      console.log(userDoc);
+
       return res.send({ success: true, message: user });
     });
   })(req, res, next);

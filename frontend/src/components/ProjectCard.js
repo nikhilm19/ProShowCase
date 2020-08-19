@@ -22,7 +22,7 @@ const images = [
   "/images/undraw_code_typing_7jnv.png",
 ];
 
-//todo - fetch the project image here. 
+//todo - fetch the project image here.
 
 const styles = (muiBaseTheme) => ({
   card: ({ inactive }) => ({
@@ -89,8 +89,10 @@ const styles = (muiBaseTheme) => ({
   },
 });
 
-function Project({ classes, projectDetail, history, isLoading }) {
-  console.log(projectDetail);
+function Project(props) {
+  //console.log(projectDetail);
+  console.log("Inside project card", props);
+  const { classes, projectDetail, history, isLoading } = props;
   return (
     <div className="">
       <Card className={classes.card}>
@@ -111,7 +113,12 @@ function Project({ classes, projectDetail, history, isLoading }) {
 
         <CardContent
           className={classes.content}
-          onClick={() => history.push(`project/view/${projectDetail._id}`)}
+          onClick={() =>
+            history.push({
+              pathname: `project/view/${projectDetail._id}`,
+              project: projectDetail,
+            })
+          }
         >
           {isLoading ? (
             <Skeleton

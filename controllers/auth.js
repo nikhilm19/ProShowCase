@@ -95,33 +95,28 @@ const login = (req, res, next) => {
     // Source: http://passportjs.org/docs
     // ***********************************************************************
 
-    req.login(user, (loginErr) => {
+    req.login(user, async (loginErr) => {
       if (loginErr) {
         return res.json(loginErr);
       }
-      const token = jwt.sign({ user }, "trumpsuks", {});
+
+      const userDoc = await User.findById(user._id, {
+        salt: 0,
+        hash: 0,
+      }).populate("project");
+
+      console.log(userDoc);
+
+      const token = jwt.sign({ userDoc }, "trumpsuks", {});
       //todo
 
       // change the jwt key
       // populate the project inside the message.
 
       let message = {
-        user: {
-          id: user._id,
-          type: user.type,
-          email: user.email,
-          name: user.name,
-          phone: user.phone,
-          username: user.username,
-          dept: user.dept,
-          shift: user.shift,
-          project: user.project,
-        },
+        user: userDoc,
       };
-      if (user.type === "student") {
-        message.user.enrollment_no = user.enrollment_no;
-        message.user.grad_year = user.grad_year;
-      }
+     
 
       return res
         .cookie("token", token, {

@@ -10,6 +10,7 @@ import UserProfile from "./UserProfile";
 import UserProject from "./UserProject";
 
 function TabPanel(props) {
+  console.log("TabPanel----", props);
   const { children, value, index, ...other } = props;
 
   return (

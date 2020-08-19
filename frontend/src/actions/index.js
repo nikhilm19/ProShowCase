@@ -118,7 +118,6 @@ export const getProfile = (cookies) => async (dispatch, getState) => {
 export const logOut = (cookies) => {
   console.log(cookies);
   localStorage.removeItem("token");
-
   cookies.remove("token");
   return {
     type: "LOGOUT_USER",
