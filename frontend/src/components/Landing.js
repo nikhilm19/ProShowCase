@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import Loader from "./Loader/Loader";
 import Shadow from "./Shadow/Shadow";
 class Landing extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
@@ -15,9 +15,9 @@ class Landing extends React.Component {
       <div class="relative bg-white overflow-hidden animation-fadeInUp animation-1s flex flex-col sm:flex-row">
         <div class="mx-auto w-full sm:w-6/12">
           <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32">
-            <div class="relative pt-6 px-4 sm:px-6 lg:px-8"></div>
+            <div class="relative pt-6 px-4 sm:px-6 lg:px-6"></div>
 
-            <main class="mt-10  max-w-screen-xl px-4 sm:mt-12 sm:px-3 md:mt-16 lg:mt-20 lg:px-6 xl:mt-28">
+            <main class="mt-10  max-w-screen-xl px-4 sm:mt-12 sm:px-3 md:mt-16 lg:mt-20 lg:px-4 xl:mt-28">
               <div class="sm:text-center lg:text-left flex justify-center flex-col">
                 <h2 className=" font-title text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
                   Projects built by your

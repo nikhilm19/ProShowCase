@@ -1,2 +1,2 @@
-import { createBrowserHistory } from "history";
-export default createBrowserHistory();
+import createHashHistory from "history/createBrowserHistory";
+export default createHashHistory();

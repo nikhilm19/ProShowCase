@@ -11,6 +11,7 @@ import Team from "./Forms/Team";
 import axios from "axios";
 
 import { createProject, imageUpload } from "../actions/index";
+import history from "../history";
 
 class CreateProject extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class CreateProject extends React.Component {
     this.previousPage = this.previousPage.bind(this);
   }
 
-  handleSubmit = (formProps, members, guide,batch) => {
+  handleSubmit = (formProps, members, guide, batch) => {
     console.log("yes" + JSON.stringify(formProps) + JSON.stringify(members));
     console.log(formProps);
     this.props.createProject(
@@ -33,7 +34,7 @@ class CreateProject extends React.Component {
       members,
       guide,
       this.props.implementationSnaps,
-      this.props.history,
+      history,
       batch
     );
   };

@@ -23,12 +23,13 @@ class AllProjects extends React.Component {
   }
 
   fetchProjects = async () => {
-    const res = await Project.get("/");
-    const projects = res.data.projects;
+    if (this.state.projects == null) {
+      const res = await Project.get("/");
+      const projects = res.data.projects;
 
-    this.setState({ projects });
-
-    console.log(JSON.stringify(projects));
+      this.setState({ projects });
+      console.log(JSON.stringify(projects));
+    }
   };
 
   renderFilteredProjects = () => {
@@ -97,7 +98,7 @@ class AllProjects extends React.Component {
               {this.state.projects.map((project) => {
                 return (
                   <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
-                    <ProjectCard project={project} {...this.props} />
+                    <ProjectCard projectDetail={project} {...this.props} />
                   </div>
                 );
               })}

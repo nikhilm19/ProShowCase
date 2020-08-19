@@ -48,9 +48,14 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     backgroundColor: theme.palette.background.paper,
   },
+
+  tabBar: {
+    backgroundColor: "#4e4691",
+  },
 }));
 
 export default function UserProfileTabs(props) {
+  console.log("Inside profile tabs ------->");
   const classes = useStyles();
   const [value, setValue] = React.useState("one");
 
@@ -68,6 +73,7 @@ export default function UserProfileTabs(props) {
           onChange={handleChange}
           aria-label="wrapped label tabs example"
           centered
+          className={classes.tabBar}
         >
           <Tab value="one" label="About me" wrapped {...a11yProps("one")} />
           <Tab value="two" label={"My Project"} {...a11yProps("two")} />
@@ -78,7 +84,6 @@ export default function UserProfileTabs(props) {
         <UserProfile {...props} />
       </TabPanel>
       <TabPanel value={value} index="two">
-        {/*Check if project exists*/}
         <UserProject {...props} />
       </TabPanel>
     </div>

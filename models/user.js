@@ -18,11 +18,11 @@ var userSchema = new Schema({
   dept: String,
   shift: String,
   password: String,
-  project: [String],
+  project: [{ type: Schema.Types.ObjectId, ref: "project" }],
 });
 userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
-var user = mongo.model("user", userSchema, "users");
+var user = mongo.model("user", userSchema);
 
 module.exports = {
   userModel: user,

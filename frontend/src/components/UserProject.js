@@ -18,16 +18,21 @@ class UserProject extends Component {
   }
 
   componentDidMount() {
-    this.fetchProject("160420107056");
+    this.fetchProject();
   }
-  fetchProject = async (userId) => {
+  fetchProject = async () => {
     const { cookies } = this.props;
     console.log(this.props);
     if (this.props.currentUser) {
       //const res = await User.get(`/${userId}`);
       //const user = res.data;
       console.log(this.props.currentUser);
-      if (this.props.currentUser.project && this.props.currentUser.project.length > 0) {
+      if (
+        !(
+          this.props.currentUser.project &&
+          this.props.currentUser.project.length > 0
+        )
+      ) {
         let projectRes = await Project.get(this.props.currentUser.project[0], {
           headers: {
             Authorization: `Bearer ${cookies.get("token")}`,
@@ -40,13 +45,14 @@ class UserProject extends Component {
         });
       } else {
         this.setState({
-          project: "",
+          project: this.props.currentUser.project,
+
+          //todo Set all projects  here
         });
       }
       console.log(this.state);
     }
   };
-  handleChange = (fies) => {};
 
   handleClose() {
     this.setState({

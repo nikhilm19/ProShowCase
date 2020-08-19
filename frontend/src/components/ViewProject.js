@@ -39,7 +39,7 @@ class ViewProject extends React.Component {
 
   render() {
     console.log(this.props.match.params);
-    console.log(JSON.stringify(this.props.location));
+    console.log(this.props.location);
 
     return this.state.project === null ? (
       <Loader isLoading={true} />

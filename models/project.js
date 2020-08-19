@@ -20,7 +20,7 @@ var projectSchema = new Schema({
   implementationSnaps: [mongo.SchemaTypes.Mixed], //url to cloud storage
 });
 
-var project = mongo.model("project", projectSchema, "projects");
+var project = mongo.model("project", projectSchema);
 
 module.exports = {
   projectModel: project,

@@ -1,26 +1,21 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import axios from "axios";
 import Project from "../apis/project";
-import Team from "./ViewProject/Team";
-import ProjectAbstract from "./ViewProject/ProjectAbstract";
-import Tabs from "./ViewProject/Tabs";
-import Navigation from "./ViewProject/Navigation";
-import ImageCarousel from "./ViewProject/Implementation";
-import ProjectResearch from "./ViewProject/ProjectResearch";
 import Loader from "./Loader/Loader";
 import ProjectCard from "./ProjectCard";
 class ProjectDisplay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { project: {}, projects: [] };
-    if (props.project !== null) {
-      this.state = { project: props.project, projects: [] };
-    }
+    console.log("ProjectDisplay -props", props.project);
+    this.state = { projects: [] };
   }
 
   fetchProject = async () => {
     console.log("hello");
+    if (this.props.project !== null) {
+      this.setState({
+        projects: this.props.project,
+      });
+    }
     if (this.props.currentUser.type === "guide") {
       const res = await Project.get(`/?guide=${this.props.currentUser.email}`);
       const projects = res.data.projects;
@@ -30,7 +25,7 @@ class ProjectDisplay extends React.Component {
       this.setState({ projects });
     }
 
-    if (this.state.project === null) {
+    if (this.state.projects === null) {
       //console.log(this.props.match.params.project_id);
       const res = await Project.get("/" + "5f08c3220b7dfe0e131319a1");
 
@@ -67,19 +62,14 @@ class ProjectDisplay extends React.Component {
             </div>
           </div>
           <div class="flex flex-wrap ">
-            {this.props.currentUser.type === "guide" ? (
-              this.state.projects.map((project) => {
-                return (
-                  <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
-                    <ProjectCard project={project} {...this.props} />
-                  </div>
-                );
-              })
-            ) : (
-              <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
-                <ProjectCard project={this.state.project} {...this.props} />
-              </div>
-            )}
+            {this.state.projects.map((project) => {
+              console.log(project);
+              return (
+                <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
+                  <ProjectCard projectDetail={project} {...this.props} />
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

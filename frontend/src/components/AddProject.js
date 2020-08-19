@@ -1,11 +1,8 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import DeleteIcon from "@material-ui/icons/Delete";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import KeyboardVoiceIcon from "@material-ui/icons/KeyboardVoice";
-import Icon from "@material-ui/core/Icon";
-import SaveIcon from "@material-ui/icons/Save";
+
+import history from "../history";
 
 class AddProject extends React.Component {
   constructor(props) {
@@ -33,7 +30,7 @@ class AddProject extends React.Component {
               <div className="mt-16 flex justify-center">
                 <Button
                   variant="contained"
-                  onClick={() => this.props.history.push("/project/new")}
+                  onClick={() => history.push("/project/new")}
                   color="primary"
                   startIcon={<CloudUploadIcon />}
                 >

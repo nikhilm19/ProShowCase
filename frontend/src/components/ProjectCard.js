@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
@@ -8,10 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
-import { CardActionArea } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/Button";
-import ShareIcon from "@material-ui/icons/ShareOutlined";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
@@ -25,7 +21,8 @@ const images = [
   "images/undraw_project_completed_w0oq.png",
   "/images/undraw_code_typing_7jnv.png",
 ];
-const faces = ["NM", "KK", "SJ", "PR"];
+
+//todo - fetch the project image here. 
 
 const styles = (muiBaseTheme) => ({
   card: ({ inactive }) => ({
@@ -92,7 +89,8 @@ const styles = (muiBaseTheme) => ({
   },
 });
 
-function Project({ classes, project, history, isLoading }) {
+function Project({ classes, projectDetail, history, isLoading }) {
+  console.log(projectDetail);
   return (
     <div className="">
       <Card className={classes.card}>
@@ -102,8 +100,8 @@ function Project({ classes, project, history, isLoading }) {
           <CardMedia
             onClick={() =>
               history.push({
-                pathname: `project/view/${project._id}`,
-                project: project,
+                pathname: `project/view/${projectDetail._id}`,
+                project: projectDetail,
               })
             }
             className={classes.media}
@@ -113,7 +111,7 @@ function Project({ classes, project, history, isLoading }) {
 
         <CardContent
           className={classes.content}
-          onClick={() => history.push(`project/view/${project._id}`)}
+          onClick={() => history.push(`project/view/${projectDetail._id}`)}
         >
           {isLoading ? (
             <Skeleton
@@ -128,7 +126,7 @@ function Project({ classes, project, history, isLoading }) {
               variant={"h6"}
               gutterBottom
             >
-              {project.title}
+              {projectDetail.title}
             </Typography>
           )}
           {isLoading ? (
@@ -145,10 +143,10 @@ function Project({ classes, project, history, isLoading }) {
                 className={"MuiTypography--subheading"}
                 variant={"caption"}
               >
-                {project.brief}{" "}
+                {projectDetail.brief}{" "}
               </Typography>
               <div className="flex flex-row">
-                {project.technologies.slice(0, 4).map((tech) => {
+                {projectDetail.technologies.map((tech) => {
                   return <Chip label={tech.title} />;
                 })}
               </div>
@@ -166,7 +164,7 @@ function Project({ classes, project, history, isLoading }) {
           ) : (
             <div className="flex flex-row">
               <AvatarGroup max={3}>
-                {project.teamMembers.map((face) =>
+                {projectDetail.teamMembers.map((face) =>
                   isLoading ? (
                     <Skeleton
                       animation="wave"
@@ -202,8 +200,8 @@ function Project({ classes, project, history, isLoading }) {
               variant="contained"
               onClick={() =>
                 history.push({
-                  pathname: `project/view/${project._id}`,
-                  project: project,
+                  pathname: `project/view/${projectDetail._id}`,
+                  project: projectDetail,
                 })
               }
             >
@@ -221,8 +219,8 @@ function Project({ classes, project, history, isLoading }) {
             />
           ) : (
             <TwitterShareButton
-              url={"http://proshowcase.ml/project/view/" + project._id}
-              title={`Take a look at this amazing project : '${project.title}'`}
+              url={"http://proshowcase.ml/project/view/" + projectDetail._id}
+              title={`Take a look at this amazing project : '${projectDetail.title}'`}
               className="Demo__some-network__share-button"
             >
               <TwitterIcon size={32} round />

@@ -11,8 +11,6 @@ import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import DonutLargeOutlinedIcon from "@material-ui/icons/DonutLargeOutlined";
 import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
@@ -97,10 +95,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
+  console.log(props.history);
 
   const isSignup =
-    props.history.location.pathname.startsWith("/signup") ||
-    props.history.location.pathname.startsWith("/login");
+    window.location.hash.endsWith("#/signup") ||
+    window.location.hash.endsWith("#/login");
+
+  console.log(isSignup);
 
   const [open, setOpenDrawer] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -191,59 +192,63 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" color="transparent" className={classes.appbar}>
-        <Toolbar>
-          {props.isAuthenticated ? (
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-            >
-              <MenuIcon />
-            </IconButton>
-          ) : null}
-
-          <DonutLargeOutlinedIcon />
-          <Link to="/">
-            <Typography className={classes.title} variant="h6" noWrap>
-              ProShowCase
-            </Typography>
-          </Link>
-          {props.isAuthenticated ? (
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
-          ) : null}
-          <div className={classes.grow} />
-          {props.isAuthenticated ? (
-            <div className={classes.sectionDesktop}>
+      {!isSignup ? (
+        <AppBar
+          position="static"
+          color="transparent"
+          className={classes.appbar}
+        >
+          <Toolbar>
+            {props.isAuthenticated ? (
               <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
+                edge="start"
+                className={classes.menuButton}
                 color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
               >
-                <AccountCircle />
+                <MenuIcon />
               </IconButton>
-            </div>
-          ) : null}
+            ) : null}
 
-          {
-            props.isAuthenticated ? (
+            <DonutLargeOutlinedIcon />
+            <Link to="/">
+              <Typography className={classes.title} variant="h6" noWrap>
+                ProShowCase
+              </Typography>
+            </Link>
+            {props.isAuthenticated ? (
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </div>
+            ) : null}
+            <div className={classes.grow} />
+            {props.isAuthenticated ? (
+              <div className={classes.sectionDesktop}>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div>
+            ) : null}
+
+            {props.isAuthenticated ? (
               <div className={classes.sectionMobile}>
                 <IconButton
                   aria-label="show more"
@@ -272,12 +277,12 @@ export default function PrimarySearchAppBar(props) {
                   </button>
                 </Link>
               </div>
-            )
-
-            /**/
-          }
-        </Toolbar>
-      </AppBar>
+            )}
+          </Toolbar>
+        </AppBar>
+      ) : (
+        ""
+      )}
       <NavDrawer isDrawerOpen={open} handleDrawerClose={toggleDrawer} />
       {props.isAuthenticated ? renderMobileMenu : null}
       {props.isAuthenticated ? renderMenu : null}

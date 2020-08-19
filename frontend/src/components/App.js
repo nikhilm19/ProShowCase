@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Route,
-  Link,
-  Switch,
-  BrowserRouter as Router,
-  Redirect,
-} from "react-router-dom";
+import { Route, Link, Switch, HashRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { withCookies, Cookies, CookiesProvider } from "react-cookie";
 import cookie from "react-cookie";
@@ -23,13 +17,11 @@ import ViewProject from "./ViewProject";
 
 import LoginForm from "./LoginForm";
 import { signInUser, getProfile } from "../actions/index";
-import Loader from "./Loader/Loader";
-import ShadowBox from "./Shadow/Shadow";
-import Snackbar from "./Snackbar/Snackbar";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    console.log(window.location);
     this.state = {
       isGuide: false,
       isOpen: false,
@@ -43,17 +35,10 @@ class App extends React.Component {
     if (this.props.currentUser !== undefined) {
       this.setState({
         isOpen: true,
+        isGuide: this.props.currentUser.type === "guide" ? true : false,
       });
-      if (this.props.currentUser.type === "guide") {
-        this.setState({
-          isGuide: true,
-        });
-      }
     } else {
     }
-    this.setState({
-      isGuide: false,
-    });
 
     //cookies.set("name", "hello", { path: "/" });
   }
@@ -62,115 +47,86 @@ class App extends React.Component {
     //console.log("in APP" + this.props);
   }
 
-  renderRedirect = ({ history }) => {
+  renderRedirect = () => {
+    console.log(history);
+    console.log(this.props);
     if (
-      this.props.isAuthenticated === false &&
+      (this.props.isAuthenticated === undefined ||
+        this.props.isAuthenticated === false) &&
       !(
         history.location.pathname.startsWith("/signup") ||
-        history.location.pathname.startsWith("/login")
+        history.location.pathname.startsWith("/login") ||
+        history.location.pathname === "/"
       )
     ) {
+      console.log("yes");
       return <Redirect to="/" />;
     }
   };
   render() {
     console.log(this.props);
+    console.log(history);
 
     return (
       <div className="App ">
-        <Router history={history}>
+        <HashRouter history={history}>
           <div className="h-auto">
-            <Route
-              render={(props) => (
-                <div>
-                  <HeaderM {...props} {...this.props}>
-                    {this.renderRedirect(props)}
-                    <Switch>
-                      <Route
-                        exact
-                        path="/"
-                        component={() =>
-                          this.props.isAuthenticated ? (
-                            <AllProjects {...props} />
-                          ) : (
-                            <Landing {...props} />
-                          )
-                        }
-                      />
-                      <Route
-                        exact
-                        path="/login"
-                        component={() => (
-                          <LoginForm
-                            cookies={this.props.cookies}
-                            {...props}
-                            {...this.props}
-                          />
-                        )}
-                      />
-                      <Route
-                        exact
-                        path="/signup"
-                        component={SignUpUserChoice}
-                      />
-                      <Route
-                        exact
-                        path="/signup/guide"
-                        component={() => <SignUpForm isGuide={true} />}
-                      />
-                      <Route
-                        exact
-                        path="/signup/student"
-                        component={() => (
-                          <SignUpForm
-                            isGuide={false}
-                            {...props}
-                            {...this.props}
-                          />
-                        )}
-                      />
-                      <Route
-                        exact
-                        path="/profile"
-                        component={() => (
-                          <UserProfileTabs
-                            isGuide={false}
-                            {...this.props}
-                            {...props}
-                          />
-                        )}
-                      />
-                      <Route
-                        exact
-                        path="/All-Projects"
-                        component={() => <AllProjects {...props} />}
-                      />
+            <div>
+              <HeaderM history={history}>
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={() =>
+                      this.props.isAuthenticated ? <AllProjects /> : <Landing />
+                    }
+                  />
+                  <Route
+                    exact
+                    path="/login"
+                    render={() => <LoginForm cookies={this.props.cookies} />}
+                  />
+                  <Route exact path="/signup" component={SignUpUserChoice} />
+                  <Route
+                    exact
+                    path="/signup/guide"
+                    render={() => <SignUpForm isGuide={true} />}
+                  />
+                  <Route
+                    exact
+                    path="/signup/student"
+                    render={() => <SignUpForm isGuide={false} />}
+                  />
+                  <Route exact path="/profile" component={SignUpUserChoice} />
+                  <Route
+                    exact
+                    path="/All-Projects"
+                    render={() => <AllProjects />}
+                  />
 
-                      <Route
-                        exact
-                        path="/project/new"
-                        component={() => (
-                          <CreateProject {...props} {...this.props} />
-                        )}
-                      />
-                      <Route
-                        exact
-                        path={`/project/view/:project_id`}
-                        component={ViewProject}
-                      />
-                    </Switch>
-                  </HeaderM>
-                </div>
-              )}
-            />
+                  <Route
+                    exact
+                    path="/project/new"
+                    render={() => <CreateProject />}
+                  />
+                  <Route
+                    exact
+                    path={`/project/view/:project_id`}
+                    render={() => <ViewProject />}
+                  />
+                </Switch>
+                <SignUpUserChoice />
+              </HeaderM>
+            </div>
           </div>
-        </Router>
+        </HashRouter>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log("mapstatetoprops-APp.js", state);
   return {
     currentUser: state.authReducer.currentUser,
     message: state.authReducer.message,

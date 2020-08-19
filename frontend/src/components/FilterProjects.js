@@ -11,7 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
-
+import Zoom from "@material-ui/core/Zoom";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import AddIcon from "@material-ui/icons/Add";
@@ -86,9 +86,11 @@ const guides = [
 ];
 const batches = [{ year: "2019" }, { year: "2020" }, { year: "2021" }];
 
+// fetch data here
+
 export default function FilterProjects(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(true);
   const [selectedGuides, setSelectedGuides] = React.useState([]);
   const [selectedTechnologies, setSelectedTechnologies] = React.useState([]);
   const [selectedBatches, setSelectedBatches] = React.useState([]);
@@ -117,12 +119,7 @@ export default function FilterProjects(props) {
           paper: classes.paper, // class name, e.g. `classes-nesting-label-x`
         }}
       >
-        <Collapse
-          in={expanded}
-          timeout="auto"
-          unmountOnExit
-          className={classes.content}
-        >
+        <Collapse in={expanded} timeout="auto" className={classes.content}>
           <CardContent className={classes.content}>
             <Typography paragraph>Technologies:</Typography>
             <div className="flex flex-col sm:flex-row w-full">
@@ -166,7 +163,7 @@ export default function FilterProjects(props) {
                   options={guides}
                   disableCloseOnSelect
                   onChange={(e, newValue) => {
-                    setSelectedGuides(newValue)
+                    setSelectedGuides(newValue);
                     console.log(selectedGuides);
                   }}
                   getOptionLabel={(option) => option.name}
@@ -199,7 +196,7 @@ export default function FilterProjects(props) {
                   options={batches}
                   disableCloseOnSelect
                   onChange={(e, newValue) => {
-                    setSelectedBatches(newValue)
+                    setSelectedBatches(newValue);
                     console.log(selectedBatches);
                   }}
                   getOptionLabel={(option) => option.year}
@@ -232,7 +229,6 @@ export default function FilterProjects(props) {
                     selectedTechnologies,
                     selectedBatches
                   );
-                  handleExpandClick();
                 }}
               >
                 Submit

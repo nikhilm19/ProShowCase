@@ -4,8 +4,6 @@ import user from "../apis/user";
 import auth from "../apis/auth";
 
 import history from "../history";
-import { withCookies, Cookies } from "react-cookie";
-import cookie from "react-cookie";
 
 export const imageUpload = (data) => {
   //const res = await axios.post("/createProject");
@@ -17,14 +15,16 @@ export const createProject = (
   formValues,
   members,
   guide,
-  implementationSnaps,history,batch
+  implementationSnaps,
+
+  batch
 ) => async (dispatch, getState) => {
   //const { userId } = getState().auth;
   console.log("action dispatched" + formValues);
   formValues.teamMembers = members;
   formValues.guide = guide;
   formValues.implementationSnaps = implementationSnaps;
-  formValues.batch = batch
+  formValues.batch = batch;
   console.log("formvals", formValues);
   const res = await projects.post("/", { ...formValues });
   console.log(res);
@@ -36,22 +36,27 @@ export const createProject = (
   dispatch({ type: "CREATE_PROJECT", payload: res.data });
 };
 
-export const signInUser = (formValues, cookies) => async (
+export const signInUser = (formValues, cb, cookies) => async (
   dispatch,
   getState
 ) => {
   console.log("login action dispatched" + formValues);
   const res = await auth.post("/login", { ...formValues });
 
+  console.log(history);
+
   console.log(res);
 
   const data = res.data;
   if (data.success === true) {
     localStorage.setItem("token", data.token);
+    cb(data);
+    // history.push("/profile");
+    console.log("pushing through actions");
   }
   console.log(cookies);
 
-  console.log("login res data" + JSON.stringify(data));
+  console.log("login res data", data);
   //console.log(cookies.get("token"));
 
   dispatch({ type: "USER_SIGN_IN", payload: res.data });
@@ -77,8 +82,11 @@ export const signUpUser = (formValues, cookies) => async (
 };
 
 export const getProfile = (cookies) => async (dispatch, getState) => {
-  const token = cookies.get("token");
   const tokenLocal = localStorage.getItem("token");
+
+  let state = getState();
+  console.log(state);
+
   if (tokenLocal) {
     const res = await user.get("/profile", {
       method: "GET",
@@ -156,7 +164,7 @@ export const filterProjects = (guides, technologies, batches) => async (
     searchString += `&technologies=${technologyParam}`;
   }
   if (batches !== null) {
-     searchString += `&batches=${batchParam}`;
+    searchString += `&batches=${batchParam}`;
   }
   const res = await projects.get(searchString);
   console.log("res", res);

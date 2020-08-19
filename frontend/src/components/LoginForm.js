@@ -41,7 +41,8 @@ class loginForm extends React.Component {
 
   componentDidMount() {
     if (this.props.isAuthenticated) {
-      this.props.history.push("/profile");
+      console.log("authenticated");
+      history.push("/profile");
     }
   }
 
@@ -65,16 +66,31 @@ class loginForm extends React.Component {
 
     console.log(this.state);
 
-    this.props.signInUser(user);
+    this.props.signInUser(user, (data) => {
+      if (data.success) {
+        console.log("after login check------>");
+        this.setState({
+          user: data.message.user,
+          isLoading: false,
+        });
+
+        console.log("pushing here");
+
+        history.push("/profile");
+      }
+    });
     console.log(this.props);
 
     if (this.props.isAuthenticated) {
+      console.log("after login check------>");
       this.setState({
         user: this.props.currentUser,
         isLoading: false,
       });
 
-      this.props.history.push("/profile");
+      console.log("pushing here");
+
+      history.push("/profile");
     } else {
       this.setState({
         user: null,
