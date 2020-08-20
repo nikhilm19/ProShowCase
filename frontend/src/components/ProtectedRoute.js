@@ -3,7 +3,9 @@ import { shallowEqual, useSelector } from "react-redux";
 import { useDispatch, connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import { getProfile } from "../actions/index";
-
+import Loader from "./Loader/Loader";
+import AllProjects from "./AllProjects";
+import Landing from "./Landing";
 class PrivateRoute extends React.Component {
   constructor(props) {
     super(props);
@@ -17,13 +19,40 @@ class PrivateRoute extends React.Component {
     //   this.setState({ isAuthenticated: data.success });
     // });
   }
+  componentDidMount() {
+    if (localStorage.getItem("token")) this.props.getProfile(this.props);
+    else this.setState({ isAuthenticated: false });
+  }
   componentDidUpdate(prevProps) {
-    if (prevProps.isAuthenticated !== this.props.isAuthenticated) {
-      this.setState({
-        isAuthenticated: this.props.isAuthenticated,
-      });
+    console.log(prevProps, this.props);
+    if (this.props !== prevProps) {
+      this.setState(
+        {
+          isAuthenticated: this.props.isAuthenticated,
+        },
+        () => console.log("updated state")
+      );
+      //this.renderLanding();
     }
   }
+
+  renderLanding = () => {
+    console.log(this.props.location, this.state);
+    const { component: Component, ...rest } = this.props;
+    if (
+      (this.props.location.pathname === "/" &&
+        this.state.isAuthenticated !== undefined) ||
+      this.state.isAuthenticated !== null
+    ) {
+      if (this.state.isAuthenticated === true)
+        return (
+          <Route {...rest} render={(props) => <AllProjects {...props} />} />
+        );
+      else
+        return <Route {...rest} render={(props) => <Landing {...props} />} />;
+    } else
+      return <Route {...rest} render={(props) => <Landing {...props} />} />;
+  };
 
   render() {
     console.log(this.props);
@@ -31,10 +60,30 @@ class PrivateRoute extends React.Component {
 
     const { component: Component, ...rest } = this.props;
 
-    return this.state.isAuthenticated === true ? (
-      <Route {...rest} render={(props) => <Component {...props} {...rest} />} />
+    //this.renderLanding();
+    return this.state.isAuthenticated === undefined ||
+      this.state.isAuthenticated === null ? (
+      <Loader isLoading={true} />
+    ) : this.state.isAuthenticated === true ? (
+      this.props.location.pathname === "/" ? (
+        <Route {...rest} render={(props) => <AllProjects {...props} />} />
+      ) : (
+        <Route
+          {...rest}
+          render={(props) => <Component {...props} {...rest} />}
+        />
+      )
+    ) : this.props.location.pathname === "/" ? (
+      <Route {...rest} render={(props) => <Landing {...props} />} />
     ) : (
-      <Route {...rest} render={(props) => <Redirect to="/login" />} />
+      <Route
+        {...rest}
+        render={(props) => (
+          <Redirect
+            to={{ pathname: "/login", state: { from: this.props.location } }}
+          />
+        )}
+      />
     );
   }
 }
@@ -49,7 +98,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps, { getProfile })(PrivateRoute);
 // const PrivateRoute = async ({ component: Component, ...rest }) => {
 //   const dispatch = useDispatch();
 

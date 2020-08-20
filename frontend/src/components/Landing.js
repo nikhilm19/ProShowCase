@@ -8,6 +8,7 @@ import Shadow from "./Shadow/Shadow";
 class Landing extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
   }
 
   render() {

@@ -19,7 +19,6 @@ import AllProjects from "./AllProjects";
 import ViewProject from "./ViewProject";
 import LoginForm from "./LoginForm";
 import PrivateRoute from "./ProtectedRoute";
-import { getProfile } from "../actions/index";
 
 class App extends React.Component {
   constructor(props) {
@@ -84,6 +83,7 @@ class App extends React.Component {
                       this.props.isAuthenticated ? <AllProjects /> : <Landing />
                     }
                   />
+
                   <Route
                     exact
                     path="/login"
@@ -113,48 +113,27 @@ class App extends React.Component {
                     {...this.props}
                     isGuide={this.state.isGuide}
                   />
-                  <Route
-                    exact
-                    path="/profile"
-                    render={(props) => (
-                      <UserProfileTabs
-                        {...this.props}
-                        {...props}
-                        isGuide={this.state.isGuide}
-                      />
-                    )}
-                  />
-                  <Route
+
+                  <PrivateRoute
                     exact
                     path="/All-Projects"
-                    render={(props) => <AllProjects {...props} />}
+                    component={AllProjects}
+                    {...this.props}
                   />
 
-                  <Route
+                  <PrivateRoute
                     exact
                     path="/project/new"
-                    render={(props) => (
-                      <CreateProject {...props} {...this.props} />
-                    )}
+                    component={CreateProject}
+                    {...this.props}
                   />
+
                   <Route
                     exact
                     path={`/project/view/:project_id`}
                     render={(props) => (
                       <ViewProject {...props} {...this.props} />
                     )}
-                  />
-
-                  <Route
-                    path="*"
-                    render={(props) =>
-                      this.props.isAuthenticated === undefined ||
-                      this.props.isAuthenticated === false ? (
-                        <Landing />
-                      ) : (
-                        <AllProjects />
-                      )
-                    }
                   />
                 </Switch>
               </Header>
@@ -176,4 +155,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, {})(withCookies(App));
+export default connect(mapStateToProps)(withCookies(App));

@@ -1,12 +1,11 @@
 import { act } from "react-dom/test-utils";
 
-
 const logout = (state, action) => {
   console.log("inside logout");
   return {
     ...state,
     currentUser: null,
-    isAuthenticated: false,
+    isAuthenticated: null,
     isLoginAttempt: 0,
     isSignupAttempt: 0,
     message: null,
@@ -33,7 +32,9 @@ const fetchCurrentUser = (state, action) => {
   let currentUser = {};
   if (action.payload.success) {
     currentUser = action.payload.message.account || action.payload.message.user;
+    //isAuthenticated = true;
   }
+  console.log(action.payload);
   return {
     ...state,
     currentUser,
@@ -65,6 +66,7 @@ export default (
   state = {
     isSignupAttempt: 0,
     isLoginAttempt: 0,
+    isAuthenticated: null,
   },
   action
 ) => {

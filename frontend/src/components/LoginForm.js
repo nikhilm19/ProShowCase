@@ -72,7 +72,13 @@ class loginForm extends React.Component {
           isLoading: false,
         });
 
-        this.props.history.push("/profile");
+        console.log(this.props.history);
+
+        const from = this.props.history.location.state
+          ? this.props.history.location.state.from
+          : "/Profile";
+
+        this.props.history.push(from);
         console.log("pushing here");
 
         // this.props.history.push("/profile");

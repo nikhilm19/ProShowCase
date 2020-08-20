@@ -98,19 +98,14 @@ export const getProfile = (cookies) => async (dispatch, getState) => {
       localStorage.removeItem("token");
     }
     const data = res.data;
-
     console.log("in getProfile action");
     console.log(data);
-    if (data) {
-      // An error will occur if the token is invalid.
-      // If this happens, you may want to remove the invalid token.
-
-      console.log(data);
-      //cb(data);
-
-      dispatch({ type: "FETCH_CURRENT_USER", payload: data });
-    }
-  }
+    dispatch({ type: "FETCH_CURRENT_USER", payload: data });
+  } else
+    dispatch({
+      type: "FETCH_CURRENT_USER",
+      payload: { success: null, error: "Token not found" },
+    });
 };
 
 export const logOut = (cookies) => {
