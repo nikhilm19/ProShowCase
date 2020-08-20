@@ -63,6 +63,7 @@ class loginForm extends React.Component {
     event.preventDefault();
     let user = this.state.user;
     console.log(this.state);
+    this.setState({ isLoading: true });
     this.props.signInUser(user, (data) => {
       if (data.success) {
         console.log("after login check------>");
@@ -76,6 +77,7 @@ class loginForm extends React.Component {
 
         // this.props.history.push("/profile");
       } else {
+        console.log("error in login");
         this.setState({
           user: null,
           isSignedIn: false,

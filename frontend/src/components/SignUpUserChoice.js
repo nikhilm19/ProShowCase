@@ -3,9 +3,9 @@ import React from "react";
 import history from "../history";
 import Shadow from "./Shadow/Shadow";
 class SignUpUserChoice extends React.Component {
-  constructor() {
+  constructor(props) {
     console.log("inside signup");
-    super();
+    super(props);
   }
 
   onGuideSignUp = () => {};
@@ -31,7 +31,7 @@ class SignUpUserChoice extends React.Component {
                 <div className="flex  justify-center">
                   <Shadow>
                     <button
-                      onClick={() => history.push("/signup/student")}
+                      onClick={() => this.props.history.push("/signup/student")}
                       className="font-buttons hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-2 px-8 text-white"
                     >
                       Join Now!
@@ -59,7 +59,7 @@ class SignUpUserChoice extends React.Component {
                 <div className="flex  justify-center">
                   <Shadow>
                     <button
-                      onClick={() => history.push("/signup/guide")}
+                      onClick={() => this.props.history.push("/signup/guide")}
                       className="font-buttons hover:shadow-xl transition ease-in-out duration-500 rounded shadow-md bg-indigo-600 p-2 px-8 text-white"
                     >
                       Join Now!

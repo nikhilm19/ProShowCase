@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,7 +12,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import DonutLargeOutlinedIcon from "@material-ui/icons/DonutLargeOutlined";
-import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
 import { Link, useHistory } from "react-router-dom";
 import NavDrawer from "./NavDrawer";
 import { useSelector } from "react-redux";
@@ -97,16 +96,22 @@ export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const [isSignup, setIsSignUp] = React.useState(false);
 
-  const history = props.history;
+  const history = useHistory();
 
-  history.listen((location) => {
+  useEffect(() => {
+    checkSignUpRoute();
+  });
+
+  const checkSignUpRoute = () => {
     if (
       history.location.pathname.startsWith("/signup") ||
       history.location.pathname.startsWith("/login")
     )
       setIsSignUp(true);
     else setIsSignUp(false);
-  });
+  };
+
+  history.listen(checkSignUpRoute);
 
   console.log(history.location.pathname);
 
@@ -155,21 +160,20 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to="/profile">
+      <Link to="/Profile">
         <MenuItem onClick={handleMenuClose}> Profile</MenuItem>
       </Link>
-      {props.currentUser ? (
-        <MenuItem
-          onClick={() => {
-            dispatch(logOut(props.cookies));
-            handleMenuClose();
 
-            history.push("/");
-          }}
-        >
-          Logout
-        </MenuItem>
-      ) : null}
+      <MenuItem
+        onClick={() => {
+          dispatch(logOut(props.cookies));
+          handleMenuClose();
+
+          history.push("/");
+        }}
+      >
+        Logout
+      </MenuItem>
     </Menu>
   );
 
@@ -252,40 +256,36 @@ export default function PrimarySearchAppBar(props) {
             </div>
           ) : null}
 
-          {
-            props.isAuthenticated ? (
-              <div className={classes.sectionMobile}>
-                <IconButton
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <MoreIcon />
-                </IconButton>
-              </div>
-            ) : isSignup ? (
-              ""
-            ) : (
-              <div className="flex flex-row">
-                <Link to="/signup" className="mr-2">
-                  {" "}
-                  <button class="font-title w-full flex items-center justify-center px-1 sm:px-0 py-1 border border-transparent text-base leading-6 font-small rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-600 hover:text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
-                    Signup
-                  </button>
-                </Link>
-                <Link to="/login">
-                  {" "}
-                  <button class="font-title w-full flex items-center justify-center px-1 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
-                    Login
-                  </button>
-                </Link>
-              </div>
-            )
-
-            /**/
-          }
+          {props.isAuthenticated ? (
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
+          ) : isSignup ? (
+            ""
+          ) : (
+            <div className="flex flex-row">
+              <Link to="/signup" className="mr-2">
+                {" "}
+                <button class="font-title w-full flex items-center justify-center px-1 sm:px-0 py-1 border border-transparent text-base leading-6 font-small rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-600 hover:text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
+                  Signup
+                </button>
+              </Link>
+              <Link to="/login">
+                {" "}
+                <button class="font-title w-full flex items-center justify-center px-1 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
+                  Login
+                </button>
+              </Link>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
       <NavDrawer isDrawerOpen={open} handleDrawerClose={toggleDrawer} />

@@ -57,6 +57,23 @@ class SignupForm extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("ComponentDidUpdate - SignupForm ----->");
+
+    console.log(this.props);
+    console.log(prevProps);
+    if (!(this.props.isAuthenticated === prevProps.isAuthenticated)) {
+      if (!this.props.isAuthenticated) {
+        this.setState({
+          error: this.props.message,
+          isLoading: false,
+        });
+      } else {
+        this.props.history.push("/Profile");
+      }
+    }
+  }
+
   isValid = (user) => {
     console.log(user);
     let error = this.state.formValidation;

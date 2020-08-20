@@ -18,6 +18,7 @@ import Landing from "./Landing";
 import AllProjects from "./AllProjects";
 import ViewProject from "./ViewProject";
 import LoginForm from "./LoginForm";
+import PrivateRoute from "./ProtectedRoute";
 import { getProfile } from "../actions/index";
 
 class App extends React.Component {
@@ -30,7 +31,7 @@ class App extends React.Component {
     };
     const { cookies } = this.props;
 
-    this.props.getProfile(cookies);
+    //this.props.getProfile(cookies);
 
     console.log(this.props);
 
@@ -74,7 +75,7 @@ class App extends React.Component {
         <Router history={history}>
           <div className="h-auto">
             <div>
-              <Header {...this.props} history={history}>
+              <Header {...this.props}>
                 <Switch>
                   <Route
                     exact
@@ -94,12 +95,23 @@ class App extends React.Component {
                   <Route
                     exact
                     path="/signup/guide"
-                    render={() => <SignUpForm isGuide={true} />}
+                    render={(props) => (
+                      <SignUpForm isGuide={true} {...props} {...this.props} />
+                    )}
                   />
                   <Route
                     exact
                     path="/signup/student"
-                    render={() => <SignUpForm isGuide={false} />}
+                    render={(props) => (
+                      <SignUpForm isGuide={false} {...props} {...this.props} />
+                    )}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/profile"
+                    component={UserProfileTabs}
+                    {...this.props}
+                    isGuide={this.state.isGuide}
                   />
                   <Route
                     exact
@@ -133,7 +145,17 @@ class App extends React.Component {
                     )}
                   />
 
-                  <Route path="*" component={Landing} />
+                  <Route
+                    path="*"
+                    render={(props) =>
+                      this.props.isAuthenticated === undefined ||
+                      this.props.isAuthenticated === false ? (
+                        <Landing />
+                      ) : (
+                        <AllProjects />
+                      )
+                    }
+                  />
                 </Switch>
               </Header>
             </div>
@@ -154,4 +176,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { getProfile })(withCookies(App));
+export default connect(mapStateToProps, {})(withCookies(App));

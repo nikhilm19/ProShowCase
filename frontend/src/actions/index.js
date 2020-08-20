@@ -16,7 +16,7 @@ export const createProject = (
   members,
   guide,
   implementationSnaps,
-
+  history,
   batch
 ) => async (dispatch, getState) => {
   //const { userId } = getState().auth;
@@ -50,15 +50,10 @@ export const signInUser = (formValues, cb, cookies) => async (
   const data = res.data;
   if (data.success === true) {
     localStorage.setItem("token", data.token);
-    cb(data);
-    // history.push("/profile");
-    // console.log("pushing through actions");
   }
+  cb(data);
   console.log(cookies);
-
   console.log("login res data", data);
-  //console.log(cookies.get("token"));
-
   dispatch({ type: "USER_SIGN_IN", payload: res.data });
 };
 
@@ -75,8 +70,10 @@ export const signUpUser = (formValues, cookies) => async (
 
   if (data.success === true) {
     localStorage.setItem("token", data.token);
-    history.push("/profile");
+    // history.push("/profile");
   }
+
+  // cb(data);
 
   dispatch({ type: "USER_SIGN_UP", payload: res.data });
 };
@@ -109,6 +106,7 @@ export const getProfile = (cookies) => async (dispatch, getState) => {
       // If this happens, you may want to remove the invalid token.
 
       console.log(data);
+      //cb(data);
 
       dispatch({ type: "FETCH_CURRENT_USER", payload: data });
     }

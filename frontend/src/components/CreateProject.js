@@ -34,7 +34,7 @@ class CreateProject extends React.Component {
       members,
       guide,
       this.props.implementationSnaps,
-      history,
+      this.props.history,
       batch
     );
   };
