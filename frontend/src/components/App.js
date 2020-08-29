@@ -19,7 +19,8 @@ import AllProjects from "./AllProjects";
 import ViewProject from "./ViewProject";
 import LoginForm from "./LoginForm";
 import PrivateRoute from "./ProtectedRoute";
-
+import { getProfile } from "../actions";
+import Loader from "./Loader/Loader";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +31,7 @@ class App extends React.Component {
     };
     const { cookies } = this.props;
 
-    //this.props.getProfile(cookies);
+    this.props.getProfile(cookies);
 
     console.log(this.props);
 
@@ -155,4 +156,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(withCookies(App));
+export default connect(mapStateToProps, { getProfile })(withCookies(App));

@@ -29,7 +29,7 @@ export const createProject = (
   const res = await projects.post("/", { ...formValues });
   console.log(res);
   const data = res.data;
-  const { _id } = res.data;
+  const { _id } = res.data.message;
 
   history.push(`/project/view/${_id}`);
 

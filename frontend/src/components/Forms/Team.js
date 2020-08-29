@@ -27,6 +27,8 @@ import users from "../../apis/user";
 import GoogleAvatar from "../GoogleAvatar/GoogleAvatar";
 import Loader from "../Loader/Loader";
 
+import TeamMemberCard from "../Cards/TeamMember";
+
 class Team extends React.Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,12 @@ class Team extends React.Component {
 
   onSubmit = (formProps) => {
     console.log(formProps);
-    this.props.onSubmit(formProps, this.state.members, this.state.guide,this.props.currentUser.batch);
+    this.props.onSubmit(
+      formProps,
+      this.state.members,
+      this.state.guide,
+      this.props.currentUser.grad_year
+    );
   };
 
   fetchUsers = async (type) => {
@@ -62,22 +69,11 @@ class Team extends React.Component {
             The doers, the developers!
           </p>
         </div>
+
         {guide !== null ? (
           <div className="flex mx-auto justify-center">
-            <div class="p-2  md:w-1/2 w-full">
-              <div class="h-full flex items-center border-gray-200 border rounded-lg">
-                <img
-                  alt="team"
-                  class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                  src="https://dummyimage.com/80x80"
-                />
-                <div class="flex-grow">
-                  <h2 class="text-gray-900 title-font font-medium">
-                    {guide.name}
-                  </h2>
-                  <p class="text-gray-500">The guide!</p>
-                </div>
-              </div>
+            <div className="">
+              <TeamMemberCard member={guide} isGuide={true}/>
             </div>
           </div>
         ) : (
@@ -86,27 +82,9 @@ class Team extends React.Component {
 
         {members !== null ? (
           <div class="flex flex-wrap -m-2 justify-center">
-            {members.map((member) => {
-              return (
-                <div className="m-2 sm:w-3/12 w-full">
-                  <Card className="flex flex-col">
-                    <CardHeader
-                      className="flex flex-col"
-                      style={{ margin: "0px" }}
-                      avatar={<GoogleAvatar text={member.name[0]} />}
-                      title={member.name}
-                    />
-
-                    <CardContent>
-                      <h1 className="text-gray-500 text-center">
-                        {member.email}
-                      </h1>
-                    </CardContent>
-                    <CardActions disableSpacing></CardActions>
-                  </Card>
-                </div>
-              );
-            })}
+            {members.map((member) => (
+              <TeamMemberCard member={member} isGuide={false}/>
+            ))}
           </div>
         ) : (
           ""
@@ -168,7 +146,7 @@ class Team extends React.Component {
             </div>
           </div>
 
-          {this.state.members !== null ? (
+          {this.state.members !== null || this.state.guide !== null ? (
             <div className="w-full">
               {this.renderTeam(this.state.members, this.state.guide)}
             </div>

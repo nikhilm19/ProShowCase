@@ -100,7 +100,7 @@ export default function FilterProjects(props) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-10/12 mx-auto overflow-visible sticky">
+    <div className="flex flex-col justify-center items-center w-full mx-auto overflow-visible sticky">
       <button
         onClick={handleExpandClick}
         aria-expanded={expanded}
@@ -123,7 +123,7 @@ export default function FilterProjects(props) {
           <CardContent className={classes.content}>
             <Typography paragraph>Technologies:</Typography>
             <div className="flex flex-col sm:flex-row w-full">
-              <div className="sm:w-5/12 mr-4 mb-2 sm:mb-0 h-12">
+              <div className="sm:w-4/12 mr-4 mb-2 sm:mb-0 h-12">
                 <Autocomplete
                   multiple
                   limitTags={2}
@@ -155,7 +155,7 @@ export default function FilterProjects(props) {
                   )}
                 />
               </div>
-              <div className="sm:w-5/12 mr-4 mb-2 sm:mb-0 ">
+              <div className="sm:w-3/12 mr-4 mb-2 sm:mb-0 ">
                 <Autocomplete
                   multiple
                   id="guides"
@@ -222,7 +222,7 @@ export default function FilterProjects(props) {
                 />
               </div>
               <button
-                className="bg-indigo-600 rounded text-white mt-2 w-1/2 mx-auto h-10"
+                className="sm:w-2/12 bg-indigo-600 rounded text-white mx-auto h-12"
                 onClick={() => {
                   props.getFilteredProjects(
                     selectedGuides,

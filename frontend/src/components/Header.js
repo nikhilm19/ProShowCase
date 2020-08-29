@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 import { logOut } from "../actions";
+import Logo from "../logos/Purple Rectangles Attorney & Law Logo (7).png";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -105,7 +106,8 @@ export default function PrimarySearchAppBar(props) {
   const checkSignUpRoute = () => {
     if (
       history.location.pathname.startsWith("/signup") ||
-      history.location.pathname.startsWith("/login")
+      history.location.pathname.startsWith("/login") ||
+      history.location.pathname === "/"
     )
       setIsSignUp(true);
     else setIsSignUp(false);
@@ -219,7 +221,7 @@ export default function PrimarySearchAppBar(props) {
             </IconButton>
           ) : null}
 
-          <DonutLargeOutlinedIcon />
+          <img src={Logo} width="50px" height="50px" />
           <Link to="/">
             <Typography className={classes.title} variant="h6" noWrap>
               ProShowCase

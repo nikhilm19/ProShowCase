@@ -31,7 +31,7 @@ const login = (state, action) => {
 const fetchCurrentUser = (state, action) => {
   let currentUser = {};
   if (action.payload.success) {
-    currentUser = action.payload.message.account || action.payload.message.user;
+    currentUser = action.payload.message.user || action.payload.message.account;
     //isAuthenticated = true;
   }
   console.log(action.payload);
@@ -47,7 +47,10 @@ const signup = (state, action) => {
   let currentUser = null;
 
   if (action.payload.success === true) {
-    currentUser = action.payload.message.user || action.payload.message.account;
+    currentUser =
+      action.payload.message.user ||
+      action.payload.message.account ||
+      action.payload.message.userDoc;
   }
 
   console.log(state);

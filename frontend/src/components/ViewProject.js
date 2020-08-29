@@ -48,7 +48,7 @@ class ViewProject extends React.Component {
       <div className="p-2 ">
         <ProjectAbstract project={this.state.project} />
         <Team project={this.state.project} images={this.state.images} />
-        <div className="mx-10">
+        <div className="mx-5">
           {" "}
           {this.state.project.implementationSnaps &&
           this.state.project.implementationSnaps.length > 0 ? (

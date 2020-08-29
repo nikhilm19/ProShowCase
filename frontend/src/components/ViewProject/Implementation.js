@@ -86,13 +86,13 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
   arrowLeft: {
     left: 0,
     [breakpoints.up("lg")]: {
-      left: -64,
+      left: 0,
     },
   },
   arrowRight: {
     right: 0,
     [breakpoints.up("lg")]: {
-      right: -64,
+      right: 0,
     },
   },
   text: {
@@ -161,7 +161,7 @@ const ParallaxCarousel = (props) => {
   };
   // eslint-disable-next-line react/prop-types
   const renderElements = ({ index, onChangeIndex }) => (
-    <>
+    <div className="mx-10">
       <Button
         className={cx(classes.arrow, classes.arrowLeft)}
         classes={arrowStyles}
@@ -187,7 +187,7 @@ const ParallaxCarousel = (props) => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 
   const renderChildren = ({ injectStyle, fineIndex }) =>
@@ -203,9 +203,11 @@ const ParallaxCarousel = (props) => {
       <h1 class="text-4xl font-medium title-font mb-4 text-gray-900 text-center">
         Implementation
       </h1>
-      <ParallaxSlide renderElements={renderElements}>
-        {renderChildren}
-      </ParallaxSlide>
+      <div className="mx-10 px-10">
+        <ParallaxSlide renderElements={renderElements}>
+          {renderChildren}
+        </ParallaxSlide>
+      </div>
     </div>
   );
 };

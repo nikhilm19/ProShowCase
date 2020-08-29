@@ -1,7 +1,7 @@
 import React from "react";
 import Project from "../apis/project";
 import Loader from "./Loader/Loader";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "./Cards/Project";
 class ProjectDisplay extends React.Component {
   constructor(props) {
     super(props);

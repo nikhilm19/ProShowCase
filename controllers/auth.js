@@ -60,22 +60,6 @@ const register = (req, res, next) => {
       });
     });
   })(req, res, next);
-  /*passport.authenticate("local-signup", function (err, user, info) {
-    console.log("hello");
-    console.log(user);
-    console.log(info);
-    if (err) {
-      console.log("errr");
-      console.log(err);
-      return next(err); // will generate a 500 error
-    }
-    // Generate a JSON response reflecting authentication status
-    if (!user) {
-      return res.send({ success: false, message: user });
-    }
-
-    return 
-  })(req, res, next);*/
 };
 
 const login = (req, res, next) => {
@@ -103,7 +87,7 @@ const login = (req, res, next) => {
       const userDoc = await User.findById(user._id, {
         salt: 0,
         hash: 0,
-      }).populate("project");
+      });
 
       console.log(userDoc);
 
@@ -116,7 +100,6 @@ const login = (req, res, next) => {
       let message = {
         user: userDoc,
       };
-     
 
       return res
         .cookie("token", token, {

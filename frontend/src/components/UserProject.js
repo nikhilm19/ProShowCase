@@ -24,32 +24,37 @@ class UserProject extends Component {
     const { cookies } = this.props;
     console.log(this.props);
     if (this.props.currentUser) {
+      this.setState({
+        project: this.props.currentUser.project,
+
+        //todo Set all projects  here
+      });
       //const res = await User.get(`/${userId}`);
       //const user = res.data;
       console.log(this.props.currentUser);
-      if (
-        !(
-          this.props.currentUser.project &&
-          this.props.currentUser.project.length > 0
-        )
-      ) {
-        let projectRes = await Project.get(this.props.currentUser.project[0], {
-          headers: {
-            Authorization: `Bearer ${cookies.get("token")}`,
-          },
-        });
-        console.log(projectRes);
-        const project = projectRes.data;
-        this.setState({
-          project,
-        });
-      } else {
-        this.setState({
-          project: this.props.currentUser.project,
+      // if (
+      //   !(
+      //     this.props.currentUser.project &&
+      //     this.props.currentUser.project.length > 0
+      //   )
+      // ) {
+      //   let projectRes = await Project.get(this.props.currentUser.project[0], {
+      //     headers: {
+      //       Authorization: `Bearer ${cookies.get("token")}`,
+      //     },
+      //   });
+      //   console.log(projectRes);
+      //   const project = projectRes.data;
+      //   this.setState({
+      //     project,
+      //   });
+      // } else {
+      //   this.setState({
+      //     project: this.props.currentUser.project,
 
-          //todo Set all projects  here
-        });
-      }
+      //     //todo Set all projects  here
+      //   });
+      // }
       console.log(this.state);
     }
   };
@@ -69,7 +74,7 @@ class UserProject extends Component {
   displayProject = () => {
     if (this.state.project === null) {
       return <Loader isLoading={true} />;
-    } else if (this.state.project === "") {
+    } else if (this.state.project === null || this.state.project.length === 0) {
       return <AddProject {...this.props} />;
     } else
       return <ProjectDisplay project={this.state.project} {...this.props} />;

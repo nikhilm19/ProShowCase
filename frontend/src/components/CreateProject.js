@@ -125,7 +125,8 @@ class CreateProject extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   console.log(state);
   return {
-    project: state.projectReducer.projectData,
+    success: state.projectReducer.success,
+    project: state.projectReducer.success ? state.projectReducer.message : null,
     implementationSnaps: state.projectReducer.implementationSnaps,
   };
 };

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import Project from "../apis/project";
 import Loader from "./Loader/Loader";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "./Cards/Project";
 import FilterProjects from "./FilterProjects";
 import { filterProjects } from "../actions";
 import ProjectReducer from "../reducers/ProjectReducer";

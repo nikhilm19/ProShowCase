@@ -27,6 +27,7 @@ module.exports = {
           transform: "rotate(360deg)",
         },
       },
+
       fadeInUp: {
         "0%": {
           opacity: 0,
@@ -109,6 +110,7 @@ module.exports = {
   },
   variants: {
     // all the following default to ['responsive']
+    textColor: ["responsive", "hover", "focus", "group-hover"],
     animations: ["responsive"],
     animationDuration: ["responsive"],
     animationTimingFunction: ["responsive"],

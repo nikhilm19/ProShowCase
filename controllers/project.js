@@ -27,8 +27,6 @@ const getOne = (req, res) => {
   let project_object_id = mongo.Types.ObjectId(project_id);
   console.log("hello", project_object_id);
 
-  //todo check  if this works/
-
   Project.findById(project_id, function (err, project) {
     if (err) {
       res.status(400);
@@ -49,55 +47,91 @@ const updateOne = async (req, res) => {
   res.json({ project: newProject });
 };
 const search = async (req, res) => {
-  var guideEmails = [];
-  const allGuides = await User.find({ type: "guide" }, { email: 1 });
+  let filter = {};
 
-  guideEmails = allGuides.map((guide, index, array) => {
-    return guide.email;
-  });
+  // var guideEmails = [];
+  // const allGuides = await User.find({ type: "guide" }, { email: 1 });
+
+  // guideEmails = allGuides.map((guide, index, array) => {
+  //   return guide.email;
+  // });
+
+  // let guides = req.query.guides;
+  // if (req.query.guides) {
+  //   guides = guides.split(",");
+  // } else guides = guideEmails;
+
+  // // todo get all technologies here
+  // console.log("guides", guides);
+  // let technologies = req.query.technologies;
+
+  // if (technologies) {
+  //   technologies = technologies.split(",");
+  // } else {
+  //   technologies = ["AI", "ML", "Android", "IOT", "Webapp", "NLP", "Voice"];
+  // }
+  // console.log(technologies);
+
+  // let batches = req.query.batches;
+
+  // //todo fallback  to all batches
+
+  // console.log(batches);
+  // if (batches) {
+  //   batches = batches.split(",");
+  // } else {
+  //   batches = ["2020"];
+  // }
+
+  // console.log(technologies);
+
+  // Project.find(
+  //   {
+  //     "guide.email": { $in: guides },
+  //     "technologies.title": { $in: technologies },
+  //   },
+  //   function (err, projects) {
+  //     console.log(projects.length);
+  //     if (projects.length === 0) {
+  //       return res.send({ success: false, projects: null });
+  //     }
+  //     return res.send({ success: true, projects: projects });
+  //   }
+  // );
+
+  var guideEmails = [];
 
   let guides = req.query.guides;
   if (req.query.guides) {
-    guides = guides.split(",");
-  } else guides = guideEmails;
+    filter["guide.email"] = { $in: guides.split(",") };
+  }
 
   // todo get all technologies here
-  console.log("guides", guides);
+
   let technologies = req.query.technologies;
 
   if (technologies) {
-    technologies = technologies.split(",");
-  } else {
-    technologies = ["AI", "ML", "Android", "IOT", "Webapp", "NLP", "Voice"];
+    filter["technologies.title"] = { $in: technologies.split(",") };
   }
-  console.log(technologies);
+  // console.log(technologies);
 
   let batches = req.query.batches;
 
-  //todo fallback  to all batches
-
-  console.log(batches);
+  // console.log(batches);
   if (batches) {
-    batches = batches.split(",");
-  } else {
-    batches = ["2020"];
+    filter["year"] = { $in: batches.split(",") };
   }
 
-  console.log(technologies);
+  // console.log(technologies);
+  console.log(filter);
 
-  Project.find(
-    {
-      "guide.email": { $in: guides },
-      "technologies.title": { $in: technologies },
-    },
-    function (err, projects) {
-      console.log(projects.length);
-      if (projects.length === 0) {
-        return res.send({ success: false, projects: null });
-      }
-      return res.send({ success: true, projects: projects });
+  Project.find(filter, function (err, projects) {
+    console.log(projects.length);
+    if (projects.length === 0) {
+      return res.send({ success: false, projects: null });
     }
-  );
+    return res.send({ success: true, projects: projects });
+  });
 };
 
 const create = (req, res) => {
@@ -121,6 +155,7 @@ const create = (req, res) => {
     //
     .then(async (doc) => {
       let emails = [];
+      console.log("project doc --->", doc);
 
       // todo - check this code and reduce this.
 
@@ -136,6 +171,8 @@ const create = (req, res) => {
         }
       );
 
+      console.log(emails);
+
       //todo - check the validity of this code.
 
       // users.map((user) => {
@@ -148,16 +185,19 @@ const create = (req, res) => {
         {
           email: doc.guide.email,
         },
-        { $addToSet: { project: { $each: [doc.id] } } }
+        { $addToSet: { project: doc.id } }
       );
+
+      // console.log(guide);
 
       // guide.project.push(doc.id);
       // guide.save();
 
-      res.status(200).json(doc);
+      return res.status(200).json({ success: true, message: doc });
     })
     .catch((err) => {
-      console.log(err);
+      console.log("error while project save---->", err);
+      return res.status(401).json({ success: false, message: err });
     });
 };
 

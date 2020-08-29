@@ -7,32 +7,6 @@ const User = require("../models/user").userModel;
 
 passport.use(new LocalStrategy(User.authenticate()));
 
-passport.use(
-  "local-signup",
-  new LocalStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-      passReqToCallback: true,
-    },
-    function (req, email, password, done) {
-      console.log(req);
-      process.nextTick(function () {
-        User.findOne({ email: email }, function (err, user) {
-          if (err) {
-            return done("hello");
-          }
-          if (user) {
-            return done(null, false, "false");
-          } else {
-            console.log("no user");
-            return done(null, req.body, null);
-          }
-        });
-      });
-    }
-  )
-);
 
 passport.use(
   new JWTStrategy(

@@ -26,28 +26,30 @@ const getProfile = (req, res, next) => {
         let email;
         if (decoded.userDoc) {
           email = decoded.userDoc.email;
-        } else email = decoded.user.email;
+        } else email = decoded.account.email;
 
-        const user = await User.findOne({ email: email })
-          .populate("project")
-         
-            console.log("user=", user);
+        const user = await User.findOne({ email: email }).populate("project");
 
-            decoded.account = user;
-            return res.status(200).json({ success: true, message: decoded });
-         
+        console.log("user=", user);
+
+        decoded.user = user;
+        return res.status(200).json({ success: true, message: decoded });
       }
     });
   }
 };
 
 const getUsers = (req, res) => {
-  let type = "student";
+  let filter = {};
+
   if (req.query.type !== null) {
-    type = req.query.type;
+    filter.type = req.query.type;
+  }
+  if (req.query.grad_year !== null) {
+    filter.grad_year = req.query.grad_year;
   }
 
-  User.find({ type: type }, function (err, docs) {
+  User.find(filter, function (err, docs) {
     res.status(200).json({ users: docs });
   });
 };
@@ -99,8 +101,9 @@ const createUser = (req, res) => {
 
   user
     .save()
-    .then(res.status(200).json("Added"))
-    .catch(() => {
+    .then(res.status(200).json({ message: "Added", success: true }))
+    .catch((err) => {
+      res.status(400).json({ message: err, success: false });
       console.log("error");
     });
 };

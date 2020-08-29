@@ -1,59 +1,49 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
-import { Button } from "@storybook/react/demo";
-import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
+import ReactDOM from "react-dom";
+import GoogleAvatar from "../components/GoogleAvatar/GoogleAvatar";
 import FilterProjects from "../components/FilterProjects";
+import Logo from "../logos/Purple Rectangles Attorney & Law Logo (1).png";
+import Header from "../components/Header";
 
+import Snackbar from "../components/Snackbar/Snackbar";
 export default {
   title: "Hello",
   component: FilterProjects,
 };
-
-
+const Template = (args) => <Snackbar {...args} />;
+export const Primary = Template.bind({});
+Primary.args = { text: "Hello", type: "error" };
 export const Card = () => {
   return <FilterProjects />;
 };
-export const Text = () => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      width: "80%",
-      backgroundColor: "gray",
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular,
-    },
-  }));
-  const classes = useStyles();
+
+export const header = () => {
+  return <Header />;
+};
+
+export const logo = () => {
+  return <img src={Logo} />;
+};
+export const TeamMemberCard = () => {
   return (
-    <div>
-      <Accordion className={classes.root}>
-        <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
-          <Typography className={classes.heading}>Filter</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+    <div className="w-64 p-4">
+      <div className=" group px-2 h-full flex flex-col hover:shadow-2xl items-center text-center shadow-md animation-fadeInUp animation-1s hover:bg-purple-500 py-4 transition duration-700 ease-in-out  ">
+        <div className="mb-2">
+          {" "}
+          <GoogleAvatar text={"N"} />
+        </div>
+        <div className=" group w-full ">
+          <h2 className="text-lg group-hover:text-white font-bold transition duration-300 ease-in">
+            Holden Caulfield
+          </h2>
+          <h3 className="text-xs group-hover:text-white mb-3 transition duration-300 ease-in">
+            nikmul19@gmail.com
+          </h3>
+          <p className="group-hover:text-white text-gray-500 transition duration-300 ease-in">
+            8583958
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
-
-export const Emoji = () => (
-  <Button onClick={action("clicked")}>
-    <span role="img" aria-label="so cool">
-      😀 😎 👍 💯
-    </span>
-  </Button>
-);
-
-

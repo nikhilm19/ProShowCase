@@ -20,6 +20,7 @@ class PrivateRoute extends React.Component {
     // });
   }
   componentDidMount() {
+    console.log("ComponenDidMount", this.props);
     if (localStorage.getItem("token")) this.props.getProfile(this.props);
     else this.setState({ isAuthenticated: false });
   }

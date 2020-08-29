@@ -7,7 +7,9 @@ const setFileUploadedData = (state, action) => {
 const uploadProjectData = (state, action) => {
   return {
     ...state,
-    projectData: action.payload.projects,
+    message: action.payload.message,
+    projectData: action.payload.message,
+    success: action.payload.success,
   };
 };
 const filterProjectsData = (state, action) => {
