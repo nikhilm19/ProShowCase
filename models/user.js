@@ -10,6 +10,10 @@ var userSchema = new Schema({
   type: String,
   id: String,
   email: String,
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   name: String,
   phone: Number,
   username: String,
@@ -19,6 +23,7 @@ var userSchema = new Schema({
   shift: String,
   password: String,
   project: [{ type: Schema.Types.ObjectId, ref: "project" }],
+  comment: [{ type: Schema.Types.ObjectId, ref: "comment" }],
 });
 userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 

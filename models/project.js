@@ -17,7 +17,8 @@ var projectSchema = new Schema({
   guide: mongo.SchemaTypes.Mixed,
   referenceMaterial: [mongo.SchemaTypes.Mixed],
   publishedPapers: [mongo.SchemaTypes.Mixed],
-  implementationSnaps: [mongo.SchemaTypes.Mixed], //url to cloud storage
+  implementationSnaps: [mongo.SchemaTypes.Mixed],
+  comments: { type: Schema.Types.ObjectId, ref: "comment" },
 });
 
 var project = mongo.model("project", projectSchema);

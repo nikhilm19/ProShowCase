@@ -1,12 +1,8 @@
 import React from "react";
-
 import TextField from "@material-ui/core/TextField";
 import { Field, reduxForm } from "redux-form";
-import renderField from "../renderField";
-
 import Button from "@material-ui/core/Button";
 
-import ImageUpload from "../ImageUpload";
 const Abstract = (props) => {
   const { handleSubmit } = props;
 

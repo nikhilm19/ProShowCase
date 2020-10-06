@@ -9,6 +9,8 @@ import Navigation from "./ViewProject/Navigation";
 import ImageCarousel from "./ViewProject/Implementation";
 import ProjectResearch from "./ViewProject/ProjectResearch";
 import Loader from "./Loader/Loader";
+import PostComment from "./PostComment";
+import ViewComments from "./ViewComments";
 class ViewProject extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +67,7 @@ class ViewProject extends React.Component {
         ) : (
           ""
         )}
+        <PostComment {...this.props} />
       </div>
     );
   }

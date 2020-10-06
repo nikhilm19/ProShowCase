@@ -1,13 +1,21 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
-import axios from "axios";
 import TextField from "@material-ui/core/TextField";
-
 import { connect } from "react-redux";
-import { signInUser } from "../actions/index";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import DoneIcon from "@material-ui/icons/Done";
+import { withStyles } from "@material-ui/core/styles";
+import { deepOrange, deepPurple } from "@material-ui/core/colors";
 
-import Users from "../apis/user";
+import Snackbar from "./Snackbar/Snackbar";
 import Loader from "./Loader/Loader";
+
+const useStyles = (theme) => ({
+  avatar: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
+  },
+});
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +32,7 @@ class UserProfile extends React.Component {
   }
 
   renderUser = () => {
+    const { classes } = this.props;
     if (
       this.props.currentUser === null ||
       this.props.currentUser === undefined
@@ -42,11 +51,25 @@ class UserProfile extends React.Component {
 
           <div className="z-10 flex flex-col  justify-center">
             <div className="w-full ">
-              <Avatar className=" mx-auto ">
-                {this.props.currentUser.name
-                  ? this.props.currentUser.name[0]
-                  : ""}
-              </Avatar>
+              <div className="flex flex-row items-center justify-center w-full">
+                <Avatar className={classes.avatar}>
+                  {this.props.currentUser.name
+                    ? this.props.currentUser.name[0]
+                    : ""}
+                </Avatar>
+                {this.props.currentUser.isVerified ? (
+                  <div className="flex flex-row">
+                    <DoneIcon />
+                    <p>Verified</p>
+                  </div>
+                ) : (
+                  <div className="flex flex-row">
+                    <ErrorOutlineIcon />
+                    <p>Not Verified</p>
+                  </div>
+                )}
+              </div>
+
               <div className="m-2">
                 <TextField
                   value={this.props.currentUser.name}
@@ -66,6 +89,12 @@ class UserProfile extends React.Component {
                 />
               </div>
             </div>
+            {!this.props.currentUser.isVerified ? (
+              <Snackbar type={"error"} text="Please verify your email" />
+            ) : (
+              ""
+            )}
+
             {this.props.currentUser.type === "student" ? (
               <div className="mx-auto w-full flex flex-col justify-center">
                 <div className="m-2">
@@ -130,4 +159,4 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 // export default UserProfile;
-export default connect(mapStateToProps)(UserProfile);
+export default connect(mapStateToProps)(withStyles(useStyles)(UserProfile));

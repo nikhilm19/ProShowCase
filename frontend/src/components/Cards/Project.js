@@ -57,6 +57,7 @@ const styles = (muiBaseTheme) => ({
   media: {
     cursor: "pointer",
     paddingTop: "56.25%",
+    zIndex: 0,
   },
   content: {
     textAlign: "left",
@@ -96,6 +97,9 @@ function Project(props) {
   return (
     <div className="">
       <Card className={classes.card}>
+        <h1 className=" mt-2 mr-2 mx-auto text-right text-xs float-right p-2 bg-gray-200 z-2 rounded-full text-purple-900  border-red-700 border-2 ">
+          4⭐
+        </h1>
         {isLoading ? (
           <Skeleton animation="wave" variant="rect" className={classes.media} />
         ) : (

@@ -21,6 +21,7 @@ import LoginForm from "./LoginForm";
 import PrivateRoute from "./ProtectedRoute";
 import { getProfile } from "../actions";
 import Loader from "./Loader/Loader";
+import VerifyUser from "./VerifyUser";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +60,8 @@ class App extends React.Component {
       !(
         history.location.pathname.startsWith("/signup") ||
         history.location.pathname.startsWith("/login") ||
-        history.location.pathname === "/"
+        history.location.pathname === "/" ||
+        history.location.pathname.startsWith("/verify")
       )
     ) {
       console.log("yes");
@@ -80,8 +82,12 @@ class App extends React.Component {
                   <Route
                     exact
                     path="/"
-                    render={() =>
-                      this.props.isAuthenticated ? <AllProjects /> : <Landing />
+                    render={(props) =>
+                      this.props.isAuthenticated ? (
+                        <AllProjects {...this.props} {...props} />
+                      ) : (
+                        <Landing />
+                      )
                     }
                   />
 
@@ -112,7 +118,6 @@ class App extends React.Component {
                     path="/profile"
                     component={UserProfileTabs}
                     {...this.props}
-                    isGuide={this.state.isGuide}
                   />
 
                   <PrivateRoute
@@ -135,6 +140,13 @@ class App extends React.Component {
                     render={(props) => (
                       <ViewProject {...props} {...this.props} />
                     )}
+                  />
+
+                  <PrivateRoute
+                    exact
+                    path="/verify/:token"
+                    component={VerifyUser}
+                    {...this.props}
                   />
                 </Switch>
               </Header>

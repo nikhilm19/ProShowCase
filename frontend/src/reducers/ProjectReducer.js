@@ -22,6 +22,24 @@ const filterProjectsData = (state, action) => {
       : action.payload.message,
   };
 };
+
+const postComment = (state, action) => {
+  return {
+    ...state,
+    success: action.payload.success,
+    comment: action.payload.success === true ? action.payload.comment : null,
+    error: action.payload.success === false ? action.payload.error : null,
+  };
+};
+
+const getComments = (state, action) => {
+  return {
+    ...state,
+    success: action.payload.success,
+    comments: action.payload.success === true ? action.payload.comments : null,
+    error: action.payload.success === false ? action.payload.error : null,
+  };
+};
 export default (state = {}, action) => {
   switch (action.type) {
     case "UPLOAD_IMAGES":
@@ -31,6 +49,12 @@ export default (state = {}, action) => {
       return uploadProjectData(state, action);
     case "FILTER_PROJECTS":
       return filterProjectsData(state, action);
+
+    case "POST_COMMENT":
+      return postComment(state, action);
+
+    case "GET_COMMENTS":
+      return getComments(state, action);
     default:
       return state;
   }

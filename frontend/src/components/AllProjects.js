@@ -8,13 +8,14 @@ import Loader from "./Loader/Loader";
 import ProjectCard from "./Cards/Project";
 import FilterProjects from "./FilterProjects";
 import { filterProjects } from "../actions";
-import ProjectReducer from "../reducers/ProjectReducer";
+import NotFound from "../components/404";
 
 class AllProjects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       projects: null,
+      error: false,
     };
   }
 
@@ -38,7 +39,9 @@ class AllProjects extends React.Component {
       this.props.success === true &&
       this.props.projects !== this.state.projects
     ) {
-      this.setState({ projects: this.props.projects });
+      this.setState({ projects: this.props.projects, error: false });
+    } else if (this.props.success === false && this.state.error === false) {
+      this.setState({ error: "No Projects found!", projects: null });
     }
   };
 
@@ -61,29 +64,54 @@ class AllProjects extends React.Component {
     this.props.filterProjects(guideEmails, techs, batch);
   };
 
-  renderProjects = () => {
+  renderProjectsContent = () => {
     console.log(this.props.projects);
     console.log(this.state.projects);
+    if (this.state.projects === null) {
+      return <FilterProjects getFilteredProjects={this.getFilteredProjects} />;
+    }
+    if (this.state.error !== false) return <NotFound />;
+    else if (this.state.projects === null && this.state.error === false) {
+      return (
+        <div class="flex flex-wrap -m-4">
+          {[1, 2, 3, 4].map((project) => {
+            return (
+              <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
+                <ProjectCard isLoading={true} {...this.props} />
+              </div>
+            );
+          })}
+        </div>
+      );
+    } else
+      return (
+        <div class="flex flex-wrap z-1">
+          {this.state.projects.map((project) => {
+            return (
+              <div class="xl:w-1/4 md:w-1/2 p-4 w-full">
+                <ProjectCard projectDetail={project} {...this.props} />
+              </div>
+            );
+          })}
+        </div>
+      );
+  };
 
+  renderProjects = () => {
     this.renderFilteredProjects();
     return (
       <section class="text-gray-700 body-font overflow-visible">
         <div class="container px-5 py-10 mx-auto overflow-visible">
-          <div class="flex flex-wrap w-full mb-20 overflow-visible">
+          <div class="flex flex-wrap w-full mb-10 overflow-visible">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0 mx-auto sticky">
               <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 text-center ">
                 All Projects!
               </h1>
               <div class="h-1 w-20 z-10 bg-indigo-500 rounded mx-auto"></div>
             </div>
-
-            {this.state.projects === null ? (
-              ""
-            ) : (
-              <FilterProjects getFilteredProjects={this.getFilteredProjects} />
-            )}
+            <FilterProjects getFilteredProjects={this.getFilteredProjects} />
           </div>
-          {this.state.projects === null ? (
+          {this.state.projects === null && this.state.error === false ? (
             <div class="flex flex-wrap -m-4">
               {[1, 2, 3, 4].map((project) => {
                 return (
@@ -93,6 +121,8 @@ class AllProjects extends React.Component {
                 );
               })}
             </div>
+          ) : this.state.error !== false ? (
+            <NotFound />
           ) : (
             <div class="flex flex-wrap z-1">
               {this.state.projects.map((project) => {

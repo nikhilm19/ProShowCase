@@ -2,11 +2,11 @@ import axios from "axios";
 import projects from "../apis/project";
 import user from "../apis/user";
 import auth from "../apis/auth";
+import comment from "../apis/comment";
 
 import history from "../history";
 
 export const imageUpload = (data) => {
-  //const res = await axios.post("/createProject");
   console.log(data);
   return { type: "UPLOAD_IMAGES", payload: data };
 };
@@ -86,7 +86,6 @@ export const getProfile = (cookies) => async (dispatch, getState) => {
 
   if (token) {
     const res = await user.get("/profile", {
-      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -163,6 +162,30 @@ export const filterProjects = (guides, technologies, batches) => async (
 
   dispatch({
     type: "FILTER_PROJECTS",
+    payload: res.data,
+  });
+};
+
+export const postComment = (cb, vals) => async (dispatch, getState) => {
+  console.log(vals);
+
+  const res = await comment.post("/", { ...vals });
+  console.log(res);
+  cb(res.data);
+
+  dispatch({
+    type: "POST_COMMENT",
+    payload: res.data,
+  });
+};
+
+export const getComments = (cb, project_id) => async (dispatch, getState) => {
+  const res = await comment.get(`/${project_id}`);
+  console.log(res);
+  cb(res.data);
+
+  dispatch({
+    type: "POST_COMMENT",
     payload: res.data,
   });
 };

@@ -23,8 +23,7 @@ import WhatshotIcon from "@material-ui/icons/Whatshot";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 
-import DonutLargeOutlinedIcon from "@material-ui/icons/DonutLargeOutlined";
-import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
+import Logo from "../logos/Purple Rectangles Attorney & Law Logo (7).png";
 
 const drawerWidth = 240;
 
@@ -79,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -134,15 +133,8 @@ export default function MiniDrawer(props) {
         }}
       >
         <div className={classes.toolbar}>
-          <DonutLargeOutlinedIcon />
+          <img src={Logo} width="50px" height="50px" />
           <h1 className="ml-2">ProwShowCase</h1>
-          <IconButton onClick={props.handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
         </div>
 
         <Divider />

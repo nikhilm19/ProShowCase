@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+var subdomain = require("express-subdomain");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongo = require("mongoose");
@@ -10,8 +11,10 @@ const Project = require("./models/project").projectModel;
 const userRoute = require("./routes/user");
 const projectRoute = require("./routes/project");
 const auth = require("./routes/auth");
+const commentRoute = require("./routes/comment");
 const passport = require("./passport/setup");
 const dotenv = require("dotenv").config();
+const authController = require("./controllers/auth");
 
 mongo.connect(process.env.MONGO_URL, { useNewUrlParser: true }, function () {
   console.log("connected");
@@ -29,17 +32,12 @@ app.use(passport.session());
 app.use("/users", userRoute);
 app.use("/projects", projectRoute);
 app.use("/auth", auth);
-
-const PORT = process.env.PORT || 8080;
+app.use("/comments", commentRoute);
 
 app.use(express.static(path.join(__dirname, "frontend", "build")));
-
-
+const PORT = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV === "production") {
-
-  app.use(express.static(path.join(__dirname, "frontend", "build")));
-
   app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "build", "index.html")); // relative path
   });
@@ -53,12 +51,12 @@ app.listen(PORT, function () {
   console.log("Server is running on Port: " + PORT);
 });
 
+//app.get("/auth/verify", authController.verify);
+
 app.get("/", (req, res) => {
-  console.log(req.body);
- 
   app.get("/*", (req, res) => {
+    //res.json("hello");
+
     res.sendFile(path.join(__dirname, "frontend", "build", "index.html")); // relative path
   });
-
-  return res.json("hello world");
 });

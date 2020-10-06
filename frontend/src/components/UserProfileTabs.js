@@ -63,6 +63,8 @@ export default function UserProfileTabs(props) {
 
   const [label, setLabel] = React.useState("My Project");
 
+  //if (props.currentUser.type === "guide") setLabel("My Projects");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -78,7 +80,7 @@ export default function UserProfileTabs(props) {
           className={classes.tabBar}
         >
           <Tab value="one" label="About me" wrapped {...a11yProps("one")} />
-          <Tab value="two" label={"My Project"} {...a11yProps("two")} />
+          <Tab value="two" label={label} {...a11yProps("two")} />
         </Tabs>
       </AppBar>
       <div></div>

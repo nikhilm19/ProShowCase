@@ -78,7 +78,7 @@ class SignupForm extends React.Component {
     console.log(user);
     let error = this.state.formValidation;
     var isValid = true;
-    if (user.enrollment_no.length !== 12 && user.type === "student") {
+    if (user.type === "student" && user.enrollment_no.length !== 12) {
       error.enrollment_no.text = "Enrolment number should be 12 digits long";
       error.enrollment_no.isValid = false;
       isValid = false;
@@ -91,6 +91,12 @@ class SignupForm extends React.Component {
     if (user.password.length <= 6) {
       error.password.text = "Password should be atleast 6 char long";
       error.password.isValid = false;
+      isValid = false;
+    }
+
+    if (this.props.isGuide === true && !user.email.endsWith("@scet.ac.in")) {
+      error.email.text = "Please use a valid College email-id";
+      error.email.isValid = false;
       isValid = false;
     }
 

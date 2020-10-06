@@ -30,14 +30,17 @@ const login = (state, action) => {
 };
 const fetchCurrentUser = (state, action) => {
   let currentUser = {};
+  let isGuide = false;
   if (action.payload.success) {
     currentUser = action.payload.message.user || action.payload.message.account;
+    isGuide = currentUser.type === "guide" ? true : false;
     //isAuthenticated = true;
   }
   console.log(action.payload);
   return {
     ...state,
     currentUser,
+    isGuide,
     message: action.payload.message,
     authStatus: action.payload,
     isAuthenticated: action.payload.success,

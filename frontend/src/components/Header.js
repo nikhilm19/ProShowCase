@@ -11,7 +11,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import DonutLargeOutlinedIcon from "@material-ui/icons/DonutLargeOutlined";
 import { Link, useHistory } from "react-router-dom";
 import NavDrawer from "./NavDrawer";
 import { useSelector } from "react-redux";
@@ -25,14 +24,20 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   appbar: {
-    backgroundColor: "#3c366b",
+    backgroundColor: "#5A67D8",
     color: "white",
   },
   grow: {
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    "& :focus": {
+      backgroundColor: "red",
+      outline: "none",
+    },
+    [theme.breakpoints.up("sm")]: {
+      marginRight: theme.spacing(4),
+    },
   },
   title: {
     display: "block",
@@ -96,12 +101,18 @@ export default function PrimarySearchAppBar(props) {
   console.log(props);
   const classes = useStyles();
   const [isSignup, setIsSignUp] = React.useState(false);
-
+  const [isLanding, setIsLanding] = React.useState(false);
   const history = useHistory();
 
   useEffect(() => {
     checkSignUpRoute();
   });
+
+  const checkIsLanding = () => {
+    if (history.location.pathname === "/" && props.isAuthenticated !== true) {
+      setIsLanding(!isLanding);
+    } else setIsLanding(!isLanding);
+  };
 
   const checkSignUpRoute = () => {
     if (
@@ -207,89 +218,97 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" color="transparent" className={classes.appbar}>
-        <Toolbar>
-          {props.isAuthenticated ? (
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-            >
-              <MenuIcon />
-            </IconButton>
-          ) : null}
+      {props.isAuthenticated ? (
+        <AppBar
+          position="static"
+          color="transparent"
+          className={classes.appbar}
+        >
+          <Toolbar>
+            {props.isAuthenticated ? (
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : null}
 
-          <img src={Logo} width="50px" height="50px" />
-          <Link to="/">
-            <Typography className={classes.title} variant="h6" noWrap>
-              ProShowCase
-            </Typography>
-          </Link>
-          {props.isAuthenticated ? (
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+            <img src={Logo} width="50px" height="50px" className="mr-2" />
+            <Link to="/">
+              <Typography className={classes.title} variant="h6" noWrap>
+                ProShowCase
+              </Typography>
+            </Link>
+            {props.isAuthenticated ? (
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ "aria-label": "search" }}
+                />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
-          ) : null}
-          <div className={classes.grow} />
-          {props.isAuthenticated ? (
-            <div className={classes.sectionDesktop}>
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            </div>
-          ) : null}
+            ) : null}
+            <div className={classes.grow} />
+            {props.isAuthenticated ? (
+              <div className={classes.sectionDesktop}>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div>
+            ) : null}
 
-          {props.isAuthenticated ? (
-            <div className={classes.sectionMobile}>
-              <IconButton
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </div>
-          ) : isSignup ? (
-            ""
-          ) : (
-            <div className="flex flex-row">
-              <Link to="/signup" className="mr-2">
-                {" "}
-                <button class="font-title w-full flex items-center justify-center px-1 sm:px-0 py-1 border border-transparent text-base leading-6 font-small rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-600 hover:text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
-                  Signup
-                </button>
-              </Link>
-              <Link to="/login">
-                {" "}
-                <button class="font-title w-full flex items-center justify-center px-1 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
-                  Login
-                </button>
-              </Link>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
+            {props.isAuthenticated ? (
+              <div className={classes.sectionMobile}>
+                <IconButton
+                  aria-label="show more"
+                  aria-controls={mobileMenuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <MoreIcon />
+                </IconButton>
+              </div>
+            ) : isSignup ? (
+              ""
+            ) : (
+              <div className="flex flex-row">
+                <Link to="/signup" className="mr-2">
+                  {" "}
+                  <button class="font-title w-full flex items-center justify-center px-1 sm:px-0 py-1 border border-transparent text-base leading-6 font-small rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-600 hover:text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
+                    Signup
+                  </button>
+                </Link>
+                <Link to="/login">
+                  {" "}
+                  <button class="font-title w-full flex items-center justify-center px-1 py-1 border border-transparent text-base leading-6 font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-2 md:text-lg md:px-5">
+                    Login
+                  </button>
+                </Link>
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
+      ) : (
+        ""
+      )}
       <NavDrawer isDrawerOpen={open} handleDrawerClose={toggleDrawer} />
       {props.isAuthenticated ? renderMobileMenu : null}
       {props.isAuthenticated ? renderMenu : null}
